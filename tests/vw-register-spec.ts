@@ -22,7 +22,7 @@ test('vw-register-login_button', async ({ page }) => {
 	await expect(loginLinkButton).toBeVisible();
 	await loginLinkButton.click();
 	await page.waitForURL('**/login');
-	
+
 	expect(page.url()).toContain("login");
 });
 
@@ -36,4 +36,30 @@ test('vw-register-login_link', async ({ page }) => {
 	await page.waitForURL('**/login');
 
 	expect(page.url()).toContain("login");
+});
+
+test('vw-register-invalid_username', async ({ page }) => {
+	await page.goto('/register');
+
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill("us");
+
+	const registerButton = page.getByTestId('register');
+	await registerButton.click();
+
+	const usernameError = page.getByTestId("username-error-message");
+	await(expect(usernameError).toBeVisible());
+});
+
+test('vw-register-invalid_password', async ({ page }) => {
+	await page.goto('/register');
+
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("us");
+
+	const registerButton = page.getByTestId('register');
+	await registerButton.click();
+	
+	const passwordError = page.getByTestId("password-error-message");
+	await(expect(passwordError).toBeVisible());
 });

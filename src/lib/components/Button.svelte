@@ -5,4 +5,4 @@
 	export let extraClasses: string = '';
 </script>
 
-<button id={props.id} data-testid={props.id} class="btn btn-{props.type || 'neutral'} {extraClasses}">{props.label}</button>
+<button type="submit" id={props.id} data-testid={props.id} class="btn btn-{props.type} {extraClasses}">{props.label}</button>
