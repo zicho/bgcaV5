@@ -1,1 +1,3 @@
-<div class="p-8">I am the start page</div>
+<div class="prose">
+    <h1 data-testid="frontpage-header">Welcome</h1>
+</div>

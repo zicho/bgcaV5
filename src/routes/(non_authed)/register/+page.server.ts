@@ -1,4 +1,4 @@
-import { type Actions } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 import { redirect } from "sveltekit-flash-message/server";
 import { auth } from "$lib/server/lucia";
 import { generateRandomString } from "lucia/utils";
@@ -22,24 +22,15 @@ export const actions: Actions = {
 
         console.dir(form);
 
-        if("username" in form.errors) {
-            message(form, "Username can only contain numbers, letters and underscores.");
+        if (!form.valid) {
+            console.dir(form.errors);
+            if ("username" in form.errors) {
+                message(form, "Username can only contain numbers, letters and underscores.");
+            }
+            return fail(400, { form });
         }
 
-        return { form };
-
-        // if (!form.valid) {
-        //     if ("username" in form.errors) {
-        //         return message(form, "Username can only contain letters, numbers and underscores,");
-        //     }
-        //     return fail(400, { form, valid: false });
-        // }
-
-        // const { username, password } = form.data;
-
-        // if (typeof password !== "string" || password.length < 4 || password.length > 255) {
-        //     return message(form, "Invalid password");
-        // }
+        const { username, password } = form.data;
 
         try {
             const user = await auth.createUser({
@@ -64,7 +55,7 @@ export const actions: Actions = {
             if (e instanceof LuciaError && e.message === "AUTH_DUPLICATE_KEY_ID") {
                 return message(form, "Username already taken");
             }
-            
+
             console.dir("error: ", e); // todo: log?
             return message(form, "Failed to create user");
         }
