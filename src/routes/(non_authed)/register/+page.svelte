@@ -13,7 +13,7 @@
 
 	export let data: PageData;
 
-	const { form, errors, constraints, enhance, message } = superForm(data.form, {
+	const { form, errors, enhance, message } = superForm(data.form, {
 		clearOnSubmit: 'none',
 		resetForm: false
 	});

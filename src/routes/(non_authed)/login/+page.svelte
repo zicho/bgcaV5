@@ -7,21 +7,29 @@
 	import type { ILinkButton } from '$lib/interfaces/components/ILinkButton';
 	import type { ITextInput } from '$lib/interfaces/components/ITextInput';
 	import type { IErrorMessageBox } from '$lib/interfaces/layout/IErrorMessageBox';
+	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
+	const { form, errors, enhance, message } = superForm(data.form, {
+		clearOnSubmit: 'none',
+		resetForm: false
+	});
+
 	const usernameInputProps: ITextInput = {
 		name: 'username',
 		label: 'Username',
-		placeholder: 'Enter your username'
+		placeholder: 'Enter your username',
+		required: true
 	};
 
 	const passwordInputProps: ITextInput = {
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
-		type: 'password'
+		type: 'password',
+		required: true
 	};
 
 	const loginButtonProps: IButton = {
@@ -44,14 +52,24 @@
 <div
 	class="flex flex-col min-h-[calc(100vh-var(--navbar-height))] justify-center items-center bg-neutral-content"
 >
-	<div class="card w-96 shadow-xl px-8 py-4 bg-base-100">
-		<h1 class="text-2xl mb-4 text-center">Welcome</h1>
+	<div class="card   w-96 shadow-xl px-8 py-4 bg-base-100">
+		<h1 class="text-2xl mb-4 text-center">Register</h1>
 		<hr class="mb-4" />
-		<TextInput props={usernameInputProps} extraClasses="mb-4" />
-		<TextInput props={passwordInputProps} extraClasses="mb-8" />
-		<Button props={loginButtonProps} extraClasses="mb-4" />
+
+		<form use:enhance method="post">
+			<TextInput
+				props={{ ...usernameInputProps, value: $form.username, errorMessage: $errors.username }}
+				extraClasses="mb-4 w-full"
+			/>
+			<TextInput
+				props={{ ...passwordInputProps, errorMessage: $errors.password || $errors.confirm }}
+				extraClasses="mb-4 w-full"
+			/>
+			<Button props={loginButtonProps} extraClasses="mb-4 w-full" />
+		</form>
+
 		<hr class="mb-4" />
 		<LinkButton props={registerLinkButtonProps} />
 	</div>
-	<ErrorMessageBox props={errorMessageBoxProps} />
+	<ErrorMessageBox extraClasses="mt-4 w-96" props={{ ...errorMessageBoxProps, message: $message, show: $message }} />
 </div>
