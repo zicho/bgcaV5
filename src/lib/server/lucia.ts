@@ -6,7 +6,7 @@ import { pg } from "@lucia-auth/adapter-postgresql";
 import { sveltekit } from "lucia/middleware";
 
 const connectionPool = new postgres.Pool({
-	connectionString: SECRET_PG_HOST
+	connectionString: process.env.SECRET_PG_HOST
 });
 
 export const auth = lucia({
@@ -15,7 +15,7 @@ export const auth = lucia({
 		session: "auth_sessions",
 		key: "auth_keys",
 	}),
-	env: dev ? "DEV" : "PROD",
+	env: process.env.dev ? "DEV" : "PROD",
 	middleware: sveltekit(),
 	getUserAttributes: (data) => {
 		return {
