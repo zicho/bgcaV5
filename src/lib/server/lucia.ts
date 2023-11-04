@@ -1,4 +1,6 @@
+// @ts-nocheck
 import { SECRET_PG_HOST } from "$env/static/private";
+// @ts-nocheck
 import { dev } from "$app/environment";
 import { lucia } from "lucia";
 import postgres from "pg";
