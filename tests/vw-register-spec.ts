@@ -1,6 +1,8 @@
 // import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
 import generateTestUsername from './test_utils/generateTestUsername';
+import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
+import { UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
 
 test('vw-register-form_visibility', async ({ page }) => {
 	await page.goto('/register');
@@ -115,7 +117,7 @@ test('vw-register-form_should_not_reset_username', async ({ page }) => {
 	await registerButton.click();
 
 	const usernameError = page.getByTestId("username-error-message");
-	
+
 	await (expect(usernameError).toBeHidden());
 	expect(usernameInput).toHaveValue(username);
 
@@ -126,7 +128,6 @@ test('vw-register-form_should_not_reset_username', async ({ page }) => {
 });
 
 test('vw-register-redirect_on_success', async ({ page }) => {
-	// await deleteAllUsers();
 	await page.goto('/register');
 
 	const username = generateTestUsername();
@@ -142,4 +143,26 @@ test('vw-register-redirect_on_success', async ({ page }) => {
 	const registerButton = page.getByTestId('register');
 	await registerButton.click();
 	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+});
+
+test('vw-register-no_duplicate_username', async ({ page }) => {
+	await page.goto('/register');
+
+	const username = generateTestUsername();
+
+	await registerUserAndReturnSession({ username, password: "password" });
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("password");
+	const confimPasswordInput = page.getByTestId("confirm_password");
+	await confimPasswordInput.fill("password");
+
+	const registerButton = page.getByTestId('register');
+	await registerButton.click();
+
+	await (expect(page.getByTestId("error-message-box")).toBeVisible());
+	await (expect(page.getByTestId("error-message-box")).toHaveText(UsernameAlreadyTaken));
 });

@@ -5,6 +5,7 @@ node_modules
 /package
 .env
 .env.*
-!.env.example
+!.env.EXAMPLE
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+tests/mocks/env/static/private.ts

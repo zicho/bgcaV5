@@ -1,0 +1,5 @@
+const env = process.env;
+
+env.SECRET_PG_HOST = "COPY_SECRET_PG_HOST_FROM_ENV";
+
+export const SECRET_PG_HOST = env.SECRET_PG_HOST;

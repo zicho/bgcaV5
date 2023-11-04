@@ -1,1 +1,5 @@
-export const env = process.env
+const env = process.env;
+
+env.dev = "DEV";
+
+export const dev = env.dev;
