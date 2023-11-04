@@ -20,11 +20,9 @@ jobs:
     - name: Run e2e tests
       env:
         SECRET_PG_HOST: ${{ secrets.SECRET_PG_HOST }}
-        DEV: ${{ secrets.DEV }}
       run: |
         # Use the GitHub variable SECRET_PG_HOST in your script
         echo "SECRET_PG_HOST is $SECRET_PG_HOST"
-        echo "DEV is $DEV"
         npm run test
     - uses: actions/upload-artifact@v2
       if: always()
