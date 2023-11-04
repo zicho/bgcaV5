@@ -26,6 +26,9 @@ export default async function registerUserAndReturnSession({ username, password 
         return successfulResponse(session);
     } catch (e) {
         // todo: log
+
+        console.log(e);
+
         if (e instanceof LuciaError && e.message === "AUTH_DUPLICATE_KEY_ID") {
             return failedResponse(UsernameAlreadyTaken);
         }

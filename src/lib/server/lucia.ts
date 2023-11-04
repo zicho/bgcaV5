@@ -1,12 +1,13 @@
-import { SECRET_PG_HOST } from "$env/static/private";
-import { dev } from "$app/environment";
+// import { SECRET_PG_HOST } from "$env/static/private";
+import 'dotenv/config'
+// import { dev } from "$app/environment";
 import { lucia } from "lucia";
 import postgres from "pg";
 import { pg } from "@lucia-auth/adapter-postgresql";
 import { sveltekit } from "lucia/middleware";
 
 const connectionPool = new postgres.Pool({
-	connectionString: SECRET_PG_HOST
+	connectionString: process.env.SECRET_PG_HOST
 });
 
 export const auth = lucia({
@@ -15,7 +16,7 @@ export const auth = lucia({
 		session: "auth_sessions",
 		key: "auth_keys",
 	}),
-	env: dev ? "DEV" : "PROD",
+	env: "DEV",
 	middleware: sveltekit(),
 	getUserAttributes: (data) => {
 		return {

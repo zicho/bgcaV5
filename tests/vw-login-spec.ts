@@ -1,4 +1,7 @@
+import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
 import { expect, test } from '@playwright/test';
+import generateTestUsername from './test_utils/generateTestUsername';
+import { UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
 
 test('vw-login-form_visibility', async ({ page }) => {
 	await page.goto('/login');
@@ -35,4 +38,29 @@ test('vw-login-register_link', async ({ page }) => {
 	await page.waitForURL('**/register');
 
 	expect(page.url()).toContain("register");
+});
+
+test('vw-register-no_duplicate_usernames', async ({ page }) => {
+	
+	test.setTimeout(120000)
+	const username = generateTestUsername();
+	await registerUserAndReturnSession({
+		username, password: "password"
+	});
+
+	// await page.goto('/register');
+
+	// // all fields need to be filled to pass browser form validation
+	// const usernameInput = page.getByTestId("username");
+	// await usernameInput.fill(username);
+	// const passwordInput = page.getByTestId("password");
+	// await passwordInput.fill("password");
+	// const confimPasswordInput = page.getByTestId("confirm_password");
+	// await confimPasswordInput.fill("password");
+
+	// // const registerButton = page.getByTestId('register');
+	// // await registerButton.click();
+
+	// await expect(page.getByTestId('error-message-box')).toBeVisible();
+
 });
