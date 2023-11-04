@@ -29,9 +29,8 @@ jobs:
       - name: Run e2e tests
         env:
           SECRET_PG_HOST: ${{ secrets.SECRET_PG_HOST }}
+          DEV: ${{ secrets.DEV }}
         run: |
-          # Use the GitHub secret "SECRET_PG_HOST" as an environment variable in your script
-          echo "SECRET_PG_HOST is $SECRET_PG_HOST"
           npm run test
 
       - name: Upload Test Artifacts

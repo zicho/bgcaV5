@@ -1,5 +1,6 @@
 import { SECRET_PG_HOST } from "$env/static/private";
 import { dev } from "$app/environment";
+import 'dotenv/config'
 import { lucia } from "lucia";
 import postgres from "pg";
 import { pg } from "@lucia-auth/adapter-postgresql";
