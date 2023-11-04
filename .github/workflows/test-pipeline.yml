@@ -18,7 +18,7 @@ jobs:
     - name: Set environment variables
       run: |
         export SECRET_PG_HOST="${{ secrets.SECRET_PG_HOST }}"
-        export DEV="${{ env.DEV }}"  # Set DEV based on your environment module
+        export DEV="${{ secrets.DEV }}"
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
