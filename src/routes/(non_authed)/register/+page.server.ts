@@ -20,7 +20,7 @@ export const actions: Actions = {
 
         if (!form.valid) {
             if ("username" in form.errors) {
-                message(form, "Username can only contain numbers, letters and underscores.");
+                message(form, "Username needs to be at least 3 characters and can only contain numbers, letters and underscores.");
             }
             return fail(400, { form });
         }

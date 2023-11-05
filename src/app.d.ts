@@ -9,6 +9,7 @@ declare global {
 				message: string;
 			};
 		}
+
 	}
 }
 

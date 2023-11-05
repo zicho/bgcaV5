@@ -7,7 +7,7 @@
 
 <div class="form-control {extraClasses}">
 	<label class="label" for={props.name}>
-		<span class="label-text font-semibold">{props.label}</span>
+		<span class:text-error={props.hasError || props.errorMessage} class="label-text font-semibold">{props.label}</span>
 		{#if props.errorMessage}
 			<span id="{`${props.name}-error-message`}" data-testid={`${props.name}-error-message`} class="label-text-alt text-error">{props.errorMessage}</span>
 		{/if}

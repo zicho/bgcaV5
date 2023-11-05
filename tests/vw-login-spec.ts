@@ -1,7 +1,7 @@
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
 import { expect, test } from '@playwright/test';
 import generateTestUsername from './test_utils/generateTestUsername';
-import { UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
+import { IncorrectUsernameOrPassword, UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
 
 test('vw-login-form_visibility', async ({ page }) => {
 	await page.goto('/login');
@@ -24,7 +24,7 @@ test('vw-login-register_button', async ({ page }) => {
 	await expect(registerLinkButton).toBeVisible();
 	await registerLinkButton.click();
 	await page.waitForURL('**/register');
-	
+
 	expect(page.url()).toContain("register");
 });
 
@@ -40,27 +40,58 @@ test('vw-login-register_link', async ({ page }) => {
 	expect(page.url()).toContain("register");
 });
 
-test('vw-register-no_duplicate_usernames', async ({ page }) => {
-	
-	test.setTimeout(120000)
+test('vw-login-redirect_on_success', async ({ page }) => {
+	await page.goto('/login');
+
 	const username = generateTestUsername();
-	await registerUserAndReturnSession({
-		username, password: "password"
-	});
 
-	// await page.goto('/register');
+	await registerUserAndReturnSession({ username, password: "password" });
 
-	// // all fields need to be filled to pass browser form validation
-	// const usernameInput = page.getByTestId("username");
-	// await usernameInput.fill(username);
-	// const passwordInput = page.getByTestId("password");
-	// await passwordInput.fill("password");
-	// const confimPasswordInput = page.getByTestId("confirm_password");
-	// await confimPasswordInput.fill("password");
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("password");
 
-	// // const registerButton = page.getByTestId('register');
-	// // await registerButton.click();
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+});
 
-	// await expect(page.getByTestId('error-message-box')).toBeVisible();
+test('vw-login-form_should_not_reset_username', async ({ page }) => {
+	await page.goto('/login');
 
+	const username = generateTestUsername();
+	await registerUserAndReturnSession({ username, password: "password" });
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("wrong_password");
+
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	await (expect(page.getByTestId("error-message-box")).toBeVisible());
+	await (expect(page.getByTestId("error-message-box")).toHaveText(IncorrectUsernameOrPassword));
+});
+
+test('vw-login-form_should_reset_password', async ({ page }) => {
+	await page.goto('/login');
+
+	const username = generateTestUsername();
+	await registerUserAndReturnSession({ username, password: "password" });
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("wrong_password");
+
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	await (expect(page.getByTestId("error-message-box")).toBeVisible());
+	await (expect(page.getByTestId("error-message-box")).toHaveText(IncorrectUsernameOrPassword));
 });

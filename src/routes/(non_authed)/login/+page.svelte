@@ -9,6 +9,8 @@
 	import type { IErrorMessageBox } from '$lib/interfaces/layout/IErrorMessageBox';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
+	import FormCard from '$lib/components/layout/FormCard.svelte';
+	import CenteredLayout from '$lib/components/layout/CenteredLayout.svelte';
 
 	export let data: PageData;
 
@@ -49,13 +51,8 @@
 	};
 </script>
 
-<div
-	class="flex flex-col min-h-[calc(100vh-var(--navbar-height))] justify-center items-center bg-neutral-content"
->
-	<div class="card   w-96 shadow-xl px-8 py-4 bg-base-100">
-		<h1 class="text-2xl mb-4 text-center">Register</h1>
-		<hr class="mb-4" />
-
+<CenteredLayout>
+	<FormCard title="Login">
 		<form use:enhance method="post">
 			<TextInput
 				props={{ ...usernameInputProps, value: $form.username, errorMessage: $errors.username }}
@@ -63,13 +60,16 @@
 			/>
 			<TextInput
 				props={{ ...passwordInputProps, errorMessage: $errors.password || $errors.confirm }}
-				extraClasses="mb-4 w-full"
+				extraClasses="mb-8 w-full"
 			/>
 			<Button props={loginButtonProps} extraClasses="mb-4 w-full" />
 		</form>
 
 		<hr class="mb-4" />
 		<LinkButton props={registerLinkButtonProps} />
-	</div>
-	<ErrorMessageBox extraClasses="mt-4 w-96" props={{ ...errorMessageBoxProps, message: $message, show: $message }} />
-</div>
+	</FormCard>
+	<ErrorMessageBox
+		extraClasses="mt-4 w-96"
+		props={{ ...errorMessageBoxProps, message: $message, show: $message }}
+	/>
+</CenteredLayout>

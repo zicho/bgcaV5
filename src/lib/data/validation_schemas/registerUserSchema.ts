@@ -1,15 +1,40 @@
 import { z } from "zod";
+import validationRules from "./config/ValidationRules";
+import { MaxCharactersF, MinCharactersF } from "../strings/ValidationMessages";
+import formatString from "$lib/utils/formatString";
 
 const registerUserSchema = z
     .object({
         username: z
             .string()
             .regex(/^[a-zA-Z0-9_-]+$/, { message: "Invalid username." })
-            .min(3, { message: "Minimum 3 characters" })
-            .max(25, { message: "Max 25 characters" })
+            .min(
+                validationRules.minUsernameLength, {
+                message: formatString(MinCharactersF, validationRules.minUsernameLength)
+            })
+            .max(
+                validationRules.maxUsernameLength, {
+                message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
+            })
             .trim(),
-        password: z.string().min(3, { message: "Password must be minimum 3 characters" }),
-        confirm_password: z.string().min(3, { message: "Password must be minimum 3 characters" }),
+        password: z.string()
+            .min(
+                validationRules.minPasswordLength, {
+                message: formatString(MinCharactersF, validationRules.minPasswordLength)
+            })
+            .max(
+                validationRules.maxPasswordLength, {
+                message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
+            }),
+        confirm_password: z.string()
+            .min(
+                validationRules.minPasswordLength, {
+                message: formatString(MinCharactersF, validationRules.minPasswordLength)
+            })
+            .max(
+                validationRules.maxPasswordLength, {
+                message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
+            }),
     })
     .refine((data) => data.password === data.confirm_password, {
         message: "Passwords don't match",
