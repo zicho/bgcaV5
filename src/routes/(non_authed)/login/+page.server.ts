@@ -18,7 +18,10 @@ export const actions: Actions = {
 
         const form = await superValidate(request, loginUserSchema);
 
-        console.dir(form.valid);
+        const empty = ""
+
+        const newData = { ...form.data, password: "r", username: empty };
+        form.data = newData;
 
         if (!form.valid) {
             return fail(400, { form });

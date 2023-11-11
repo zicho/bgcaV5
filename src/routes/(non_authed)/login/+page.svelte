@@ -16,7 +16,7 @@
 
 	const { form, errors, enhance, message } = superForm(data.form, {
 		clearOnSubmit: 'none',
-		resetForm: false
+		resetForm: false,
 	});
 
 	const usernameInputProps: ITextInput = {
@@ -30,7 +30,7 @@
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
-		type: 'password',
+		// type: 'password',
 		required: true
 	};
 
@@ -59,7 +59,7 @@
 				extraClasses="mb-4 w-full"
 			/>
 			<TextInput
-				props={{ ...passwordInputProps, errorMessage: $errors.password || $errors.confirm }}
+				props={{ ...passwordInputProps, value: $form.password, errorMessage: $errors.password }}
 				extraClasses="mb-8 w-full"
 			/>
 			<Button props={loginButtonProps} extraClasses="mb-4 w-full" />

@@ -15,7 +15,7 @@
 	<input
 		id={props.name}
 		name={props.name}
-		value={props.value || ''}
+		value={props.value}
 		data-testid={props.name}
 		type={props.type || 'text'}
 		placeholder={props.placeholder}

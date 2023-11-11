@@ -14,7 +14,7 @@ export const loginUserSchema = z.object({
     //         message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
     //     })
     //     .trim(),
-    password: z.string()
+    password: z.string(),
     //     .min(
     //         validationRules.minPasswordLength, {
     //         message: formatString(MinCharactersF, validationRules.minPasswordLength)
