@@ -1,18 +1,25 @@
 <script lang="ts">
 	import '$lib/css/app.css';
+	import type { PageData } from "./(protected)/$types";
+	import { getFlash } from "sveltekit-flash-message/client";
+	import { page } from "$app/stores";
+	import { beforeNavigate } from "$app/navigation";
+	import Navbar from "$lib/components/ui/Navbar.svelte";
+
+	export let data: PageData;
+
+	$: ({ user, notificationCount } = data);
+
+	const flash = getFlash(page);
+
+	beforeNavigate((nav) => {
+		if ($flash && nav.from?.url.toString() !== nav.to?.url.toString()) {
+			$flash = undefined;
+		}
+	});
 </script>
 
-<div class="navbar bg-neutral text-neutral-content">
-	<div class="flex-1">
-		<a href="/" class="btn btn-ghost normal-case text-xl">daisyUI</a>
-	</div>
-	<div class="flex-none">
-		<ul class="menu menu-horizontal px-1">
-			<li><a data-testid="layout-login-link" href="/login">Log in</a></li>
-			<li><a data-testid="layout-register-link" href="/register">Register</a></li>
-		</ul>
-	</div>
-</div>
+<Navbar {user} />
 
 <slot />
 
