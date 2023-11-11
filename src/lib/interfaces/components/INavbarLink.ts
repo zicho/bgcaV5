@@ -4,5 +4,4 @@ export interface INavbarLink {
     id: string;
     aria: string;
     icon: string;
-    authOnly: boolean;
 }
