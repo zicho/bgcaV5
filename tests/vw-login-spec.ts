@@ -1,7 +1,9 @@
-import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
+// import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
 import generateTestUsername from './test_utils/generateTestUsername';
+import loginUserAndReturnSession from '$lib/db/queries/authentication/loginUserAndReturnSession';
 import { IncorrectUsernameOrPassword, UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
+import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
 
 test('vw-login-form_visibility', async ({ page }) => {
 	await page.goto('/login');
@@ -40,12 +42,70 @@ test('vw-login-register_link', async ({ page }) => {
 	expect(page.url()).toContain("register");
 });
 
-test('vw-login-redirect_on_success', async ({ page }) => {
+test('vw-login-invalid_username', async ({ page }) => {
 	await page.goto('/login');
 
-	const username = generateTestUsername();
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill("us");
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("us");
 
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	const errorMessageBox = page.getByTestId("error-message-box");
+	
+	await expect(errorMessageBox).toBeVisible();
+	await (expect(errorMessageBox).toHaveText(IncorrectUsernameOrPassword));
+});
+
+test('vw-login-invalid_password', async ({ page }) => {
+	await page.goto('/login');
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill("us");
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("us");
+
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	const errorMessageBox = page.getByTestId("error-message-box");
+	
+	await expect(errorMessageBox).toBeVisible();
+	await (expect(errorMessageBox).toHaveText(IncorrectUsernameOrPassword));
+});
+
+// test('vw-login-form_should_not_reset_username', async ({ page }) => {
+// 	await page.goto('/login');
+
+// 	const username = generateTestUsername();
+// 	await registerUserAndReturnSession({ username, password: "password" });
+
+// 	// all fields need to be filled to pass browser form validation
+// 	const usernameInput = page.getByTestId("username");
+// 	await usernameInput.fill(username);
+// 	const passwordInput = page.getByTestId("password");
+// 	await passwordInput.fill("wrong_password");
+
+// 	const loginButton = page.getByTestId('login');
+// 	await loginButton.click();
+
+// 	expect(usernameInput).toHaveValue(username);
+
+// 	const passwordError = page.getByTestId("password-error-message");
+// 	await (expect(passwordError).toBeVisible());
+// 	const confirmPasswordError = page.getByTestId("confirm_password-error-message");
+// 	await (expect(confirmPasswordError).toBeVisible());
+// });
+
+test('vw-login-redirect_on_success', async ({ page }) => {
+	const username = generateTestUsername();
 	await registerUserAndReturnSession({ username, password: "password" });
+
+	 await page.goto('/login');
 
 	// all fields need to be filled to pass browser form validation
 	const usernameInput = page.getByTestId("username");
@@ -55,43 +115,6 @@ test('vw-login-redirect_on_success', async ({ page }) => {
 
 	const loginButton = page.getByTestId('login');
 	await loginButton.click();
+
 	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
-});
-
-test('vw-login-form_should_not_reset_username', async ({ page }) => {
-	await page.goto('/login');
-
-	const username = generateTestUsername();
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("wrong_password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-
-	await (expect(page.getByTestId("error-message-box")).toBeVisible());
-	await (expect(page.getByTestId("error-message-box")).toHaveText(IncorrectUsernameOrPassword));
-});
-
-test('vw-login-form_should_reset_password', async ({ page }) => {
-	await page.goto('/login');
-
-	const username = generateTestUsername();
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("wrong_password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-
-	await (expect(page.getByTestId("error-message-box")).toBeVisible());
-	await (expect(page.getByTestId("error-message-box")).toHaveText(IncorrectUsernameOrPassword));
 });

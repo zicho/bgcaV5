@@ -6,6 +6,7 @@ import { lucia } from "lucia";
 import postgres from "pg";
 import { pg } from "@lucia-auth/adapter-postgresql";
 import { sveltekit } from "lucia/middleware";
+import "lucia/polyfill/node";
 
 const connectionPool = new postgres.Pool({
 	connectionString: SECRET_PG_HOST

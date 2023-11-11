@@ -18,8 +18,10 @@ export const actions: Actions = {
 
         const form = await superValidate(request, loginUserSchema);
 
+        console.dir(form.valid);
+
         if (!form.valid) {
-            return fail(400, { ...form, password: '' });
+            return fail(400, { form });
         }
 
         const response = await loginUserAndReturnSession(form.data);
