@@ -31,7 +31,7 @@
 		label: 'Password',
 		placeholder: 'Enter your password',
 		type: 'password',
-		required: true
+		required: false
 	};
 
 	const loginButtonProps: IButton = {

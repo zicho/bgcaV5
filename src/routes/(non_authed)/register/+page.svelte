@@ -31,7 +31,7 @@
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
-		type: 'password',
+		// type: 'text',
 		required: true
 	};
 
@@ -39,7 +39,7 @@
 		name: 'confirm_password',
 		label: 'Confirm password',
 		placeholder: 'Re-enter your password',
-		type: 'password',
+		// type: 'password',
 		required: true
 	};
 
@@ -70,12 +70,12 @@
 				extraClasses="mb-4 w-full"
 			/>
 			<TextInput
-				props={{ ...passwordInputProps, errorMessage: $errors.password || $errors.confirm }}
+				props={{ ...passwordInputProps, value: $form.password, errorMessage: $errors.password || $errors.confirm }}
 				extraClasses="mb-4 w-full"
 			/>
 			<TextInput
 				props={{
-					...confirmPasswordInputProps,
+					...confirmPasswordInputProps, value: $form.confirm_password, 
 					errorMessage: $errors.confirm_password || $errors.confirm
 				}}
 				extraClasses="mb-8 w-full"
