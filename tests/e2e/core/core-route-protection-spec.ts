@@ -1,6 +1,5 @@
 // import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import path from 'path';
 import generateTestUsername from 'tests/test_utils/generateTestUsername';
@@ -27,7 +26,6 @@ const protectedFolderPath: string = path.join(projectRoot, 'src', 'routes', '(pr
 const notAuthedFolderPath: string = path.join(projectRoot, 'src', 'routes', '(non_authed)');
 
 function getAllFolderNamesForPath(folderPath: string): string[] {
-
 	let directories: string[] = []
 
 	fs.readdir(folderPath, (err, files) => {
