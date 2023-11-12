@@ -46,7 +46,7 @@ function getAllFolderNamesForPath(folderPath: string): string[] {
 	return directories;
 }
 
-test('gm-all-protected-routes-should-redirect-to-login', async ({ page }) => {
+test('core-all_protected_routes_should_redirect_to_login', async ({ page }) => {
 	var protectedRouteFolders = getAllFolderNamesForPath(protectedFolderPath);
 
 	for(const route of protectedRouteFolders) {
@@ -55,7 +55,7 @@ test('gm-all-protected-routes-should-redirect-to-login', async ({ page }) => {
 	}
 });
 
-test('gm-all-auth-routes-should-redirect-to-home', async ({ page }) => {
+test('core-all_auth_routes_should_redirect_to_home', async ({ page }) => {
 
 	await page.goto('/register');
 

@@ -150,25 +150,3 @@ test('vw-login-redirect_on_success', async ({ page }) => {
 
 	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
 });
-
-
-test('vw-login-authenticated_user_should_not_be_able_to_reach_login_page', async ({ page }) => {
-	const username = generateTestUsername();
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	await page.goto('/login');
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-
-	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
-	await page.goto('/login');
-
-	expect(page.url()).not.toContain("login");
-});
