@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { INavbarLink } from '$lib/interfaces/components/INavbarLink';
+	import type { SvelteComponent } from 'svelte';
 	export let props: INavbarLink;
 	export let extraClasses: string = '';
+
+	const icon = props.icon as typeof SvelteComponent;
 </script>
 
 <li class="flex justify-start {extraClasses}" id={props.id} data-testid={props.id}>
@@ -10,7 +13,7 @@
 		aria-label={props.aria}
 		class="lg:hover:text-neutral-content flex items-center"
 	>
-		{props.displayText}
+		<svelte:component this={props.icon} /> {props.displayText}
 	</a>
 </li>
 
