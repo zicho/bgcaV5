@@ -1,6 +1,6 @@
 // import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
-import generateTestUsername from './test_utils/generateTestUsername';
+import generateTestUsername from '../../test_utils/generateTestUsername';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
 import { UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
 
@@ -33,7 +33,7 @@ test('vw-register-login_button', async ({ page }) => {
 test('vw-register-login_link', async ({ page }) => {
 	await page.goto('/register');
 
-	const loginLink = page.getByTestId("layout-login-link");
+	const loginLink = page.getByTestId("navbar-link-login");
 
 	await expect(loginLink).toBeVisible();
 	await loginLink.click();
@@ -165,4 +165,25 @@ test('vw-register-no_duplicate_username', async ({ page }) => {
 
 	await (expect(page.getByTestId("error-message-box")).toBeVisible());
 	await (expect(page.getByTestId("error-message-box")).toHaveText(UsernameAlreadyTaken));
+});
+
+test('vw-register-authenticated_user_should_not_be_able_to_reach_login_page', async ({ page }) => {
+	const username = generateTestUsername();
+	await page.goto('/register');
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("password");
+	const confirmPasswordInput = page.getByTestId("confirm_password");
+	await confirmPasswordInput.fill("password");
+
+	const register = page.getByTestId('register');
+	await register.click();
+
+	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+	await page.goto('/register');
+
+	expect(page.url()).not.toContain("register");
 });

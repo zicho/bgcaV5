@@ -1,6 +1,6 @@
 // import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
-import generateTestUsername from './test_utils/generateTestUsername';
+import generateTestUsername from '../../test_utils/generateTestUsername';
 import loginUserAndReturnSession from '$lib/db/queries/authentication/loginUserAndReturnSession';
 import { IncorrectUsernameOrPassword, UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
@@ -33,7 +33,7 @@ test('vw-login-register_button', async ({ page }) => {
 test('vw-login-register_link', async ({ page }) => {
 	await page.goto('/login');
 
-	const registerLink = page.getByTestId("layout-register-link");
+	const registerLink = page.getByTestId("navbar-link-register");
 
 	await expect(registerLink).toBeVisible();
 	await registerLink.click();
@@ -55,7 +55,7 @@ test('vw-login-invalid_username', async ({ page }) => {
 	await loginButton.click();
 
 	const errorMessageBox = page.getByTestId("error-message-box");
-	
+
 	await expect(errorMessageBox).toBeVisible();
 	await (expect(errorMessageBox).toHaveText(IncorrectUsernameOrPassword));
 });
@@ -73,9 +73,41 @@ test('vw-login-invalid_password', async ({ page }) => {
 	await loginButton.click();
 
 	const errorMessageBox = page.getByTestId("error-message-box");
-	
+
 	await expect(errorMessageBox).toBeVisible();
 	await (expect(errorMessageBox).toHaveText(IncorrectUsernameOrPassword));
+});
+
+test('vw-login-ui_should_update_after_login', async ({ page }) => {
+	const username = generateTestUsername();
+	await registerUserAndReturnSession({ username, password: "password" });
+
+	await page.goto('/login');
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("password");
+
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+
+	const loginNavbarLink = page.getByTestId("navbar-link-login");
+	const registerNavbarLink = page.getByTestId("navbar-link-register");
+	const signoutNavbarLink = page.getByTestId("navbar-link-signout");
+	const profileNavbarLink = page.getByTestId("navbar-link-profile");
+
+	// should not be visible when authed
+	await expect(loginNavbarLink).not.toBeVisible();
+	await expect(registerNavbarLink).not.toBeVisible();
+
+	// should be visible when authed
+	await expect(signoutNavbarLink).toBeVisible();
+	await expect(profileNavbarLink).toBeVisible();
+	await expect(profileNavbarLink).toHaveText(username);
 });
 
 // test('vw-login-form_should_not_reset_username', async ({ page }) => {
@@ -105,7 +137,7 @@ test('vw-login-redirect_on_success', async ({ page }) => {
 	const username = generateTestUsername();
 	await registerUserAndReturnSession({ username, password: "password" });
 
-	 await page.goto('/login');
+	await page.goto('/login');
 
 	// all fields need to be filled to pass browser form validation
 	const usernameInput = page.getByTestId("username");
@@ -117,4 +149,26 @@ test('vw-login-redirect_on_success', async ({ page }) => {
 	await loginButton.click();
 
 	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+});
+
+
+test('vw-login-authenticated_user_should_not_be_able_to_reach_login_page', async ({ page }) => {
+	const username = generateTestUsername();
+	await registerUserAndReturnSession({ username, password: "password" });
+
+	await page.goto('/login');
+
+	// all fields need to be filled to pass browser form validation
+	const usernameInput = page.getByTestId("username");
+	await usernameInput.fill(username);
+	const passwordInput = page.getByTestId("password");
+	await passwordInput.fill("password");
+
+	const loginButton = page.getByTestId('login');
+	await loginButton.click();
+
+	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+	await page.goto('/login');
+
+	expect(page.url()).not.toContain("login");
 });

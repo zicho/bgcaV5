@@ -30,7 +30,7 @@
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
-		type: 'password',
+		// type: 'password',
 		required: true
 	};
 

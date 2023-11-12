@@ -19,12 +19,16 @@ export const actions: Actions = {
         const form = await superValidate(request, loginUserSchema);
 
         if (!form.valid) {
+            const data = { ...form.data, password: "" };
+            form.data = data;
             return fail(400, { form });
         }
 
         const response = await loginUserAndReturnSession(form.data);
 
         if (response.error) {
+            const data = { ...form.data, password: "snole" };
+            form.data = data;
             return message(form, response.message);
         } else {
             locals.auth.setSession(response.result);
