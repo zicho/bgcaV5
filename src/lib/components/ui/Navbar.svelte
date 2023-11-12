@@ -14,7 +14,7 @@
 	$: menuDataNotAuthenticated = navbarLinks.filter((item) => !item.authOnly);
 </script>
 
-<div class="navbar bg-neutral text-neutral-content">
+<div class="navbar bg-neutral text-neutral-content sticky top-0">
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost normal-case text-xl">daisyUI</a>
 	</div>
