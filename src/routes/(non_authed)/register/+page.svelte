@@ -62,6 +62,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Register</title>
+</svelte:head>
+
+
 <CenteredLayout>
 	<FormCard title="Register">
 		<form use:enhance method="post">

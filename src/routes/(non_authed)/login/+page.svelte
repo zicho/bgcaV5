@@ -51,6 +51,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <CenteredLayout>
 	<FormCard title="Login">
 		<form use:enhance method="post">
