@@ -37,10 +37,7 @@
 	</div>
 </div>
 
-<!-- Put this part before </body> tag -->
 <input type="checkbox" id="mobile-menu" class="modal-toggle" bind:checked={open} />
-
-
 <div class="modal md:hidden">
 	<div class="modal-box">
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
@@ -48,14 +45,13 @@
 		<ul class="space-y-8" on:click={() => (open = false)}>
 			{#if user}
 				{#each menuDataAuthenticated as link}
-					<NavbarLink props={{...link, mobile: true}} />
+					<NavbarLink props={{ ...link, id: `${link.id}-modal` }} />
 				{/each}
 			{:else}
 				{#each menuDataNotAuthenticated as link}
-					<NavbarLink props={{...link, mobile: true}} />
+					<NavbarLink props={{ ...link, id: `${link.id}-modal` }} />
 				{/each}
 			{/if}
 		</ul>
 	</div>
-	<label class="modal-backdrop" for="mobile-menu">Close</label>
 </div>

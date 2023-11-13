@@ -1,13 +1,6 @@
 import type { INavbarLink } from "$lib/components/interfaces/components/INavbarLink";
 import type { User } from "lucia";
-import type { SvelteComponent } from "svelte";
-import UserIcon from 'virtual:icons/lucide/user';
-import MailIcon from 'virtual:icons/lucide/mail';
-import GameIcon from 'virtual:icons/lucide/dice-6';
-import CalendarIcon from 'virtual:icons/lucide/calendar';
-import SignoutIcon from 'virtual:icons/lucide/log-out';
-import LoginIcon from 'virtual:icons/lucide/log-in';
-import RegisterIcon from 'virtual:icons/lucide/user-plus';
+import { UserIcon, MailIcon, GameIcon, CalendarIcon, SignoutIcon, LoginIcon, RegisterIcon } from "$lib/data/icons";
 
 const generateNavbarLinks = (user: User): INavbarLink[] => {
     return [
@@ -16,7 +9,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: user?.username,
             id: 'navbar-link-profile',
             aria: 'View and edit user profile',
-            icon: UserIcon as typeof SvelteComponent,
+            icon: UserIcon,
             authOnly: true,
         },
 
@@ -25,7 +18,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Messages',
             id: 'navbar-link-messages',
             aria: 'View and send messages',
-            icon: MailIcon as typeof SvelteComponent,
+            icon: MailIcon,
             authOnly: true
         },
         {
@@ -33,7 +26,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Games',
             id: 'navbar-link-games',
             aria: 'Find and organize games',
-            icon: GameIcon as typeof SvelteComponent,
+            icon: GameIcon,
             authOnly: true
         },
         {
@@ -41,7 +34,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Events',
             id: 'navbar-link-events',
             aria: 'Find and organize events',
-            icon: CalendarIcon as typeof SvelteComponent,
+            icon: CalendarIcon,
             authOnly: true
         },
         {
@@ -49,7 +42,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Sign Out',
             id: 'navbar-link-signout',
             aria: 'Sign out',
-            icon: SignoutIcon as typeof SvelteComponent,
+            icon: SignoutIcon,
             authOnly: true
         },
         {
@@ -57,7 +50,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Login',
             id: 'navbar-link-login',
             aria: 'Log in',
-            icon: LoginIcon as typeof SvelteComponent,
+            icon: LoginIcon,
             authOnly: false
         },
         {
@@ -65,7 +58,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             displayText: 'Register',
             id: 'navbar-link-register',
             aria: 'Register a new user',
-            icon: RegisterIcon as typeof SvelteComponent,
+            icon: RegisterIcon,
             authOnly: false
         }
     ]

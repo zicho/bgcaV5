@@ -3,9 +3,8 @@
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
+	import { EditProfileIcon, SendMessageIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
-	import UserIcon from 'virtual:icons/lucide/edit-3';
-	import SendIcon from 'virtual:icons/lucide/send';
 
 	export let data: PageData;
 </script>
@@ -22,14 +21,14 @@
 				displayText="Edit profile"
 				id="profile-edit-profile-btn"
 				url="/profile/{$page.params.username}/edit"
-				icon={UserIcon} 
+				icon={EditProfileIcon}
 			/>
 		{:else}
 			<PageHeaderToolbarLinkButton
 				displayText="Send message"
 				id="profile-send-message-btn"
 				url="/message/{$page.params.username}"
-				icon={SendIcon} 
+				icon={SendMessageIcon}
 			/>
 		{/if}
 	</PageHeaderToolbar>

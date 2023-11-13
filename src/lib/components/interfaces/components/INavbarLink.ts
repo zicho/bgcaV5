@@ -5,7 +5,6 @@ export interface INavbarLink {
     displayText?: string;
     id: string;
     aria: string;
-    icon: typeof SvelteComponent;
+    icon: typeof SvelteComponent<any, SVGAElement>;
     authOnly: boolean;
-    mobile?: boolean;
 }

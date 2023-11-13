@@ -1,15 +1,10 @@
 <script lang="ts">
 	import type { INavbarLink } from '$lib/components/interfaces/components/INavbarLink';
-	import type { SvelteComponent } from 'svelte';
 	export let props: INavbarLink;
 	export let extraClasses: string = '';
-
-	const id = props.mobile ? `${props.id}-mobile` : props.id;
-
-	const icon = props.icon as typeof SvelteComponent;
 </script>
 
-<li class="flex justify-start {extraClasses}" {id} data-testid={id}>
+<li class="flex justify-start {extraClasses}" id={props.id} data-testid={props.id}>
 	<a
 		href={props.url}
 		aria-label={props.aria}

@@ -1,4 +1,4 @@
-import type { IButton } from "$lib/interfaces/components/IButton";
+import type { IButton } from "../interfaces/components/IButton";
 
 export default function getButtonTypeClass(type: IButton['type']): string {
     switch (type) {
