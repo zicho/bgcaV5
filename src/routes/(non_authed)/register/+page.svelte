@@ -31,7 +31,7 @@
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
-		// type: 'text',
+		type: 'password',
 		required: true
 	};
 
@@ -39,7 +39,7 @@
 		name: 'confirm_password',
 		label: 'Confirm password',
 		placeholder: 'Re-enter your password',
-		// type: 'password',
+		type: 'password',
 		required: true
 	};
 

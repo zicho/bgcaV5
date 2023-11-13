@@ -22,7 +22,9 @@
 
 <Navbar {user} />
 
-<slot />
+<div class="flex flex-col min-h-[calc(100vh-var(--navbar-height)-var(--footer-height))]">
+	<slot />
+</div>
 
 <footer class="footer items-center p-4 bg-neutral text-neutral-content sticky bottom-0">
 	<div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">

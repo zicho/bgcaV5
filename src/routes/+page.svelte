@@ -6,7 +6,6 @@
 	<title>Welcome</title>
 </svelte:head>
 
-
 <BasePageLayout>
 	<h1 data-testid="frontpage-header">Welcome</h1>
 </BasePageLayout>

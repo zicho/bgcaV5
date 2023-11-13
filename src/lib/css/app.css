@@ -13,9 +13,14 @@
 
 :root {
     --navbar-height: 4rem;
+    --footer-height: 3rem;
   }
   
 
 .navbar {
     height: var(--navbar-height);
+}
+
+.footer {
+    height: var(--footer-height);
 }
