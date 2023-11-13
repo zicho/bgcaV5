@@ -11,9 +11,9 @@
 	<a
 		href={props.url}
 		aria-label={props.aria}
-		class="lg:hover:text-neutral-content flex items-center"
+		class="lg:hover:text-neutral-content flex items-center w-full  "
 	>
-		<svelte:component this={props.icon} /> {props.displayText}
+		<svelte:component this={props.icon} class="mr-4 md:mr-0"/> {props.displayText}
 	</a>
 </li>
 

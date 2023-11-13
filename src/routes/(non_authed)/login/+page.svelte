@@ -16,7 +16,7 @@
 
 	const { form, errors, enhance, message } = superForm(data.form, {
 		clearOnSubmit: 'none',
-		resetForm: false,
+		resetForm: false
 	});
 
 	const usernameInputProps: ITextInput = {
