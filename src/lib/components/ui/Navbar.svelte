@@ -40,18 +40,19 @@
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="mobile-menu" class="modal-toggle" bind:checked={open} />
 
-<div class="modal">
+
+<div class="modal md:hidden">
 	<div class="modal-box">
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<ul class="space-y-8" on:click={() => (open = false)}>
 			{#if user}
 				{#each menuDataAuthenticated as link}
-					<NavbarLink props={link} />
+					<NavbarLink props={{...link, mobile: true}} />
 				{/each}
 			{:else}
 				{#each menuDataNotAuthenticated as link}
-					<NavbarLink props={link} />
+					<NavbarLink props={{...link, mobile: true}} />
 				{/each}
 			{/if}
 		</ul>

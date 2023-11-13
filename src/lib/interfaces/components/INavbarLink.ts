@@ -7,4 +7,5 @@ export interface INavbarLink {
     aria: string;
     icon: typeof SvelteComponent;
     authOnly: boolean;
+    mobile: boolean;
 }

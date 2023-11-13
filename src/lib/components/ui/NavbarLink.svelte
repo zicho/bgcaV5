@@ -4,16 +4,19 @@
 	export let props: INavbarLink;
 	export let extraClasses: string = '';
 
+	const id = props.mobile ? `${props.id}-mobile` : props.id;
+
 	const icon = props.icon as typeof SvelteComponent;
 </script>
 
-<li class="flex justify-start {extraClasses}" id={props.id} data-testid={props.id}>
+<li class="flex justify-start {extraClasses}" {id} data-testid={id}>
 	<a
 		href={props.url}
 		aria-label={props.aria}
-		class="lg:hover:text-neutral-content flex items-center w-full  "
+		class="lg:hover:text-neutral-content flex items-center w-full"
 	>
-		<svelte:component this={props.icon} class="mr-4 md:mr-0"/> {props.displayText}
+		<svelte:component this={props.icon} class="mr-4 md:mr-0" />
+		{props.displayText}
 	</a>
 </li>
 

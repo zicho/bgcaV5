@@ -56,7 +56,7 @@
 </svelte:head>
 
 <CenteredLayout>
-	<FormCard title="Login">
+	<FormCard title="Login" errorMessage={$message}>
 		<form use:enhance method="post">
 			<TextInput
 				props={{ ...usernameInputProps, value: $form.username, errorMessage: $errors.username }}
@@ -72,10 +72,5 @@
 		<hr class="mb-4" />
 
 		<LinkButton props={registerLinkButtonProps} extraClasses="mb-4" />
-		{#if $message}
-			<div class="card p-8 bg-error">
-				<span class="text-center">{$message}</span>
-			</div>
-		{/if}
 	</FormCard>
 </CenteredLayout>

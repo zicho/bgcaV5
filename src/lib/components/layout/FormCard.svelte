@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let title = '';
+	export let errorMessage = '';
 </script>
 
 <article
@@ -11,4 +12,10 @@
 	{/if}
 
 	<slot />
+
+	{#if errorMessage}
+		<div class="card p-8 bg-error" id="error-message-box" data-testid="error-message-box">
+			<span class="text-center">{errorMessage}</span>
+		</div>
+	{/if}
 </article>
