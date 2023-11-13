@@ -70,10 +70,12 @@
 		</form>
 
 		<hr class="mb-4" />
-		<LinkButton props={registerLinkButtonProps} />
+
+		<LinkButton props={registerLinkButtonProps} extraClasses="mb-4" />
+		{#if $message}
+			<div class="card p-8 bg-error">
+				<span class="text-center">{$message}</span>
+			</div>
+		{/if}
 	</FormCard>
-	<ErrorMessageBox
-		extraClasses="mt-4 w-96"
-		props={{ ...errorMessageBoxProps, message: $message, show: $message }}
-	/>
 </CenteredLayout>

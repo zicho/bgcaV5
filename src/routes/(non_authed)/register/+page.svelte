@@ -66,7 +66,6 @@
 	<title>Register</title>
 </svelte:head>
 
-
 <CenteredLayout>
 	<FormCard title="Register">
 		<form use:enhance method="post">
@@ -75,12 +74,17 @@
 				extraClasses="mb-4 w-full"
 			/>
 			<TextInput
-				props={{ ...passwordInputProps, value: $form.password, errorMessage: $errors.password || $errors.confirm }}
+				props={{
+					...passwordInputProps,
+					value: $form.password,
+					errorMessage: $errors.password || $errors.confirm
+				}}
 				extraClasses="mb-4 w-full"
 			/>
 			<TextInput
 				props={{
-					...confirmPasswordInputProps, value: $form.confirm_password, 
+					...confirmPasswordInputProps,
+					value: $form.confirm_password,
 					errorMessage: $errors.confirm_password || $errors.confirm
 				}}
 				extraClasses="mb-8 w-full"
@@ -90,9 +94,10 @@
 
 		<hr class="mb-4" />
 		<LinkButton props={loginLinkButtonProps} />
+		{#if $message}
+			<div class="card p-8 bg-error">
+				<span class="text-center">{$message}</span>
+			</div>
+		{/if}
 	</FormCard>
-	<ErrorMessageBox
-		extraClasses="mt-4 w-full sm:w-full md:w-2/3 lg:w-1/2 xl:w-1/4"
-		props={{ ...errorMessageBoxProps, message: $message, show: $message }}
-	/>
 </CenteredLayout>
