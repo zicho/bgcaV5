@@ -3,10 +3,10 @@
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import ErrorMessageBox from '$lib/components/layout/ErrorMessageBox.svelte';
-	import type { IButton } from '$lib/interfaces/components/IButton';
-	import type { ILinkButton } from '$lib/interfaces/components/ILinkButton';
-	import type { ITextInput } from '$lib/interfaces/components/ITextInput';
-	import type { IErrorMessageBox } from '$lib/interfaces/layout/IErrorMessageBox';
+	import type { IButton } from '$lib/components/interfaces/components/IButton';
+	import type { ILinkButton } from '$lib/components/interfaces/components/ILinkButton';
+	import type { ITextInput } from '$lib/components/interfaces/components/ITextInput';
+	import type { IErrorMessageBox } from '$lib/components/interfaces/layout/IErrorMessageBox';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
 	import FormCard from '$lib/components/layout/FormCard.svelte';

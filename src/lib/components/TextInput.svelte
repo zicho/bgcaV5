@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ITextInput } from '$lib/interfaces/components/ITextInput';
+	import type { ITextInput } from '$lib/components/interfaces/components/ITextInput';
 
 	export let props: ITextInput;
 	export let extraClasses: string = '';

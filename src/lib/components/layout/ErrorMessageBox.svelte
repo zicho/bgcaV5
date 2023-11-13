@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IErrorMessageBox } from '$lib/interfaces/layout/IErrorMessageBox';
+	import type { IErrorMessageBox } from '$lib/components/interfaces/layout/IErrorMessageBox';
 
 	export let props: IErrorMessageBox;
 	export let extraClasses: string ='';

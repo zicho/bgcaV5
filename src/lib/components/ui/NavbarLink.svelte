@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { INavbarLink } from '$lib/interfaces/components/INavbarLink';
+	import type { INavbarLink } from '$lib/components/interfaces/components/INavbarLink';
 	import type { SvelteComponent } from 'svelte';
 	export let props: INavbarLink;
 	export let extraClasses: string = '';
