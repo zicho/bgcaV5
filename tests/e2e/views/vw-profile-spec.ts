@@ -70,8 +70,12 @@ test('vw-profile-user_owned_profile_layout', async ({ page }) => {
 	const profileLink = page.getByTestId('navbar-link-profile');
 	await profileLink.click();
 
-	await expect(page.getByRole('heading')).toBeVisible();
-	await expect(page.getByRole('heading')).toHaveText("Your profile");
+	const header = page.getByRole('heading', { level: 1 });
+
+	await expect(header).toBeVisible();
+	await expect(header).toHaveText("Your profile");
+	await expect(page.getByTestId("profile-edit-profile-btn")).toBeVisible();
+	await expect(page.getByTestId("profile-send-message-btn")).not.toBeVisible();
 });
 
 test('vw-profile-other_user_profile_layout', async ({ page }) => {
@@ -96,8 +100,13 @@ test('vw-profile-other_user_profile_layout', async ({ page }) => {
 
 	await page.goto(`/profile/${secondUsername}`)
 
-	await expect(page.getByRole('heading')).toBeVisible();
-	await expect(page.getByText(secondUsername)).toBeVisible();
+	
+	const header = page.getByRole('heading', { level: 1 });
+	await expect(header).toBeVisible();
+	await expect(header).toContainText(secondUsername);
+	
+	await expect(page.getByTestId("profile-edit-profile-btn")).not.toBeVisible();
+	await expect(page.getByTestId("profile-send-message-btn")).toBeVisible();
 
 	expect(page.url()).toContain(`profile/${secondUsername}`);
 });

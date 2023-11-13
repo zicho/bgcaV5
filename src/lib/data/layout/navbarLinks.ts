@@ -1,4 +1,4 @@
-import type { INavbarLink } from "$lib/interfaces/components/INavbarLink";
+import type { INavbarLink } from "$lib/components/interfaces/components/INavbarLink";
 import type { User } from "lucia";
 import type { SvelteComponent } from "svelte";
 import UserIcon from 'virtual:icons/lucide/user';
@@ -17,7 +17,7 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             id: 'navbar-link-profile',
             aria: 'View and edit user profile',
             icon: UserIcon as typeof SvelteComponent,
-            authOnly: true
+            authOnly: true,
         },
 
         {
