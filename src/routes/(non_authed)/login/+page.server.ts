@@ -28,7 +28,7 @@ export const actions: Actions = {
         if (response.error) {
             return message(form, response.message);
         } else {
-            locals.auth.setSession(response.result as Session);
+            locals.auth.setSession(response.result);
         }
 
         throw redirect(

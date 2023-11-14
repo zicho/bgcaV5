@@ -1,12 +1,12 @@
 import { ResponseSuccess } from "../strings/MiscMessages";
 
 export type ApiResponse<T> = {
-    result?: T | null;
+    result: T | null;
     error: boolean;
     message: string;
 }
 
-export function successfulResponse<T>(data?: T): ApiResponse<T> {
+export function successfulResponse<T>(data: T): ApiResponse<T> {
     return {
         result: data,
         error: false,
