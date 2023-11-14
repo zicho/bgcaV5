@@ -7,6 +7,8 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	const { profile } = data;
 </script>
 
 <BasePageLayout>
@@ -32,4 +34,20 @@
 			/>
 		{/if}
 	</PageHeaderToolbar>
+
+	<div class="prose">
+		{#if profile?.description}
+			{profile?.description}
+		{:else if data.isProfileYours}
+			<p>
+				<i
+					>You have not written a description yet! <a data-testid="link-edit-your-profile" href="/profile/{$page.params.username}/edit"
+						>Do it!</a
+					></i
+				>
+			</p>
+		{:else}
+			<i>This user has not written a description yet :(</i>
+		{/if}
+	</div>
 </BasePageLayout>

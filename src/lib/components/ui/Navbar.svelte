@@ -31,13 +31,13 @@
 				{/each}
 			{/if}
 		</ul>
-		<label for="mobile-menu" class="flex md:hidden hover:cursor-pointer"
+		<label for="modal-menu" class="flex md:hidden hover:cursor-pointer"
 			><MenuIcon class="mr-4 " /></label
 		>
 	</div>
 </div>
 
-<input type="checkbox" id="mobile-menu" class="modal-toggle" bind:checked={open} />
+<input type="checkbox" id="modal-menu" class="modal-toggle" bind:checked={open} />
 <div class="modal md:hidden">
 	<div class="modal-box">
 		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
@@ -54,4 +54,5 @@
 			{/if}
 		</ul>
 	</div>
+	<label class="modal-backdrop" for="modal-menu"></label>
 </div>

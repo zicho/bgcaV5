@@ -4,6 +4,7 @@ import type { PageServerLoad } from "./$types";
 import { message, superValidate } from "sveltekit-superforms/server";
 import registerUserSchema from "$lib/data/validation_schemas/registerUserSchema";
 import registerUserAndReturnSession from "$lib/db/queries/authentication/registerUserAndReturnSession";
+import type { Session } from "lucia";
 
 export const load = (async (event) => {
     const form = await superValidate(event, registerUserSchema);
@@ -39,7 +40,7 @@ export const actions: Actions = {
         if (response.error) {
             return message(form, response.message);
         } else {
-            locals.auth.setSession(response.result);
+            locals.auth.setSession(response.result as Session);
         }
 
         throw redirect(

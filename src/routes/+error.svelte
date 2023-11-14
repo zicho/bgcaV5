@@ -1,24 +1,24 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import BasePageLayout from "$lib/components/layout/BasePageLayout.svelte";
+	import { page } from '$app/stores';
+	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 
 	let errorMessage: string;
 
 	switch ($page?.status) {
 		case 400:
-			errorMessage = "Bad request!";
+			errorMessage = 'Bad request!';
 			break;
 		case 403:
-			errorMessage = "Forbidden!";
+			errorMessage = 'Forbidden!';
 			break;
 		case 404:
-			errorMessage = "Not found!";
+			errorMessage = 'Not found!';
 			break;
 		case 500:
-			errorMessage = "Internal server error!";
+			errorMessage = 'Internal server error!';
 			break;
 		default:
-			errorMessage = "Unknown error";
+			errorMessage = 'Unknown error';
 			break;
 	}
 </script>
@@ -28,11 +28,13 @@
 </svelte:head>
 
 <BasePageLayout>
-	<h2>{errorMessage}</h2>
-	{#if $page?.error}
-		<h3>Code: {$page?.status}</h3>
-		<h3>Message: {$page?.error?.message}</h3>
-	{/if}
+	<div class="prose">
+		<h2>{errorMessage}</h2>
+		{#if $page?.error}
+			<h3>Code: {$page?.status}</h3>
+			<h3>Message: {$page?.error?.message}</h3>
+		{/if}
 
-	<h3 class="mt-8"><a href="/">Click here to return to main page</a></h3>
+		<h3 class="mt-8"><a href="/">Click here to return to main page</a></h3>
+	</div>
 </BasePageLayout>

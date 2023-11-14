@@ -7,5 +7,7 @@
 </svelte:head>
 
 <BasePageLayout>
-	<h1 data-testid="frontpage-header">Welcome</h1>
+	<div class="prose">
+		<h1 data-testid="frontpage-header">Welcome</h1>
+	</div>
 </BasePageLayout>

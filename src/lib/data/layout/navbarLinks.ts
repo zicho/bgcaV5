@@ -1,18 +1,17 @@
 import type { INavbarLink } from "$lib/components/interfaces/components/INavbarLink";
 import type { User } from "lucia";
-import { UserIcon, MailIcon, GameIcon, CalendarIcon, SignoutIcon, LoginIcon, RegisterIcon } from "$lib/data/icons";
+import { UserIcon, MailIcon, GameIcon, CalendarIcon, SignoutIcon, LoginIcon, RegisterIcon, DashboardIcon } from "$lib/data/icons";
 
 const generateNavbarLinks = (user: User): INavbarLink[] => {
     return [
         {
-            url: `/profile/${user?.username}`,
-            displayText: user?.username,
-            id: 'navbar-link-profile',
-            aria: 'View and edit user profile',
-            icon: UserIcon,
+            url: `/dashboard`,
+            displayText: "Dashboard",
+            id: 'navbar-link-dashboard',
+            aria: 'Go to dashboard',
+            icon: DashboardIcon,
             authOnly: true,
         },
-
         {
             url: `/messages`,
             displayText: 'Messages',
@@ -36,6 +35,14 @@ const generateNavbarLinks = (user: User): INavbarLink[] => {
             aria: 'Find and organize events',
             icon: CalendarIcon,
             authOnly: true
+        },
+        {
+            url: `/profile/${user?.username}`,
+            displayText: user?.username,
+            id: 'navbar-link-profile',
+            aria: 'View and edit user profile',
+            icon: UserIcon,
+            authOnly: true,
         },
         {
             url: '/logout',
