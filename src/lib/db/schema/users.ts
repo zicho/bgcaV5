@@ -53,8 +53,7 @@ export const userProfileRelations = relations(users, ({ one }) => ({
 }));
 
 export const userProfiles = pgTable("user_profiles", {
-	id: serial("id").primaryKey(),
-	userId: varchar("user_id").references(() => users.id),
+	userId: varchar("user_id").references(() => users.id).primaryKey(),
 	signature: text("signature"),
 	description: text("description")
 });

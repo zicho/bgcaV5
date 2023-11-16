@@ -83,8 +83,7 @@ CREATE TABLE IF NOT EXISTS "auth_sessions" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_profiles" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"user_id" varchar,
+	"user_id" varchar PRIMARY KEY NOT NULL,
 	"signature" text,
 	"description" text
 );

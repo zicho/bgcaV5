@@ -1,8 +1,8 @@
 {
+  "id": "bd4d8d39-28b8-493c-89fa-04d7d233d324",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
-  "id": "fc88bf52-3f73-490d-ad83-6b4d506bf3eb",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "game_invites": {
       "name": "game_invites",
@@ -478,17 +478,11 @@
       "name": "user_profiles",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
         "user_id": {
           "name": "user_id",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
+          "primaryKey": true,
+          "notNull": true
         },
         "signature": {
           "name": "signature",

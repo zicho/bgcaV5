@@ -6,25 +6,14 @@ import { eq } from "drizzle-orm";
 
 export type UpdateProfileModel = typeof userProfiles.$inferInsert;
 
-export async function getUserProfileWithIds({ username }: { username: string }): Promise<ApiResponse<UpdateProfileModel>> {
+export async function getUserProfileWithIds({ userId }: { userId: string }): Promise<ApiResponse<UpdateProfileModel>> {
     try {
         const userAndProfile = (await db
-            .select({
-                id: userProfiles.id,
-                userId: users.id,
-                username: users.username,
-                description: userProfiles.description
-            })
-            .from(users)
-            .where(eq(users.username, username))
-            .leftJoin(userProfiles, eq(userProfiles.userId, users.id)))[0];
+            .select()
+            .from(userProfiles)
+            .where(eq(userProfiles.userId, userId)))[0];
 
-        const model = { 
-            ...userAndProfile,
-            id: userAndProfile.id || undefined
-        };
-
-        return successfulResponse(model);
+        return successfulResponse(userAndProfile);
     } catch {
         return failedResponse(DataRetrievalFail);
     }

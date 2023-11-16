@@ -10,7 +10,7 @@ export async function upsertUserProfile(model: UpdateProfileModel): Promise<ApiR
             .insert(userProfiles)
             .values(model)
             .onConflictDoUpdate({
-                target: userProfiles.id,
+                target: userProfiles.userId,
                 set: model
             })
             .returning();

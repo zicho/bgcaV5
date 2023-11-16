@@ -9,3 +9,4 @@ node_modules
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 tests/mocks/env/static/private.ts
+tests/unit/**/.svelte-kit

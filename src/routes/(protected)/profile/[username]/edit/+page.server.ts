@@ -41,15 +41,8 @@ export const actions: Actions = {
 			throw error(403);
 		}
 
-		const profile = await getUserProfileWithIds({ username: session.user.username });
-
-		if (profile.error) {
-			throw error(500, profile.message);
-		}
-
 		const model: UpdateProfileModel = {
-			id: profile.result?.id || undefined,
-			userId: profile.result?.userId as string,
+			userId: session.user.userId,
 			description: form.data.description
 		}
 
