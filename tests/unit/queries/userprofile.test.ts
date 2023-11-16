@@ -7,8 +7,8 @@ import { eq } from 'drizzle-orm';
 import generateTestUsername from 'tests/test_utils/generateTestUsername';
 import { describe, it, expect } from 'vitest';
 
-describe('sum test', () => {
-	it('update user profile', async () => {
+describe('userprofile_tests', () => {
+	it('should_create_new_profile_if_no_exist_else_update', async () => {
 
 		const username = generateTestUsername();
 		const user = await registerUserAndReturnSession({ username, password: "password" });
