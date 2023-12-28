@@ -1,12 +1,23 @@
 module.exports = {
-	content: [
-		'./src/**/*.{html,js,svelte,ts}',
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 	daisyui: {
-		themes: ['corporate']
+		themes: [
+			{
+				light: {
+					...require("daisyui/src/theming/themes")["light"],
+					"--rounded-box": "0",
+					"--rounded-btn": "0",
+					"--rounded-badge": "0",
+				},
+			},
+		],
 	},
 	theme: {
-		extend: {}
+		extend: {
+			borderRadius: {
+				'none': '0',
+			},
+		},
 	},
-	plugins: [require('@tailwindcss/typography'), require('daisyui')]
+	plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };
