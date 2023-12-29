@@ -10,7 +10,7 @@ module.exports = {
 					"--rounded-badge": "0",
 					"primary": "DarkRed",
 					"primary-content": "GhostWhite",
-          			"secondary": "RebeccaPurple",
+          			"secondary": "Teal",
 				},
 			},
 		],

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import LinkButton from './LinkButton.svelte';
 	import type LinkButtonProps from './props/components/LinkButtonProps';
+	import { CollectionIcon, FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
 	export let limit: number = 10;
 	export let queryParam: string = 'search';
 	export let searchParam: string = '';
@@ -39,17 +39,12 @@
 		startTimer();
 	}
 
-	afterNavigate(() => {
-		inputField.focus();
-	});
-
-	const url = `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}"`;
-
 	$: goToFirstPageLinkButtonProps = {
 		id: 'goto-first-page-link-button',
 		label: 'First',
 		type: 'secondary',
 		disabled: pageNo == 1 || totalPages == 0,
+		icon: FirstPageIcon,
 		href: `${$page.url.pathname}?search=${searchParam}&limit=${limit}`
 	} as LinkButtonProps;
 
@@ -58,15 +53,8 @@
 		label: 'Previous',
 		type: 'primary',
 		disabled: pageNo == 1 || totalPages == 0,
+		icon: PrevPageIcon,
 		href: `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}`
-	} as LinkButtonProps;
-
-	$: gotoLastPageLinkButtonProps = {
-		id: 'goto-prev-page-link-button',
-		label: 'Last',
-		type: 'secondary',
-		disabled: pageNo == totalPages || totalPages == 0,
-		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
 	} as LinkButtonProps;
 
 	$: nextPageLinkButtonProps = {
@@ -74,7 +62,19 @@
 		label: 'Next',
 		type: 'primary',
 		disabled: pageNo == totalPages || totalPages == 0,
+		icon: NextPageIcon,
+		alignIconRight: true,
 		href: `${$page.url.pathname}?page=${pageNo + 1}&search=${searchParam}&limit=${limit}`
+	} as LinkButtonProps;
+
+	$: gotoLastPageLinkButtonProps = {
+		id: 'goto-prev-page-link-button',
+		label: 'Last',
+		type: 'secondary',
+		disabled: pageNo == totalPages || totalPages == 0,
+		icon: LastPageIcon,
+		alignIconRight: true,
+		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
 	} as LinkButtonProps;
 </script>
 

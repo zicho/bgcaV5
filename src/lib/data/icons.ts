@@ -9,3 +9,9 @@ export { default as EditProfileIcon } from 'virtual:icons/lucide/edit-3';
 export { default as SendMessageIcon } from 'virtual:icons/lucide/send';
 export { default as DashboardIcon } from 'virtual:icons/lucide/layout-dashboard';
 export { default as CollectionIcon } from 'virtual:icons/lucide/library';
+
+// table icons
+export { default as FirstPageIcon } from 'virtual:icons/lucide/chevrons-left';
+export { default as PrevPageIcon } from 'virtual:icons/lucide/chevron-left';
+export { default as NextPageIcon } from 'virtual:icons/lucide/chevron-right';
+export { default as LastPageIcon } from 'virtual:icons/lucide/chevrons-right';

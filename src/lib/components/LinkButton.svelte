@@ -12,5 +12,13 @@
 	class="btn {props.type ? `btn-${props.type}` : 'btn-link'} {extraClasses}"
 	class:btn-disabled={props.disabled}
 >
+	{#if props.icon && !props.alignIconRight}
+		<svelte:component this={props.icon} class="mr-4 md:mr-0" />
+	{/if}
+
 	{props.label}
+
+	{#if props.icon && props.alignIconRight}
+		<svelte:component this={props.icon} class="ml-4 md:ml-0" />
+	{/if}
 </a>

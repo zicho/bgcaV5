@@ -2,7 +2,6 @@
 	import Button from '$lib/components/Button.svelte';
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import ErrorMessageBox from '$lib/components/layout/ErrorMessageBox.svelte';
 	import type ButtonProps from '$lib/components/props/components/ButtonProps';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 	import type { ITextInput } from '$lib/components/props/components/ITextInput';
@@ -37,17 +36,13 @@
 	const loginButtonProps: ButtonProps = {
 		id: 'login',
 		label: 'Sign in',
-		type: 'primary'
+		type: 'primary',
 	};
 
 	const registerLinkButtonProps: LinkButtonProps = {
 		id: 'register-link-button',
 		label: 'Wanna join? Sign up here!',
 		href: '/register'
-	};
-
-	const errorMessageBoxProps: IErrorMessageBox = {
-		id: 'error-message-box'
 	};
 </script>
 
