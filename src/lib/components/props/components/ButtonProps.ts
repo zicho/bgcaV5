@@ -1,8 +1,10 @@
 import type ButtonType from "./ButtonType";
 
-export interface IButton {
+type ButtonProps = {
     id: string;
     label: string;
     disabled?: boolean;
     type?: ButtonType
 }
+
+export default ButtonProps;

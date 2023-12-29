@@ -2,8 +2,8 @@
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import type { ILinkButton } from './interfaces/components/ILinkButton';
 	import LinkButton from './LinkButton.svelte';
+	import type LinkButtonProps from './props/components/LinkButtonProps';
 	export let limit: number = 10;
 	export let queryParam: string = 'search';
 	export let searchParam: string = '';
@@ -51,7 +51,7 @@
 		type: 'secondary',
 		disabled: pageNo == 1 || totalPages == 0,
 		href: `${$page.url.pathname}?search=${searchParam}&limit=${limit}`
-	} as ILinkButton;
+	} as LinkButtonProps;
 
 	$: prevPageLinkButtonProps = {
 		id: 'goto-prev-page-link-button',
@@ -59,7 +59,7 @@
 		type: 'primary',
 		disabled: pageNo == 1 || totalPages == 0,
 		href: `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}`
-	} as ILinkButton;
+	} as LinkButtonProps;
 
 	$: gotoLastPageLinkButtonProps = {
 		id: 'goto-prev-page-link-button',
@@ -67,7 +67,7 @@
 		type: 'secondary',
 		disabled: pageNo == totalPages || totalPages == 0,
 		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
-	} as ILinkButton;
+	} as LinkButtonProps;
 
 	$: nextPageLinkButtonProps = {
 		id: 'goto-prev-page-link-button',
@@ -75,7 +75,7 @@
 		type: 'primary',
 		disabled: pageNo == totalPages || totalPages == 0,
 		href: `${$page.url.pathname}?page=${pageNo + 1}&search=${searchParam}&limit=${limit}`
-	} as ILinkButton;
+	} as LinkButtonProps;
 </script>
 
 <div class="overflow-x-auto">

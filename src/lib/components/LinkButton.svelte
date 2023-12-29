@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ILinkButton } from '$lib/components/interfaces/components/ILinkButton';
+	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 
-	export let props: ILinkButton;
+	export let props: LinkButtonProps;
 	export let extraClasses: string = '';
 </script>
 

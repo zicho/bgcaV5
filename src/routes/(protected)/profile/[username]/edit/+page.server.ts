@@ -5,7 +5,7 @@ import { upsertProfileSchema } from '$lib/data/validation_schemas/upsertProfileS
 import { superValidate } from 'sveltekit-superforms/server';
 import type { Session } from 'lucia';
 import { upsertUserProfile } from '$lib/db/queries/profile/upsertUserProfile';
-import { getUserProfileWithIds, type UpdateProfileModel } from '$lib/db/queries/profile/getUserProfileWithIds';
+import type { UpdateProfileModel } from '$lib/db/queries/profile/getUserProfileWithIds';
 
 export const load = (async (event) => {
 	const { username } = (await event.parent()).user;
@@ -37,7 +37,7 @@ export const actions: Actions = {
 
 		const session: Session = (await locals.auth.validate()) as Session;
 
-		if(!session) {
+		if (!session) {
 			throw error(403);
 		}
 
@@ -48,7 +48,7 @@ export const actions: Actions = {
 
 		const result = await upsertUserProfile(model);
 
-		if(result.error) {
+		if (result.error) {
 			throw error(500, result.message);
 		}
 

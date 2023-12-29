@@ -1,6 +1,6 @@
-import type { IButton } from "../interfaces/components/IButton";
+import type ButtonProps from "../props/components/ButtonProps";
 
-export default function getButtonTypeClass(type: IButton['type']): string {
+export default function getButtonTypeClass(type: ButtonProps['type']): string {
     switch (type) {
         case 'neutral':
             return 'btn-neutral';

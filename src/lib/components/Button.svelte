@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { IButton } from '$lib/components/interfaces/components/IButton';
+	import type ButtonProps from '$lib/components/props/components/ButtonProps';
 	import getButtonTypeClass from './utils/getButtonTypeClass';
 
-	export let props: IButton;
+	export let props: ButtonProps;
 	export let extraClasses: string = '';
 </script>
 

@@ -1,4 +1,4 @@
-import type { INavbarLink } from "$lib/components/interfaces/components/INavbarLink";
+import type { INavbarLink } from "$lib/components/props/components/INavbarLink";
 import type { User } from "lucia";
 import { UserIcon, MailIcon, GameIcon, CalendarIcon, SignoutIcon, LoginIcon, RegisterIcon, DashboardIcon } from "$lib/data/icons";
 

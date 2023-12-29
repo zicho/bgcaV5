@@ -3,10 +3,10 @@
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import ErrorMessageBox from '$lib/components/layout/ErrorMessageBox.svelte';
-	import type { IButton } from '$lib/components/interfaces/components/IButton';
-	import type { ILinkButton } from '$lib/components/interfaces/components/ILinkButton';
-	import type { ITextInput } from '$lib/components/interfaces/components/ITextInput';
-	import type { IErrorMessageBox } from '$lib/components/interfaces/layout/IErrorMessageBox';
+	import type ButtonProps from '$lib/components/props/components/ButtonProps';
+	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
+	import type { ITextInput } from '$lib/components/props/components/ITextInput';
+	import type { IErrorMessageBox } from '$lib/components/props/layout/IErrorMessageBox';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
 	import FormCard from '$lib/components/layout/FormCard.svelte';
@@ -34,13 +34,13 @@
 		required: false
 	};
 
-	const loginButtonProps: IButton = {
+	const loginButtonProps: ButtonProps = {
 		id: 'login',
 		label: 'Sign in',
 		type: 'primary'
 	};
 
-	const registerLinkButtonProps: ILinkButton = {
+	const registerLinkButtonProps: LinkButtonProps = {
 		id: 'register-link-button',
 		label: 'Wanna join? Sign up here!',
 		href: '/register'

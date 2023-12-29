@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { INavbarLink } from '$lib/components/interfaces/components/INavbarLink';
+	import type { INavbarLink } from '$lib/components/props/components/INavbarLink';
 	export let props: INavbarLink;
 	export let extraClasses: string = '';
 </script>
