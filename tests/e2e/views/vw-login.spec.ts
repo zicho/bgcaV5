@@ -1,9 +1,9 @@
 // import { deleteAllUsers } from '$lib/db/queries/testing/deleteAllUsers';
 import { expect, test } from '@playwright/test';
 import generateTestUsername from '../../test_utils/generateTestUsername';
-import loginUserAndReturnSession from '$lib/db/queries/authentication/loginUserAndReturnSession';
-import { IncorrectUsernameOrPassword, UsernameAlreadyTaken } from '$lib/data/strings/ErrorMessages';
+import { IncorrectUsernameOrPassword } from '$lib/data/strings/ErrorMessages';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
+import { addGames } from '$lib/db/queries/testing/addGames';
 
 test('vw-login-form_visibility', async ({ page }) => {
 	await page.goto('/login');

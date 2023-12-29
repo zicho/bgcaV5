@@ -1,11 +1,19 @@
+import { DataRetrievalFail } from "$lib/data/strings/ErrorMessages";
+import { successfulResponse, type ApiResponse, failedResponse } from "$lib/data/types/ApiResponse";
 import { db } from "$lib/db/client";
 import { games } from "$lib/db/schema/games";
 import { eq } from "drizzle-orm";
 
-export async function getGame(id: number) {
-    const result = await db.select().from(games).where(
-        eq(games.id, id)
-    );
+type Game = typeof games.$inferSelect
 
-    return result[0];
+export async function getGame(id: number): Promise<ApiResponse<Game>> {
+    try {
+        const result = await db.select().from(games).where(
+            eq(games.id, id)
+        );
+
+        return successfulResponse(result[0]);
+    } catch {
+        return failedResponse(DataRetrievalFail);
+    }
 }
