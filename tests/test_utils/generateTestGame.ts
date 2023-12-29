@@ -1,23 +1,53 @@
-import type { InferInsertModel } from "drizzle-orm";
 import type { games } from "$lib/db/schema/games";
 
 type Game = typeof games.$inferInsert;
 
-function generateLoremIpsum(paragraphs = 3) {
-    const loremIpsumText = `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. 
-      Phasellus rhoncus, dolor et aliquam faucibus, est elit laoreet ipsum, vel tincidunt nunc tellus ut ligula. Proin at dui turpis, vel consectetur elit. Aenean mattis. 
-  
-      Morbi eget sapien sed risus suscipit cursus. Quisque iaculis facilisis lacinia. Mauris euismod pellentesque tellus sit amet mollis. Nulla a scelerisque turpis. 
-      In eget orci a felis faucibus ornare. Vivamus tincidunt, elit sit amet interdum feugiat, nibh orci aliquam dui, eu congue dolor odio vel enim. 
-  
-      Nunc a mauris vel metus condimentum tincidunt. Sed ornare congue ante, aliquam tempus sapien mollis a. Duis vitae justo a elit aliquam aliquam. 
-      Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-    `;
+function generateDesc(paragraphs = 3) {
+    const adjectives = [
+        "exciting", "epic", "thrilling", "mysterious", "challenging", "fantastic",
+        "enchanting", "magical", "adventurous", "intriguing", "daring", "spectacular"
+    ];
 
-    // Split the text into paragraphs and return the specified number of paragraphs
-    const paragraphsArray = loremIpsumText.trim().split('\n\n');
-    return paragraphsArray.slice(0, paragraphs).join('\n\n');
+    const themes = [
+        "medieval", "space", "fantasy", "mystery", "cyberpunk", "historic",
+        "adventure", "horror", "sci-fi", "detective", "wild west", "post-apocalyptic"
+    ];
+
+    const genres = [
+        "strategy", "role-playing", "adventure", "simulation", "puzzle", "action",
+        "card", "board", "party", "sports", "racing", "fighting"
+    ];
+
+    const intros = [
+        "Immerse yourself",
+        "Get lost",
+        "Hone your skills",
+        "Betray your friends",
+        "Conquer your enemies",
+    ];
+
+    const getRandomItem = (array: string | any[]) => array[Math.floor(Math.random() * array.length)];
+
+    const sentenceStructures = [
+        '{intro} in the {adjective} world of {theme} as you experience a {genre} game.',
+        'Embark on a {adjective} journey in a {theme} setting, playing a captivating {genre} game.',
+        'Explore the {adjective} landscapes of a {theme} world in this thrilling {genre} adventure.',
+        'Step into the {adjective} realm of {theme} and engage in an exciting {genre} experience.'
+    ];
+
+    const getRandomSentence = () => {
+        const sentenceTemplate = getRandomItem(sentenceStructures);
+        return sentenceTemplate
+            .replace('{intro}', getRandomItem(intros))
+            .replace('{adjective}', getRandomItem(adjectives))
+            .replace('{theme}', getRandomItem(themes))
+            .replace('{genre}', getRandomItem(genres));
+    };
+
+    const descriptionLength = Math.floor(Math.random() * 3) + 2; // Varying length (2 to 4 sentences)
+    const description = Array.from({ length: descriptionLength }, getRandomSentence).join(' ');
+
+    return description.trim();
 }
 
 function generateRandomPlayerCount() {
@@ -31,7 +61,7 @@ function generateRandomPlayerCount() {
     };
 }
 
-export default function generateTestGame(): Game {
+export default function generateTestGame(bggId: number | null = null): Game {
     const adjectives = [
         "Epic", "Mythic", "Legendary", "Valor", "Infinite", "Galactic", "Quantum",
         "Enchanted", "Cosmic", "Chaotic", "Majestic", "Supreme", "Turbo", "Rogue",
@@ -48,9 +78,7 @@ export default function generateTestGame(): Game {
     const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
     const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
 
-    // Generate a random number between 11 and 99
-    const randomNumber = Math.floor(Math.random() * 89) + 11;
-    const randomRating = Math.random() * 9 + 1;
+    const randomRating = (Math.random() * 9 + 1).toFixed(1);
 
     // Combine the adjective, noun, and random number in PascalCase
     const name = `${randomAdjective} ${randomNoun}`;
@@ -63,8 +91,9 @@ export default function generateTestGame(): Game {
 
     return {
         name,
+        bggId: bggId ? bggId : null,
         slug,
-        desc: generateLoremIpsum(),
+        desc: generateDesc(),
         averageRating: randomRating.toString(),
         minNumberOfPlayers: playerCount.minPlayers,
         maxNumberOfPlayers: playerCount.maxPlayers,

@@ -8,7 +8,7 @@ export async function addGames(noOfGames: number = 100): Promise<Game[]> {
     const generatedGames: Game[] = [];
 
     for (let i = 0; i < noOfGames; i++) {
-        generatedGames.push(generateTestGame())
+        generatedGames.push(generateTestGame(i))
     }
 
     await db.insert(games).values(generatedGames);

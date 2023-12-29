@@ -1,7 +1,7 @@
 import { getTableParams } from '$lib/components/utils/table/getTableParams';
 import { getGames } from '$lib/db/queries/games/getGames';
 import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ url }) => {
@@ -15,10 +15,14 @@ export const load = (async ({ url }) => {
 		throw redirect(302, `/games`);
 	}
 
-    const games = await getGames({ pageNo, limit, searchParam });
+    const response = await getGames({ pageNo, limit, searchParam });
+
+    if(response.error) {
+        throw error(520);
+    }
 
     return {
-        games,
+        games: response.result!,
         searchParam,
 		pageNo,
 		limit,

@@ -1,20 +1,22 @@
 <script lang="ts">
-	import { afterNavigate } from "$app/navigation";
-	import { page } from "$app/stores";
-	import { onMount } from "svelte";
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import type { ILinkButton } from './interfaces/components/ILinkButton';
+	import LinkButton from './LinkButton.svelte';
 	export let limit: number = 10;
-	export let queryParam: string = "search";
-	export let searchParam: string = "";
+	export let queryParam: string = 'search';
+	export let searchParam: string = '';
 	export let pageNo: number = 1;
 	export let totalPages: number;
 	export let totalHits: number;
 	export let resultsAreEmpty: boolean;
-	export let resultsAreEmptyMessage: string = "No results!";
+	export let resultsAreEmptyMessage: string = 'No results!';
 
 	$: pagesArray = Array.from({ length: totalPages }, (x, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
 	let timer: NodeJS.Timeout | null = null;
-	let searchQuery: string = "";
+	let searchQuery: string = '';
 	let searchForm: HTMLFormElement;
 	let inputField: HTMLInputElement;
 
@@ -40,6 +42,40 @@
 	afterNavigate(() => {
 		inputField.focus();
 	});
+
+	const url = `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}"`;
+
+	$: goToFirstPageLinkButtonProps = {
+		id: 'goto-first-page-link-button',
+		label: 'First',
+		type: 'secondary',
+		disabled: pageNo == 1 || totalPages == 0,
+		href: `${$page.url.pathname}?search=${searchParam}&limit=${limit}`
+	} as ILinkButton;
+
+	$: prevPageLinkButtonProps = {
+		id: 'goto-prev-page-link-button',
+		label: 'Previous',
+		type: 'primary',
+		disabled: pageNo == 1 || totalPages == 0,
+		href: `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}`
+	} as ILinkButton;
+
+	$: gotoLastPageLinkButtonProps = {
+		id: 'goto-prev-page-link-button',
+		label: 'Last',
+		type: 'secondary',
+		disabled: pageNo == totalPages || totalPages == 0,
+		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
+	} as ILinkButton;
+
+	$: nextPageLinkButtonProps = {
+		id: 'goto-prev-page-link-button',
+		label: 'Next',
+		type: 'primary',
+		disabled: pageNo == totalPages || totalPages == 0,
+		href: `${$page.url.pathname}?page=${pageNo + 1}&search=${searchParam}&limit=${limit}`
+	} as ILinkButton;
 </script>
 
 <div class="overflow-x-auto">
@@ -86,20 +122,8 @@
 
 	<div class="flex items-center justify-between mb-4 flex-col xl:space-x-2 xl:flex-row">
 		<div class="space-x-0 xl:space-x-4 space-y-2 xl:space-y-0 flex flex-col xl:flex-row w-full">
-			<a
-				class="btn btn-secondary flex-1"
-				href="{$page.url.pathname}?search={searchParam}&limit={limit}"
-				class:btn-disabled={pageNo == 1}
-			>
-				First
-			</a>
-			<a
-				class="btn btn-primary flex-1"
-				href="{$page.url.pathname}?page={pageNo - 1}&search={searchParam}&limit={limit}"
-				class:btn-disabled={pageNo == 1 || totalPages == 0}
-			>
-				Previous
-			</a>
+			<LinkButton props={goToFirstPageLinkButtonProps} extraClasses="flex-1" />
+			<LinkButton props={prevPageLinkButtonProps} extraClasses="flex-1" />
 		</div>
 
 		<div class="py-4 xl:py-0 flex items-center justify-center w-full">
@@ -138,20 +162,8 @@
 		<div
 			class="space-x-0 xl:space-x-4 space-y-2 xl:space-y-0 flex flex-col xl:flex-row w-full justify-end"
 		>
-			<a
-				class="btn btn-primary flex-1"
-				href="{$page.url.pathname}?page={pageNo + 1}&search={searchParam}&limit={limit}"
-				class:btn-disabled={pageNo == totalPages || totalPages == 0}
-			>
-				Next
-			</a>
-			<a
-				class="btn btn-secondary flex-1"
-				href="{$page.url.pathname}?page={totalPages}&search={searchParam}&limit={limit}"
-				class:btn-disabled={pageNo == totalPages || totalPages == 0}
-			>
-				Last
-			</a>
+			<LinkButton props={nextPageLinkButtonProps} extraClasses="flex-1" />
+			<LinkButton props={gotoLastPageLinkButtonProps} extraClasses="flex-1" />
 		</div>
 	</div>
 

@@ -3,10 +3,11 @@
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
+	import { CollectionIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	$: ({ pageNo, totalPages, totalHits, searchParam, limit } = data);
+	$: ({ pageNo, totalPages, totalHits, searchParam, limit, games } = data);
 </script>
 
 <BasePageLayout>
@@ -16,6 +17,12 @@
 		url="/games/collection"
 		icon="fa-list"
 	/> -->
+		<PageHeaderToolbarLinkButton
+			displayText="View your collection"
+			id="games-go-to-collection-btn"
+			url="/games/collection"
+			icon={CollectionIcon}
+		/>
 	</PageHeaderToolbar>
 	<Table
 		{pageNo}
@@ -23,7 +30,7 @@
 		{totalHits}
 		{searchParam}
 		{limit}
-		resultsAreEmpty={data.games.length == 0}
+		resultsAreEmpty={games?.length == 0}
 	>
 		<slot slot="headers">
 			<th class="w-auto px-0">Name</th>
@@ -32,14 +39,14 @@
 			<th class="w-auto hidden md:block" />
 		</slot>
 		<slot slot="body">
-			{#each data.games as game}
+			{#each games as game}
 				<tr>
 					<td class="px-0">
 						<div class="flex items-center space-x-3">
 							<div class="avatar">
 								<div class="w-32 h-32">
 									<a href="/games/{game.bggId}">
-										<img src={game.thumbnail} alt="{game.name} cover art" />
+										<img src={game.thumbnailUrl} alt="{game.name} cover art" />
 									</a>
 								</div>
 							</div>
@@ -62,7 +69,7 @@
 					</td>
 
 					<td>
-						<div class="badge-neutral text-xl p-4">{game.rating?.substring(0, 3)}</div>
+						<div class="badge-neutral text-xl p-4">{game.averageRating?.substring(0, 3)}</div>
 					</td>
 					<th class="hidden md:table-cell px-0">
 						<a href="/games/{game.bggId}" class="btn btn-secondary">details</a>

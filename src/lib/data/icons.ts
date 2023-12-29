@@ -8,3 +8,4 @@ export { default as RegisterIcon } from 'virtual:icons/lucide/user-plus';
 export { default as EditProfileIcon } from 'virtual:icons/lucide/edit-3';
 export { default as SendMessageIcon } from 'virtual:icons/lucide/send';
 export { default as DashboardIcon } from 'virtual:icons/lucide/layout-dashboard';
+export { default as CollectionIcon } from 'virtual:icons/lucide/library';

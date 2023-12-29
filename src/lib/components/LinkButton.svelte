@@ -5,6 +5,12 @@
 	export let extraClasses: string = '';
 </script>
 
-<a href={props.href} id={props.id} data-testid={props.id} class="btn btn-link {extraClasses}"
-	>{props.label}</a
+<a
+	href={props.href}
+	id={props.id}
+	data-testid={props.id}
+	class="btn {props.type ? `btn-${props.type}` : 'btn-link'} {extraClasses}"
+	class:btn-disabled={props.disabled}
 >
+	{props.label}
+</a>
