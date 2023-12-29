@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import LinkButton from './LinkButton.svelte';
 	import type LinkButtonProps from './props/components/LinkButtonProps';
-	import { CollectionIcon, FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
+	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
 	export let limit: number = 10;
 	export let queryParam: string = 'search';
 	export let searchParam: string = '';
@@ -13,7 +13,7 @@
 	export let resultsAreEmpty: boolean;
 	export let resultsAreEmptyMessage: string = 'No results!';
 
-	$: pagesArray = Array.from({ length: totalPages }, (x, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
+	$: pageArray = Array.from({ length: totalPages }, (_, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
 	let timer: NodeJS.Timeout | null = null;
 	let searchQuery: string = '';
@@ -113,7 +113,7 @@
 		<div class="mr-auto flex items-center w-full xl:w-auto">
 			<!-- If user does not have JS, enable this form by adding a button (not needed for JS users!) -->
 			<noscript>
-				<button type="submit" form="searchForm" class="w-full xl:w-auto btn btn-wide btn-primary"
+				<button type="submit" form="searchForm" class="hidden w-full xl:w-auto btn btn-wide btn-primary"
 					>search</button
 				>
 			</noscript>
@@ -148,7 +148,7 @@
 					form="searchForm"
 					on:change={() => searchForm.requestSubmit()}
 				>
-					{#each pagesArray as page}
+					{#each pageArray as page}
 						<option selected>{page}</option>
 					{/each}
 				</select>

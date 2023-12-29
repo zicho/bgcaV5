@@ -1,6 +1,6 @@
 import type { SvelteComponent } from "svelte";
 
-export interface INavbarLink {
+export type NavbarLinkProps = {
     url: string;
     displayText?: string;
     id: string;

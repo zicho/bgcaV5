@@ -1,8 +1,8 @@
-import type { INavbarLink } from "$lib/components/props/components/INavbarLink";
+import type { NavbarLinkProps } from "$lib/components/props/components/INavbarLink";
 import type { User } from "lucia";
 import { UserIcon, MailIcon, GameIcon, CalendarIcon, SignoutIcon, LoginIcon, RegisterIcon, DashboardIcon } from "$lib/data/icons";
 
-const generateNavbarLinks = (user: User): INavbarLink[] => {
+const generateNavbarLinks = (user: User): NavbarLinkProps[] => {
     return [
         {
             url: `/dashboard`,

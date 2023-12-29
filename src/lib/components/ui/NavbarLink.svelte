@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { INavbarLink } from '$lib/components/props/components/INavbarLink';
-	export let props: INavbarLink;
+	import type { NavbarLinkProps } from '$lib/components/props/components/NavbarLinkProps';
+	export let props: NavbarLinkProps;
 	export let extraClasses: string = '';
 </script>
 

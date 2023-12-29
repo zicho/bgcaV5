@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ITextInput } from '$lib/components/props/components/ITextInput';
+	import type { TextInputProps } from "$lib/components/props/components/TextInputProps";
 
-	export let props: ITextInput;
+	export let props: TextInputProps;
 	export let extraClasses: string = '';
 </script>
 

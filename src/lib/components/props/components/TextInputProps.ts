@@ -1,4 +1,4 @@
-export interface ITextInput {
+export type TextInputProps = {
     name: string;
     label: string;
     value?: string;

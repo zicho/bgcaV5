@@ -4,7 +4,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import type ButtonProps from '$lib/components/props/components/ButtonProps';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
-	import type { ITextInput } from '$lib/components/props/components/ITextInput';
+	import type { TextInputProps } from '$lib/components/props/components/TextInputProps';
 	import type { IErrorMessageBox } from '$lib/components/props/layout/IErrorMessageBox';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
@@ -18,14 +18,14 @@
 		resetForm: false
 	});
 
-	const usernameInputProps: ITextInput = {
+	const usernameInputProps: TextInputProps = {
 		name: 'username',
 		label: 'Username',
 		placeholder: 'Enter your username',
 		required: true
 	};
 
-	const passwordInputProps: ITextInput = {
+	const passwordInputProps: TextInputProps = {
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',

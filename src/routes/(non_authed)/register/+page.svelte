@@ -5,7 +5,7 @@
 	import ErrorMessageBox from '$lib/components/layout/ErrorMessageBox.svelte';
 	import type ButtonProps from '$lib/components/props/components/ButtonProps';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
-	import type { ITextInput } from '$lib/components/props/components/ITextInput';
+	import type TextInputPropsut } from '$lib/components/props/components/ITextInput';
 	import type { IErrorMessageBox } from '$lib/components/props/layout/IErrorMessageBox';
 	import { get } from 'svelte/store';
 	import type { PageData } from './$types';
@@ -20,14 +20,14 @@
 		resetForm: false
 	});
 
-	const usernameInputProps: ITextInput = {
+	const usernameTextInputProps: ITextInput = {
 		name: 'username',
 		label: 'Username',
 		placeholder: 'Enter your username',
 		required: true
 	};
 
-	const passwordInputProps: ITextInput = {
+	const passwordTextInputProps: ITextInput = {
 		name: 'password',
 		label: 'Password',
 		placeholder: 'Enter your password',
@@ -35,7 +35,7 @@
 		required: true
 	};
 
-	const confirmPasswordInputProps: ITextInput = {
+	const confirmPasswordTextInputProps: ITextInput = {
 		name: 'confirm_password',
 		label: 'Confirm password',
 		placeholder: 'Re-enter your password',
