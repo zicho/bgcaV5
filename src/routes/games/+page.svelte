@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Table from '$lib/components/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
+	import type TableProps from '$lib/components/props/components/TableProps';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
 	import { CollectionIcon } from '$lib/data/icons';
@@ -8,15 +9,19 @@
 
 	export let data: PageData;
 	$: ({ pageNo, totalPages, totalHits, searchParam, limit, games } = data);
+
+	$: props = {
+		limit,
+		searchParam,
+		pageNo,
+		totalPages,
+		totalHits,
+		resultsEmpty: games?.length == 0
+	} satisfies TableProps;
 </script>
 
 <BasePageLayout>
 	<PageHeaderToolbar title="Games" subheader="Find and view games">
-		<!-- <PageHeaderToolbarLinkButton
-		displayText="View your collection"
-		url="/games/collection"
-		icon="fa-list"
-	/> -->
 		<PageHeaderToolbarLinkButton
 			displayText="View your collection"
 			id="games-go-to-collection-btn"
@@ -24,14 +29,7 @@
 			icon={CollectionIcon}
 		/>
 	</PageHeaderToolbar>
-	<Table
-		{pageNo}
-		{totalPages}
-		{totalHits}
-		{searchParam}
-		{limit}
-		resultsAreEmpty={games?.length == 0}
-	>
+	<Table {props}>
 		<slot slot="headers">
 			<th />
 			<th class="w-auto px-0">Name</th>

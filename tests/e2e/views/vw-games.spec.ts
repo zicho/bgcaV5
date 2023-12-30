@@ -57,7 +57,7 @@ test('vw-games-search_filter_by_name', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const searchField = page.getByTestId("table-search-field");
+	const searchField = page.getByTestId("search-query-input-field");
 	
 	await searchField.fill(gameName);
 	await page.waitForEvent('framenavigated');
@@ -81,7 +81,7 @@ test('vw-games-search_filter_by_partial_name', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const searchField = page.getByTestId("table-search-field");
+	const searchField = page.getByTestId("search-query-input-field");
 	await searchField.fill(gameNameSliced);
 	await page.waitForEvent('framenavigated');
 

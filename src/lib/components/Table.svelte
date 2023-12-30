@@ -5,14 +5,13 @@
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
 	import { afterNavigate } from '$app/navigation';
-	export let limit: number = 10;
-	export let queryParam: string = 'search';
-	export let searchParam: string = '';
-	export let pageNo: number = 1;
-	export let totalPages: number;
-	export let totalHits: number;
-	export let resultsAreEmpty: boolean;
-	export let resultsAreEmptyMessage: string = 'No results!';
+	import type TableProps from './props/components/TableProps';
+
+	export let props: TableProps;
+
+	$: ({ limit, searchParam, pageNo, totalPages, totalHits, resultsEmpty } = props);
+
+	const resultsEmptyMessageFallback = "No results!";
 
 	$: pageArray = Array.from({ length: totalPages }, (_, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
@@ -93,12 +92,12 @@
 			on:change={() => searchForm.requestSubmit()}
 			class="space-x-0 space-y-2 flex-col xl:space-y-0 xl:space-x-2 xl:flex-row w-full"
 		>
-			<label for={queryParam} class="label-text">Search title</label>
+			<label for="search-query-input-field" class="label-text">Search title</label>
 			<input
 				bind:this={inputField}
-				name={queryParam}
-				id={queryParam}
-				data-testid="table-search-field"
+				name="search-query-input-field"
+				id="search-query-input-field"
+				data-testid="search-query-input-field"
 				bind:value={searchQuery}
 				on:input={resetTimer}
 				placeholder="Search by title"
@@ -177,9 +176,9 @@
 		</div>
 	</div>
 
-	{#if resultsAreEmpty}
+	{#if resultsEmpty}
 		<div class="prose-xl text-center mt-16">
-			<span>{resultsAreEmptyMessage}</span>
+			<span>{props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
 		</div>
 	{:else}
 		<table class="table w-full table-auto">
