@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import LinkButton from './LinkButton.svelte';
-	import type LinkButtonProps from './props/components/LinkButtonProps';
+	import LinkButton from '$lib/components/LinkButton.svelte';
+	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
+	import { afterNavigate } from '$app/navigation';
 	export let limit: number = 10;
 	export let queryParam: string = 'search';
 	export let searchParam: string = '';
@@ -24,6 +25,12 @@
 
 	onMount(() => (scriptUser = true));
 
+	afterNavigate(() => {
+		if ($page.url.searchParams.get('search') !== null) {
+			inputField.focus();
+		}
+	});
+
 	function startTimer() {
 		if (timer) {
 			clearTimeout(timer);
@@ -40,16 +47,16 @@
 	}
 
 	$: goToFirstPageLinkButtonProps = {
-		id: 'goto-first-page-link-button',
+		id: 'first-page-link-button',
 		label: 'First',
 		type: 'secondary',
 		disabled: pageNo == 1 || totalPages == 0,
 		icon: FirstPageIcon,
-		href: `${$page.url.pathname}?search=${searchParam}&limit=${limit}`
+		href: `${$page.url.pathname}?page=1&search=${searchParam}&limit=${limit}`
 	} as LinkButtonProps;
 
 	$: prevPageLinkButtonProps = {
-		id: 'goto-prev-page-link-button',
+		id: 'prev-page-link-button',
 		label: 'Previous',
 		type: 'primary',
 		disabled: pageNo == 1 || totalPages == 0,
@@ -58,7 +65,7 @@
 	} as LinkButtonProps;
 
 	$: nextPageLinkButtonProps = {
-		id: 'goto-prev-page-link-button',
+		id: 'next-page-link-button',
 		label: 'Next',
 		type: 'primary',
 		disabled: pageNo == totalPages || totalPages == 0,
@@ -68,7 +75,7 @@
 	} as LinkButtonProps;
 
 	$: gotoLastPageLinkButtonProps = {
-		id: 'goto-prev-page-link-button',
+		id: 'last-page-link-button',
 		label: 'Last',
 		type: 'secondary',
 		disabled: pageNo == totalPages || totalPages == 0,
@@ -91,6 +98,7 @@
 				bind:this={inputField}
 				name={queryParam}
 				id={queryParam}
+				data-testid="table-search-field"
 				bind:value={searchQuery}
 				on:input={resetTimer}
 				placeholder="Search by title"
@@ -113,8 +121,10 @@
 		<div class="mr-auto flex items-center w-full xl:w-auto">
 			<!-- If user does not have JS, enable this form by adding a button (not needed for JS users!) -->
 			<noscript>
-				<button type="submit" form="searchForm" class="hidden w-full xl:w-auto btn btn-wide btn-primary"
-					>search</button
+				<button
+					type="submit"
+					form="searchForm"
+					class="hidden w-full xl:w-auto btn btn-wide btn-primary">search</button
 				>
 			</noscript>
 		</div>

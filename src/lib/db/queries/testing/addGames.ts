@@ -4,11 +4,11 @@ import { db } from '../../client';
 
 type Game = typeof games.$inferInsert;
 
-export async function addGames(noOfGames: number = 100): Promise<Game[]> {
+export async function addGames({ noOfGames = 100 }: { noOfGames?: number } = {}): Promise<Game[]> {
     const generatedGames: Game[] = [];
 
     for (let i = 0; i < noOfGames; i++) {
-        generatedGames.push(generateTestGame(i))
+        generatedGames.push(generateTestGame({ bggId: i }))
     }
 
     await db.insert(games).values(generatedGames);

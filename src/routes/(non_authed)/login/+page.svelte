@@ -4,7 +4,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import type ButtonProps from '$lib/components/props/components/ButtonProps';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
-	import type { TextInputProps } from '$lib/components/props/components/TextInputProps';
+	import type TextInputProps from '$lib/components/props/components/TextInputProps';
 	import type { IErrorMessageBox } from '$lib/components/props/layout/IErrorMessageBox';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';

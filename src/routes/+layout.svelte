@@ -20,6 +20,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>BGCA</title>
+</svelte:head>
+
 <Navbar {user} />
 
 <div class="flex flex-col min-h-[calc(100vh-var(--navbar-height)-var(--footer-height))]">

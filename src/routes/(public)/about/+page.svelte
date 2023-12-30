@@ -1,10 +1,6 @@
 <script lang="ts">
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import LinkCard from '$lib/components/layout/LinkCard.svelte';
-	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
 </script>
 
 <svelte:head>
@@ -12,46 +8,56 @@
 </svelte:head>
 
 <BasePageLayout>
-	<PageHeaderToolbar title="About" />
-	<section class="prose">
-		<p>
-			This web page/application is a non-profit and non-commercial project built and maintained by <a
-				href="https://github.com/zicho">zicho (Github)</a
-			>.
-		</p>
+	<section class="prose max-w-none">
+		<section
+			class="mb-16 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8"
+		>
+			<article>
+				<h2 class="mt-0">About</h2>
+				<p class="m-0">
+					This web page/application is a non-profit and non-commercial project built and maintained
+					by <a href="https://github.com/zicho">zicho (Github)</a>.
+				</p>
 
-		<p>
-			<strong>It has been designed with noscript users in mind</strong>. There are some features
-			(like realtime updates and client side navigation) which are only available to JavaScript users. However, all core
-			features should work regardless of if you are a script user or not.
-		</p>
-		<p>
-			<i>This is not only for performance and/or server side fallbacks</i>, it also to not exclude those who
-			(for any reason) choose to browse scriptfree. Also it shows what a modern web app can
-			accomplish without necessarily resorting to using JS for core features when it might not be
-			necessary.
-		</p>
-		<p>
-			If you have any issues with the functionality please see
-			<a href="/contact">contact info page</a> for information on how to report it.
-		</p>
+				<p>
+					<strong>It has been designed with noscript users in mind</strong>. There are some features
+					(like realtime updates and client side navigation) which are only available to JavaScript
+					users. However, all core features should work regardless of if you are a script user or
+					not.
+				</p>
+				<p>
+					<i>This is not only for performance and/or server side fallbacks</i>, it also to not
+					exclude those who (for any reason) choose to browse scriptfree. Also it shows what a
+					modern web app can accomplish without necessarily resorting to using JS for core features
+					when it might not be necessary.
+				</p>
+				<p>
+					If you have any issues with the site please see
+					<a href="/contact">contact info page</a> for information on how to report it.
+				</p>
+			</article>
+			<article>
+				<h2 class="mt-0">Thanks to</h2>
 
-		<h2>Thanks to</h2>
-
-		<a class="font-semibold" href="https://boardgamegeek.com/" target="_blank">BoardGameGeek</a>,
-		for maintaining an excellent website which hosts most of the data used here.<br />
-		<a class="font-semibold" href="https://github.com/ervwalter" target="_blank">ervwalter</a>,
-		creator of the
-		<a href="https://github.com/ervwalter/bgg-json" target="_blank">BGG JSON API</a><br />
-		<a class="font-semibold" href="https://www.youtube.com/@huntabyte" target="_blank">Huntabyte</a
-		>, for making excellent SvelteKit content, without which this website would probably not have
-		existed at all.<br />
-		<a class="font-semibold" href="https://github.com/ciscoheat/" target="_blank">Ciscoheat</a>, for
-		the awesome
-		<a href="https://github.com/ciscoheat/sveltekit-superforms" target="_blank">Superforms</a>
-		and
-		<a href="https://github.com/ciscoheat/sveltekit-flash-message" target="_blank">Flash Message</a>
-		libraries.<br />
+				<a class="font-semibold" href="https://boardgamegeek.com/" target="_blank">BoardGameGeek</a
+				>, for maintaining an excellent website which hosts most of the data used here.<br />
+				<a class="font-semibold" href="https://github.com/ervwalter" target="_blank">ervwalter</a>,
+				creator of the
+				<a href="https://github.com/ervwalter/bgg-json" target="_blank">BGG JSON API</a><br />
+				<a class="font-semibold" href="https://www.youtube.com/@huntabyte" target="_blank"
+					>Huntabyte</a
+				>, for making excellent SvelteKit content, without which this website would probably not
+				have existed at all.<br />
+				<a class="font-semibold" href="https://github.com/ciscoheat/" target="_blank">Ciscoheat</a>,
+				for the awesome
+				<a href="https://github.com/ciscoheat/sveltekit-superforms" target="_blank">Superforms</a>
+				and
+				<a href="https://github.com/ciscoheat/sveltekit-flash-message" target="_blank"
+					>Flash Message</a
+				>
+				libraries.<br />
+			</article>
+		</section>
 
 		<hr class="my-8" />
 

@@ -1,4 +1,4 @@
-export type TextInputProps = {
+type TextInputProps = {
     name: string;
     label: string;
     value?: string;
@@ -8,3 +8,5 @@ export type TextInputProps = {
     errorMessage?: string | string[] | undefined | null;
     type?: 'text' | 'password'
 }
+
+export default TextInputProps;

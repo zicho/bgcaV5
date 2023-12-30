@@ -61,7 +61,7 @@ function generateRandomPlayerCount() {
     };
 }
 
-export default function generateTestGame(bggId: number | null = null): Game {
+export default function generateTestGame({ bggId, providedTitle }: { bggId?: number | null, providedTitle?: string | null }): Game {
     const adjectives = [
         "Epic", "Mythic", "Legendary", "Valor", "Infinite", "Galactic", "Quantum",
         "Enchanted", "Cosmic", "Chaotic", "Majestic", "Supreme", "Turbo", "Rogue",
@@ -81,8 +81,8 @@ export default function generateTestGame(bggId: number | null = null): Game {
     const randomRating = (Math.random() * 9 + 1).toFixed(1);
 
     // Combine the adjective, noun, and random number in PascalCase
-    const name = `${randomAdjective} ${randomNoun}`;
-    const slug = name.replace(/ /g, '-').toLowerCase();
+    const generatedTitle = `${randomAdjective} ${randomNoun}`;
+    const slug = generatedTitle.replace(/ /g, '-').toLowerCase();
 
     const playerCount = generateRandomPlayerCount();
     const minYear = 1985;
@@ -90,8 +90,8 @@ export default function generateTestGame(bggId: number | null = null): Game {
     const releaseYear = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
 
     return {
-        name,
-        bggId: bggId ? bggId : null,
+        name: providedTitle || generatedTitle,
+        bggId: bggId || null,
         slug,
         desc: generateDesc(),
         averageRating: randomRating.toString(),

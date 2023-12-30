@@ -2,24 +2,11 @@
 import { expect, test } from '@playwright/test';
 import generateTestUsername from '../../test_utils/generateTestUsername';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
+import { registerUserAndLogin } from '../shared/registerUserAndLogin.test';
 
 test('vw-profile-signed_in_user_should_be_able_to_add_profile_data', async ({ page }) => {
-	const username = generateTestUsername();
+	const username = await registerUserAndLogin(page);
 
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	await page.goto('/login');
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-
-	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
 	await page.goto("/profile");
 
 	await page.waitForURL(`**/profile/${username}`);
@@ -45,22 +32,7 @@ test('vw-profile-signed_in_user_should_be_able_to_add_profile_data', async ({ pa
 });
 
 test('vw-profile-signed_in_user_should_be_able_to_update_profile_data', async ({ page }) => {
-	const username = generateTestUsername();
-
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	await page.goto('/login');
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-
-	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+	const username = await registerUserAndLogin(page);
 	await page.goto("/profile");
 
 	await page.waitForURL(`**/profile/${username}`);
@@ -99,21 +71,7 @@ test('vw-profile-signed_in_user_should_be_able_to_update_profile_data', async ({
 });
 
 test('vw-profile-user_owned_profile_layout', async ({ page }) => {
-	const username = generateTestUsername();
-
-	await registerUserAndReturnSession({ username, password: "password" });
-
-	await page.goto('/login');
-
-	// all fields need to be filled to pass browser form validation
-	const usernameInput = page.getByTestId("username");
-	await usernameInput.fill(username);
-	const passwordInput = page.getByTestId("password");
-	await passwordInput.fill("password");
-
-	const loginButton = page.getByTestId('login');
-	await loginButton.click();
-	await (expect(page.getByTestId("frontpage-header")).toBeVisible());
+	const username = await registerUserAndLogin(page);
 
 	const profileLink = page.getByTestId('navbar-link-profile');
 	await profileLink.click();
