@@ -32,6 +32,7 @@ export const load = (async ({ url }) => {
         pageNo,
         limit,
         totalHits,
-        totalPages
+        totalPages,
+        resultsEmpty: totalHits == 0
     };
 }) satisfies PageServerLoad;

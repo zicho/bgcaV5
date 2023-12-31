@@ -8,15 +8,11 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	$: ({ pageNo, totalPages, totalHits, searchParam, limit, games } = data);
 
+	$: ({ games } = data);
+	
 	$: props = {
-		limit,
-		searchParam,
-		pageNo,
-		totalPages,
-		totalHits,
-		resultsEmpty: games?.length == 0
+		...data,
 	} satisfies TableProps;
 </script>
 

@@ -109,6 +109,7 @@
 				on:change={() => searchForm.requestSubmit()}
 				name="limit"
 				id="limit"
+				data-testid="limit-results-select-dropdown"
 				class="select select-bordered xl:mt-0 w-full xl:w-auto"
 			>
 				<option selected={limit == 10}>10</option>
@@ -143,6 +144,7 @@
 				<input
 					class="w-16 p-2 border border-gray-300 rounded-md h-full"
 					form="searchForm"
+					data-testid="page-number-text-input"
 					type="text"
 					name="page"
 					disabled={totalPages == 0}
@@ -152,6 +154,7 @@
 				<select
 					name="page"
 					id="page"
+					data-testid="page-number-select-dropdown"
 					class="select select-bordered xl:mt-0 w-full xl:w-auto"
 					value={pageNo}
 					form="searchForm"
