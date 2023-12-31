@@ -6,27 +6,32 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ url }) => {
     const { pageNo, limit, searchParam } = getTableParams(url);
-	const totalHits = (await getTotalGameCount({ searchParam })).result as number;
+    const totalHits = (await getTotalGameCount({ searchParam })).result as number;
 
     const totalPages = Math.ceil(totalHits / limit);
 
-    if ((pageNo > totalPages || pageNo < 1) && !searchParam && totalPages != 0) {
-		// totalpages != 0 is needed to not crash when getting empty results, should get a nicer fix
-		throw redirect(302, `/games`);
-	}
+    if ((pageNo > totalPages || pageNo < 1) && totalPages != 0) {
+        // totalpages != 0 is needed to not crash when getting empty results, should get a nicer fix
+
+        if (searchParam) {
+            throw redirect(302, `/games?limit=${limit}&search=${searchParam}`);
+        }
+
+        throw redirect(302, `/games?limit=${limit}`);
+    }
 
     const response = await getGames({ pageNo, limit, searchParam });
 
-    if(response.error) {
+    if (response.error) {
         throw error(520);
     }
 
     return {
         games: response.result!,
         searchParam,
-		pageNo,
-		limit,
-		totalHits,
-		totalPages
+        pageNo,
+        limit,
+        totalHits,
+        totalPages
     };
 }) satisfies PageServerLoad;

@@ -52,7 +52,7 @@
 		disabled: pageNo == 1 || totalPages == 0,
 		icon: FirstPageIcon,
 		href: `${$page.url.pathname}?page=1&search=${searchParam}&limit=${limit}`
-	} as LinkButtonProps;
+	} satisfies LinkButtonProps;
 
 	$: prevPageLinkButtonProps = {
 		id: 'prev-page-link-button',
@@ -61,7 +61,7 @@
 		disabled: pageNo == 1 || totalPages == 0,
 		icon: PrevPageIcon,
 		href: `${$page.url.pathname}?page=${pageNo - 1}&search=${searchParam}&limit=${limit}`
-	} as LinkButtonProps;
+	} satisfies LinkButtonProps;
 
 	$: nextPageLinkButtonProps = {
 		id: 'next-page-link-button',
@@ -71,7 +71,7 @@
 		icon: NextPageIcon,
 		alignIconRight: true,
 		href: `${$page.url.pathname}?page=${pageNo + 1}&search=${searchParam}&limit=${limit}`
-	} as LinkButtonProps;
+	} satisfies LinkButtonProps;
 
 	$: gotoLastPageLinkButtonProps = {
 		id: 'last-page-link-button',
@@ -81,7 +81,7 @@
 		icon: LastPageIcon,
 		alignIconRight: true,
 		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
-	} as LinkButtonProps;
+	} satisfies LinkButtonProps;
 </script>
 
 <div class="overflow-x-auto">
@@ -95,7 +95,7 @@
 			<label for="search-query-input-field" class="label-text">Search title</label>
 			<input
 				bind:this={inputField}
-				name="search-query-input-field"
+				name="search"
 				id="search-query-input-field"
 				data-testid="search-query-input-field"
 				bind:value={searchQuery}
