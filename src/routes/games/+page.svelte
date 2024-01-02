@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Table from '$lib/components/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import type TableProps from '$lib/components/props/components/TableProps';
@@ -10,7 +11,6 @@
 	export let data: PageData;
 
 	$: ({ games } = data);
-
 	$: props = {
 		...data,
 	} satisfies TableProps;
@@ -29,7 +29,7 @@
 			icon={CollectionIcon}
 		/>
 	</PageHeaderToolbar>
-	<Table {props} searchParam={data.searchParam}>
+	<Table {props}>
 		<slot slot="headers">
 			<th />
 			<th class="w-auto px-0">Name</th>

@@ -8,7 +8,6 @@
 		LastPageIcon,
 		NextPageIcon,
 		PrevPageIcon,
-		SearchIcon
 	} from '$lib/data/icons';
 	import { afterNavigate } from '$app/navigation';
 	import type TableProps from './props/components/TableProps';
@@ -16,11 +15,9 @@
 
 	export let props: TableProps;
 
-	$: ({ limit, pageNo, totalPages, totalHits, resultsEmpty } = props);
+	$: ({ limit, pageNo, searchParam, totalPages, totalHits, resultsEmpty } = props);
 
-	export let searchParam = "";
-
-	const resultsEmptyMessageFallback = `No results for search phrase:<details class="collapse bg-base-200"> "${searchParam}"`;
+	const resultsEmptyMessageFallback = "No results for search";
 
 	$: pageArray = Array.from({ length: totalPages }, (_, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
@@ -90,22 +87,15 @@
 		alignIconRight: true,
 		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
 	} satisfies LinkButtonProps;
-
-	const searchButtonProps: ButtonProps = {
-		id: 'search-button',
-		label: 'Search',
-		type: 'primary',
-		icon: SearchIcon
-	};
 </script>
 
-<div class="overflow-x-auto">
+<div>
 	<div>
 		<form
 			id="searchForm"
 			bind:this={searchForm}
 			on:change={() => searchForm.requestSubmit()}
-			class="overflow-visible  flex flex-col lg:flex-row lg:space-x-2 mb-4 w-full"
+			class="flex flex-col lg:flex-row lg:space-x-2 mb-4 w-full"
 		>
 			<div class=" w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
 				<label for="search-query-input-field" class="label-text">Search title</label>
@@ -114,10 +104,10 @@
 					name="search"
 					id="search-query-input-field"
 					data-testid="search-query-input-field"
-					bind:value="{searchParam}"
+					on:input={resetTimer}
 					placeholder="Search by title"
 					aria-label="Search by title"
-					class="overflow-visible input input-bordered w-full"
+					class="input input-bordered w-full"
 				/>
 			</div>
 			<div class="w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
@@ -192,7 +182,7 @@
 
 	{#if resultsEmpty}
 		<div class="prose-xl text-center mt-16">
-			<span>{props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
+			<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
 		</div>
 	{:else}
 		<table class="table w-full table-auto">
