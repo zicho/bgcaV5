@@ -3,20 +3,28 @@
 	import { onMount } from 'svelte';
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
-	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
+	import {
+		FirstPageIcon,
+		LastPageIcon,
+		NextPageIcon,
+		PrevPageIcon,
+		SearchIcon
+	} from '$lib/data/icons';
 	import { afterNavigate } from '$app/navigation';
 	import type TableProps from './props/components/TableProps';
+	import type ButtonProps from './props/components/ButtonProps';
 
 	export let props: TableProps;
 
-	$: ({ limit, searchParam, pageNo, totalPages, totalHits, resultsEmpty } = props);
+	$: ({ limit, pageNo, totalPages, totalHits, resultsEmpty } = props);
 
-	const resultsEmptyMessageFallback = "No results!";
+	export let searchParam = "";
+
+	const resultsEmptyMessageFallback = `No results for search phrase:<details class="collapse bg-base-200"> "${searchParam}"`;
 
 	$: pageArray = Array.from({ length: totalPages }, (_, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
 	let timer: NodeJS.Timeout | null = null;
-	let searchQuery: string = '';
 	let searchForm: HTMLFormElement;
 	let inputField: HTMLInputElement;
 
@@ -82,52 +90,55 @@
 		alignIconRight: true,
 		href: `${$page.url.pathname}?page=${totalPages}&search=${searchParam}&limit=${limit}`
 	} satisfies LinkButtonProps;
+
+	const searchButtonProps: ButtonProps = {
+		id: 'search-button',
+		label: 'Search',
+		type: 'primary',
+		icon: SearchIcon
+	};
 </script>
 
 <div class="overflow-x-auto">
-	<div class="flex flex-col xl:flex-row xl:space-y-0 space-y-4 py-4 items-center justify-between">
+	<div>
 		<form
 			id="searchForm"
 			bind:this={searchForm}
 			on:change={() => searchForm.requestSubmit()}
-			class="space-x-0 space-y-2 flex-col xl:space-y-0 xl:space-x-2 xl:flex-row w-full"
+			class="overflow-visible  flex flex-col lg:flex-row lg:space-x-2 mb-4 w-full"
 		>
-			<label for="search-query-input-field" class="label-text">Search title</label>
-			<input
-				bind:this={inputField}
-				name="search"
-				id="search-query-input-field"
-				data-testid="search-query-input-field"
-				bind:value={searchQuery}
-				on:input={resetTimer}
-				placeholder="Search by title"
-				aria-label="Search by title"
-				class="input input-bordered w-full md:w-auto"
-			/>
-			<label for="limit" class="label-text">Results per page</label>
-			<select
-				on:change={() => searchForm.requestSubmit()}
-				name="limit"
-				id="limit"
-				data-testid="limit-results-select-dropdown"
-				class="select select-bordered xl:mt-0 w-full xl:w-auto"
-			>
-				<option selected={limit == 10}>10</option>
-				<option selected={limit == 25}>25</option>
-				<option selected={limit == 50}>50</option>
-				<option selected={limit == 100}>100</option>
-			</select>
-		</form>
-		<div class="mr-auto flex items-center w-full xl:w-auto">
-			<!-- If user does not have JS, enable this form by adding a button (not needed for JS users!) -->
-			<noscript>
-				<button
-					type="submit"
-					form="searchForm"
-					class="hidden w-full xl:w-auto btn btn-wide btn-primary">search</button
+			<div class=" w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
+				<label for="search-query-input-field" class="label-text">Search title</label>
+				<input
+					bind:this={inputField}
+					name="search"
+					id="search-query-input-field"
+					data-testid="search-query-input-field"
+					bind:value="{searchParam}"
+					placeholder="Search by title"
+					aria-label="Search by title"
+					class="overflow-visible input input-bordered w-full"
+				/>
+			</div>
+			<div class="w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
+				<label for="limit" class="label-text">Results per page</label>
+				<select
+					on:change={() => searchForm.requestSubmit()}
+					name="limit"
+					id="limit"
+					data-testid="limit-results-select-dropdown"
+					class="select select-bordered w-full"
 				>
+					<option selected={limit == 10}>10</option>
+					<option selected={limit == 25}>25</option>
+					<option selected={limit == 50}>50</option>
+					<option selected={limit == 100}>100</option>
+				</select>
+			</div>
+			<noscript>
+				<button type="submit" class="hidden" aria-hidden="true">Submit</button>
 			</noscript>
-		</div>
+		</form>
 	</div>
 
 	<div class="flex items-center justify-between mb-4 flex-col xl:space-x-2 xl:flex-row">

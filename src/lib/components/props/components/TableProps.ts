@@ -1,6 +1,5 @@
 type TableProps = {
     limit: number;
-    searchParam: string;
     pageNo: number;
     totalPages: number;
     totalHits: number;

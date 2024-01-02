@@ -9,6 +9,7 @@ export { default as EditProfileIcon } from 'virtual:icons/lucide/edit-3';
 export { default as SendMessageIcon } from 'virtual:icons/lucide/send';
 export { default as DashboardIcon } from 'virtual:icons/lucide/layout-dashboard';
 export { default as CollectionIcon } from 'virtual:icons/lucide/library';
+export { default as SearchIcon } from 'virtual:icons/lucide/search';
 
 // table icons
 export { default as FirstPageIcon } from 'virtual:icons/lucide/chevrons-left';

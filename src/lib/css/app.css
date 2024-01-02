@@ -28,3 +28,8 @@
 .btn {
     @apply no-animation;
 }
+
+.input,
+.select {
+    @apply focus:outline-none focus:border-primary;
+}

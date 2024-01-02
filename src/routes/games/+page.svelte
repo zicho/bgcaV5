@@ -10,11 +10,15 @@
 	export let data: PageData;
 
 	$: ({ games } = data);
-	
+
 	$: props = {
 		...data,
 	} satisfies TableProps;
 </script>
+
+<svelte:head>
+	<title>Games</title>
+</svelte:head>
 
 <BasePageLayout>
 	<PageHeaderToolbar title="Games" subheader="Find and view games">
@@ -25,7 +29,7 @@
 			icon={CollectionIcon}
 		/>
 	</PageHeaderToolbar>
-	<Table {props}>
+	<Table {props} searchParam={data.searchParam}>
 		<slot slot="headers">
 			<th />
 			<th class="w-auto px-0">Name</th>
@@ -42,7 +46,7 @@
 								<div class="w-32 h-32">
 									<a href="/games/{game.bggId}">
 										<img
-											src={game.thumbnailUrl || "cover_art_missing.png"}
+											src={game.thumbnailUrl || 'cover_art_missing.png'}
 											alt={!game.thumbnailUrl
 												? `${game.name} placeholder cover art`
 												: `${game.name} cover art`}
