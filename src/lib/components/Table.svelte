@@ -3,12 +3,7 @@
 	import { onMount } from 'svelte';
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
-	import {
-		FirstPageIcon,
-		LastPageIcon,
-		NextPageIcon,
-		PrevPageIcon,
-	} from '$lib/data/icons';
+	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
 	import { afterNavigate } from '$app/navigation';
 	import type TableProps from './props/components/TableProps';
 	import type ButtonProps from './props/components/ButtonProps';
@@ -17,7 +12,7 @@
 
 	$: ({ limit, pageNo, searchParam, totalPages, totalHits, resultsEmpty } = props);
 
-	const resultsEmptyMessageFallback = "No results for search";
+	const resultsEmptyMessageFallback = 'No results for search';
 
 	$: pageArray = Array.from({ length: totalPages }, (_, i) => i + 1); // [1,2,3,4,5,6,7,8,9,10]
 
@@ -95,7 +90,7 @@
 			id="searchForm"
 			bind:this={searchForm}
 			on:change={() => searchForm.requestSubmit()}
-			class="flex flex-col lg:flex-row lg:space-x-2 mb-4 w-full"
+			class="flex flex-col md:flex-row md:space-x-2 mb-4 w-full"
 		>
 			<div class=" w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
 				<label for="search-query-input-field" class="label-text">Search title</label>
@@ -132,7 +127,7 @@
 	</div>
 
 	<div class="flex items-center justify-between mb-4 flex-col xl:space-x-2 xl:flex-row">
-		<div class="space-x-0 xl:space-x-4 space-y-2 xl:space-y-0 flex flex-col xl:flex-row w-full">
+		<div class="space-x-0 space-y-2 flex w-full flex-col md:space-x-4 md:space-y-0 md:flex-row">
 			<LinkButton props={goToFirstPageLinkButtonProps} extraClasses="flex-1" />
 			<LinkButton props={prevPageLinkButtonProps} extraClasses="flex-1" />
 		</div>
@@ -172,9 +167,7 @@
 			</span>
 		</div>
 
-		<div
-			class="space-x-0 xl:space-x-4 space-y-2 xl:space-y-0 flex flex-col xl:flex-row w-full justify-end"
-		>
+		<div class="space-x-0 space-y-2 flex w-full flex-col md:space-x-4 md:space-y-0 md:flex-row">
 			<LinkButton props={nextPageLinkButtonProps} extraClasses="flex-1" />
 			<LinkButton props={gotoLastPageLinkButtonProps} extraClasses="flex-1" />
 		</div>
