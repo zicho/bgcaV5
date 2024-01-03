@@ -5,8 +5,8 @@
 	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 	import { FirstPageIcon, LastPageIcon, NextPageIcon, PrevPageIcon } from '$lib/data/icons';
 	import { afterNavigate } from '$app/navigation';
-	import type TableProps from './props/components/TableProps';
-	import type ButtonProps from './props/components/ButtonProps';
+	import type TableProps from '../props/components/TableProps';
+	import type ButtonProps from '../props/components/ButtonProps';
 
 	export let props: TableProps;
 
@@ -178,15 +178,22 @@
 			<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
 		</div>
 	{:else}
-		<table class="table w-full table-auto">
-			<thead>
+
+		<div class="flex flex-row space-x-4 invisible lg:visible">
+			<slot name="headers" />
+		</div>
+
+		<slot name="body" />
+
+		<!-- <table class="table w-full table-auto">
+			<thead class="invisible md:visible">
 				<tr>
 					<slot name="headers" />
 				</tr>
 			</thead>
 			<tbody>
-				<slot name="body" />
+				
 			</tbody>
-		</table>
+		</table> -->
 	{/if}
 </div>

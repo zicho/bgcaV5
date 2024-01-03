@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Table from '$lib/components/Table.svelte';
+	import Table from '$lib/components/table/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import type TableProps from '$lib/components/props/components/TableProps';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
@@ -8,12 +8,14 @@
 	import { CollectionIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
 	import placeholderImg from '$lib/assets/cover_art_missing.png';
+	import TableHeader from '$lib/components/table/TableHeader.svelte';
+	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
 
 	export let data: PageData;
 
 	$: ({ games } = data);
 	$: props = {
-		...data,
+		...data
 	} satisfies TableProps;
 </script>
 
@@ -32,15 +34,18 @@
 	</PageHeaderToolbar>
 	<Table {props}>
 		<slot slot="headers">
-			<th />
-			<th class="w-auto px-0">Name</th>
-			<th class="w-full hidden sm:hidden md:table-cell">About</th>
-			<th class="w-auto">Rating</th>
-			<th class="w-auto hidden md:block" />
+			<!-- Cover art -->
+			<TableHeader />
+			<TableHeader name="Name" width="w-44" />
+			<TableHeader name="About" fullWidth />
+			<TableHeader name="Rating" width="w-24" />
+			<!-- Link to desc -->
+			<TableHeader />
 		</slot>
 		<slot slot="body">
 			{#each games as game}
-				<tr>
+				<TableItemGame {game} />
+				<!-- <tr>
 					<td class="pl-0">
 						<div class="flex items-center space-x-3">
 							<div class="avatar">
@@ -67,7 +72,7 @@
 							</div>
 						</div>
 					</td>
-					<td class="hidden sm:hidden md:table-cell">
+					<td class="hidden sm:hidden md:table-cell p-0">
 						<div class="flex">
 							{#if game.desc}
 								{game.desc}
@@ -85,7 +90,7 @@
 					<th class="table-cell px-0">
 						<a href="/games/{game.bggId}" class="btn btn-secondary">details</a>
 					</th>
-				</tr>
+				</tr> -->
 			{/each}
 		</slot>
 	</Table>
