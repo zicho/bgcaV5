@@ -7,6 +7,7 @@
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
 	import { CollectionIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
+	import placeholderImg from '$lib/assets/cover_art_missing.png';
 
 	export let data: PageData;
 
@@ -46,7 +47,7 @@
 								<div class="w-32 h-32">
 									<a href="/games/{game.bggId}">
 										<img
-											src={game.thumbnailUrl || 'cover_art_missing.png'}
+											src={game.thumbnailUrl || placeholderImg}
 											alt={!game.thumbnailUrl
 												? `${game.name} placeholder cover art`
 												: `${game.name} cover art`}

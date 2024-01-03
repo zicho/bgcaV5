@@ -46,7 +46,7 @@
 								<div class="w-32 h-32">
 									<a href="/games/{game.bggId}">
 										<img
-											src={game.thumbnailUrl || 'cover_art_missing.png'}
+											src={game.thumbnailUrl || '/cover_art_missing.png'}
 											alt={!game.thumbnailUrl
 												? `${game.name} placeholder cover art`
 												: `${game.name} cover art`}
