@@ -9,7 +9,7 @@
 
 <div class="w-full">
 	<div class="flex flex-col xl:flex-row mb-8">
-		<div class="prose prose-sm xl:mb-0 mb-4">
+		<div class="prose prose-sm xl:mb-0 mb-4 max-w-none">
 			<h1 class="m-0 p-0">{title}</h1>
 			{#if subheader}
 				<h2 class="p-0 m-0 font-extralight">{subheader}</h2>

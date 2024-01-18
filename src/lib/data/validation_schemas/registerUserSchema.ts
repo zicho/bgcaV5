@@ -25,7 +25,8 @@ const registerUserSchema = z
             .max(
                 validationRules.maxPasswordLength, {
                 message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
-            }),
+            })
+            .trim(),
         confirm_password: z.string()
             .min(
                 validationRules.minPasswordLength, {
@@ -34,7 +35,8 @@ const registerUserSchema = z
             .max(
                 validationRules.maxPasswordLength, {
                 message: formatString(MaxCharactersF, validationRules.maxPasswordLength)
-            }),
+            })
+            .trim(),
     })
     .refine((data) => data.password === data.confirm_password, {
         message: "Passwords don't match",

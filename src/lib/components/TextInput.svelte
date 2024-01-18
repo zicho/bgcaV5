@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TextInputProps } from "$lib/components/props/components/TextInputProps";
+	import type TextInputProps from "./props/components/TextInputProps";
 
 	export let props: TextInputProps;
 	export let extraClasses: string = '';
@@ -15,13 +15,14 @@
 	<input
 		id={props.name}
 		name={props.name}
-		value={props.value}
+		value={props.value || ""}
 		data-testid={props.name}
 		type={props.type || 'text'}
 		placeholder={props.placeholder}
 		aria-label={props.placeholder}
 		class="input input-bordered w-full"
 		class:input-error={props.hasError || props.errorMessage}
+		class:text-error={props.hasError || props.errorMessage}
 		aria-invalid={props.hasError || props.errorMessage != undefined}
 		required={props.required}
 	/>

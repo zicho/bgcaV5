@@ -17,7 +17,7 @@
 
 <div class="navbar bg-neutral text-neutral-content sticky top-0 z-50">
 	<div class="flex-1">
-		<a href="/" class="btn btn-ghost normal-case text-xl">daisyUI</a>
+		<a href="/" class="btn btn-ghost normal-case text-xl">BGCA</a>
 	</div>
 	<div class="flex-none">
 		<ul class="menu menu-horizontal px-1 hidden md:flex">

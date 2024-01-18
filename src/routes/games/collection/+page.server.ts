@@ -1,14 +1,15 @@
 
-import { getGames } from '$lib/db/queries/games/getGames';
 import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../$types';
 import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
+import { getGameCollection } from '$lib/db/queries/games/getGameCollection';
 
-export const load = (async ({ url }) => {
+export const load = (async ({ url, parent }) => {
     const { pageNo, limit, searchParam } = getTableParams(url);
+    const { userId } = (await parent()).user;
     
-    const totalHits = (await getTotalGameCount({ searchParam })).result as number;
+    const totalHits = (await getTotalGameCount({ searchParam, userId })).result as number;
     const totalPages = Math.ceil(totalHits / limit);
 
     // handles redirects on invalid parameter states
@@ -20,7 +21,8 @@ export const load = (async ({ url }) => {
         fallbackUrl: url
     })
 
-    const response = await getGames({ pageNo, limit, searchParam });
+    const response = await getGameCollection({ userId, pageNo, limit, searchParam });
+    const gamesInCollectionCount = (await getTotalGameCount({ userId })).result as number;
 
     if (response.error) {
         throw error(520);
@@ -28,6 +30,7 @@ export const load = (async ({ url }) => {
 
     return {
         games: response.result!,
+        gamesInCollectionCount,
         searchParam,
         pageNo,
         limit,

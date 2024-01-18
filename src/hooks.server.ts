@@ -1,5 +1,6 @@
 import type { Handle } from "@sveltejs/kit";
 import { auth } from "$lib/server/lucia";
+import type { Session } from "lucia";
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
@@ -18,7 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 				  'Set-Cookie': 'auth_session=; Max-Age=0; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
 				},
 			  });
-		  
+
 			  return modifiedResponse;
 		}
 	}

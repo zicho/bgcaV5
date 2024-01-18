@@ -57,7 +57,7 @@ test('vw-games-search_filter_by_name', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const searchField = page.getByTestId("table-search-field");
+	const searchField = page.getByTestId("search-query-input-field");
 	
 	await searchField.fill(gameName);
 	await page.waitForEvent('framenavigated');
@@ -81,7 +81,7 @@ test('vw-games-search_filter_by_partial_name', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const searchField = page.getByTestId("table-search-field");
+	const searchField = page.getByTestId("search-query-input-field");
 	await searchField.fill(gameNameSliced);
 	await page.waitForEvent('framenavigated');
 
@@ -139,7 +139,7 @@ test('vw-games-button_states_should_update_properly', async ({ page }) => {
 	await page.waitForEvent('framenavigated'); 
 });
 
-test('vw-games-button_states_should_update_properly', async ({ page }) => {
+test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
 	await registerUserAndLogin(page);
 
 	await deleteAllGames();
@@ -150,41 +150,59 @@ test('vw-games-button_states_should_update_properly', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const firstPageButton = page.getByTestId('first-page-link-button');
-	const prevPageButton = page.getByTestId('prev-page-link-button');
-	const nextPageButton = page.getByTestId('next-page-link-button');
-	const lastPageButton = page.getByTestId('last-page-link-button');
+	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
+	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
 
-	expect(firstPageButton).toHaveClass(/btn-disabled/);
-	expect(prevPageButton).toHaveClass(/btn-disabled/);
-	expect(nextPageButton).not.toHaveClass(/btn-disabled/);
-	expect(lastPageButton).not.toHaveClass(/btn-disabled/);
+	const getCurrentPageDropdownValue = async (): Promise<number> => {
+		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
+	}
 
-	await nextPageButton.click();
+	const initialValue = await getCurrentPageDropdownValue();
+	expect(initialValue).toBe(1);
+
+	await pageSelectDropdown.selectOption({ value: '10' });
 	await page.waitForEvent('framenavigated');
 
-	expect(firstPageButton).not.toHaveClass(/btn-disabled/);
-	expect(prevPageButton).not.toHaveClass(/btn-disabled/);
-	expect(nextPageButton).not.toHaveClass(/btn-disabled/);
-	expect(lastPageButton).not.toHaveClass(/btn-disabled/);
+	const newValue = await getCurrentPageDropdownValue();
+	expect(newValue).toBe(10);
 
-	await lastPageButton.click();
+	await limitResultsDropdown.selectOption({ value: '100' });
 	await page.waitForEvent('framenavigated');
 
-	expect(firstPageButton).not.toHaveClass(/btn-disabled/);
-	expect(prevPageButton).not.toHaveClass(/btn-disabled/);
-	expect(nextPageButton).toHaveClass(/btn-disabled/);
-	expect(lastPageButton).toHaveClass(/btn-disabled/);
+	const finalValue = await getCurrentPageDropdownValue();
+	expect(finalValue).toBe(1);
+});
 
-	await prevPageButton.click();
+test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
+	await registerUserAndLogin(page);
+
+	await deleteAllGames();
+	await addGames();
+
+	await page.goto("/games");
+
+	await page.waitForURL(`**/games`);
+	expect(page.url()).toContain(`games`);
+
+	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
+	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
+
+	const getCurrentPageDropdownValue = async (): Promise<number> => {
+		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
+	}
+
+	const initialValue = await getCurrentPageDropdownValue();
+	expect(initialValue).toBe(1);
+
+	await pageSelectDropdown.selectOption({ value: '10' });
 	await page.waitForEvent('framenavigated');
 
-	expect(firstPageButton).not.toHaveClass(/btn-disabled/);
-	expect(prevPageButton).not.toHaveClass(/btn-disabled/);
-	expect(nextPageButton).not.toHaveClass(/btn-disabled/);
-	expect(lastPageButton).not.toHaveClass(/btn-disabled/);
+	const newValue = await getCurrentPageDropdownValue();
+	expect(newValue).toBe(10);
 
-	// this last part is necessary so browser doesn't close when running the tests
-	await firstPageButton.click();
-	await page.waitForEvent('framenavigated'); 
+	await limitResultsDropdown.selectOption({ value: '100' });
+	await page.waitForEvent('framenavigated');
+
+	const finalValue = await getCurrentPageDropdownValue();
+	expect(finalValue).toBe(1);
 });
