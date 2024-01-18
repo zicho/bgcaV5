@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Table from '$lib/components/Table.svelte';
+	import Table from '$lib/components/table/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import type TableProps from '$lib/components/props/components/TableProps';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
-	import { CollectionIcon } from '$lib/data/icons';
+	import { CollectionIcon, DownloadIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
+	import TableHeader from '$lib/components/table/TableHeader.svelte';
+	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
 
 	export let data: PageData;
 
 	$: ({ games } = data);
 	$: props = {
-		...data,
+		...data
 	} satisfies TableProps;
 </script>
 
@@ -21,71 +23,37 @@
 </svelte:head>
 
 <BasePageLayout>
-	<PageHeaderToolbar title="Games" subheader="Find and view games">
+	<PageHeaderToolbar title="Collection" subheader="View your game collection">
 		<PageHeaderToolbarLinkButton
-			displayText="View your collection"
-			id="games-go-to-collection-btn"
-			url="/games/collection"
-			icon={CollectionIcon}
+			displayText="Import collection"
+			id="games-go-to-import-btn"
+			url="/games/import"
+			icon={DownloadIcon}
 		/>
 	</PageHeaderToolbar>
-	<Table {props}>
-		<slot slot="headers">
-			<th />
-			<th class="w-auto px-0">Name</th>
-			<th class="w-full hidden sm:hidden md:table-cell">About</th>
-			<th class="w-auto">Rating</th>
-			<th class="w-auto hidden md:block" />
-		</slot>
-		<slot slot="body">
-			{#each games as game}
-				<tr>
-					<td class="pl-0">
-						<div class="flex items-center space-x-3">
-							<div class="avatar">
-								<div class="w-32 h-32">
-									<a href="/games/{game.bggId}">
-										<img
-											src={game.thumbnailUrl || '/cover_art_missing.png'}
-											alt={!game.thumbnailUrl
-												? `${game.name} placeholder cover art`
-												: `${game.name} cover art`}
-										/>
-									</a>
-								</div>
-							</div>
-						</div>
-					</td>
-					<td class="px-0">
-						<div class="flex items-center space-x-3">
-							<div>
-								<div class="font-bold hover:underline min-w-[200px]">
-									<a href="/games/{game.bggId}">{game.name}</a>
-								</div>
-								<div class="text-sm opacity-50">{game.yearPublished}</div>
-							</div>
-						</div>
-					</td>
-					<td class="hidden sm:hidden md:table-cell">
-						<div class="flex">
-							{#if game.desc}
-								{game.desc}
-							{:else}
-								<i class="text-secondary">Description missing</i>
-							{/if}
-						</div>
-					</td>
 
-					<td>
-						<div class="badge-neutral text-xl p-4 text-center">
-							{game.averageRating?.substring(0, 3)}
-						</div>
-					</td>
-					<th class="table-cell px-0">
-						<a href="/games/{game.bggId}" class="btn btn-secondary">details</a>
-					</th>
-				</tr>
-			{/each}
-		</slot>
-	</Table>
+	{#if data.gamesInCollectionCount == 0}
+		<div class="prose">
+			<p>Your collection is empty! :( If you have a <a target="_blank" href="https://www.boardgamegeek.com">BGG</a> account, you can <a href="/games/import">import</a>
+			your collection from there. Otherwise you can add them manually.</p>
+			<p>Go to <a href="/games">this page</a> to search for games!</p>
+		</div>
+	{:else}
+		<Table {props}>
+			<slot slot="headers">
+				<!-- Cover art -->
+				<TableHeader />
+				<TableHeader name="Name" width="w-36" />
+				<TableHeader name="About" fullWidth />
+				<TableHeader name="Rating" width="w-24" />
+				<!-- Link to desc -->
+				<TableHeader />
+			</slot>
+			<slot slot="body">
+				{#each games as game}
+					<TableItemGame {game} />
+				{/each}
+			</slot>
+		</Table>
+	{/if}
 </BasePageLayout>

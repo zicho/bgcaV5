@@ -5,7 +5,7 @@
 	import type TableProps from '$lib/components/props/components/TableProps';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
-	import { CollectionIcon } from '$lib/data/icons';
+	import { CollectionIcon, DownloadIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
 	import placeholderImg from '$lib/assets/cover_art_missing.png';
 	import TableHeader from '$lib/components/table/TableHeader.svelte';

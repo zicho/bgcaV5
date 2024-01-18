@@ -1,10 +1,8 @@
 
-import { getGames } from '$lib/db/queries/games/getGames';
 import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
-import type TableProps from '$lib/components/props/components/TableProps';
 import { getGameCollection } from '$lib/db/queries/games/getGameCollection';
 
 export const load = (async ({ url, parent }) => {
@@ -24,6 +22,7 @@ export const load = (async ({ url, parent }) => {
     })
 
     const response = await getGameCollection({ userId, pageNo, limit, searchParam });
+    const gamesInCollectionCount = (await getTotalGameCount({ userId })).result as number;
 
     if (response.error) {
         throw error(520);
@@ -31,6 +30,7 @@ export const load = (async ({ url, parent }) => {
 
     return {
         games: response.result!,
+        gamesInCollectionCount,
         searchParam,
         pageNo,
         limit,
