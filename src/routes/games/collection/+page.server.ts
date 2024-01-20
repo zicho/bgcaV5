@@ -2,8 +2,8 @@
 import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
-import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
 import { getGameCollection } from '$lib/db/queries/games/getGameCollection';
+import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
 
 export const load = (async ({ url, parent }) => {
     const { pageNo, limit, searchParam } = getTableParams(url);

@@ -11,7 +11,7 @@ type BggGameImportResult = {
     message: string;
 };
 
-export default async function importBggCollection({ username, user_id }: { username: string, user_id: string }): Promise<ApiResponse<BggGameImportResult>> {
+export default async function importBggCollection({ username, userId }: { username: string, userId: string }): Promise<ApiResponse<BggGameImportResult>> {
     try {
         // fetch all games for user using BGG Json API
         const response = await fetch(`https://bgg-json.azurewebsites.net/collection/${username}`);
@@ -36,7 +36,7 @@ export default async function importBggCollection({ username, user_id }: { usern
         // we then use the BGG ID's to retrieve the ID's of all games
         // we want added to the collection
         const gameIds = await getGameIdsByBggIds({ bggIds: data.map(x => x.gameId) });
-		const mappedIds = gameIds.result?.map((gameId) => ({ userId: user_id, gameId }));
+		const mappedIds = gameIds.result?.map((gameId) => ({ userId: userId, gameId }));
 
         await addGamesToUserCollection(mappedIds!);
 

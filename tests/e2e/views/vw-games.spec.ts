@@ -4,7 +4,7 @@ import { deleteAllGames } from '$lib/db/queries/testing/deleteAllGames';
 import { addGames } from '$lib/db/queries/testing/addGames';
 import { addGameByName } from '$lib/db/queries/testing/addGameByName';
 import getMiddleOfString from '$lib/utils/getMiddleOfString';
-import { registerUserAndLogin } from '../shared/registerUserAndLogin.test';
+import { registerUserAndLogin } from '../shared/registerUserAndLogin';
 
 test('vw-games-table_should_behave_properly', async ({ page }) => {
 	await registerUserAndLogin(page);
@@ -17,10 +17,10 @@ test('vw-games-table_should_behave_properly', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const firstPageButton = page.getByTestId('first-page-link-button');
-	const prevPageButton = page.getByTestId('prev-page-link-button');
-	const nextPageButton = page.getByTestId('next-page-link-button');
-	const lastPageButton = page.getByTestId('last-page-link-button');
+	const firstPageButton = page.getByTestId('table-paginator-top-first-page-link-button');
+	const prevPageButton = page.getByTestId('table-paginator-top-prev-page-link-button');
+	const nextPageButton = page.getByTestId('table-paginator-top-next-page-link-button');
+	const lastPageButton = page.getByTestId('table-paginator-top-last-page-link-button');
 
 	await nextPageButton.click();
 	await page.waitForEvent('framenavigated');
@@ -100,10 +100,10 @@ test('vw-games-button_states_should_update_properly', async ({ page }) => {
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const firstPageButton = page.getByTestId('first-page-link-button');
-	const prevPageButton = page.getByTestId('prev-page-link-button');
-	const nextPageButton = page.getByTestId('next-page-link-button');
-	const lastPageButton = page.getByTestId('last-page-link-button');
+	const firstPageButton = page.getByTestId('table-paginator-top-first-page-link-button');
+	const prevPageButton = page.getByTestId('table-paginator-top-prev-page-link-button');
+	const nextPageButton = page.getByTestId('table-paginator-top-next-page-link-button');
+	const lastPageButton = page.getByTestId('table-paginator-top-last-page-link-button');
 
 	expect(firstPageButton).toHaveClass(/btn-disabled/);
 	expect(prevPageButton).toHaveClass(/btn-disabled/);
@@ -173,36 +173,36 @@ test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) =
 	expect(finalValue).toBe(1);
 });
 
-test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
-	await registerUserAndLogin(page);
+// test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
+// 	await registerUserAndLogin(page);
 
-	await deleteAllGames();
-	await addGames();
+// 	await deleteAllGames();
+// 	await addGames();
 
-	await page.goto("/games");
+// 	await page.goto("/games");
 
-	await page.waitForURL(`**/games`);
-	expect(page.url()).toContain(`games`);
+// 	await page.waitForURL(`**/games`);
+// 	expect(page.url()).toContain(`games`);
 
-	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
-	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
+// 	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
+// 	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
 
-	const getCurrentPageDropdownValue = async (): Promise<number> => {
-		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
-	}
+// 	const getCurrentPageDropdownValue = async (): Promise<number> => {
+// 		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
+// 	}
 
-	const initialValue = await getCurrentPageDropdownValue();
-	expect(initialValue).toBe(1);
+// 	const initialValue = await getCurrentPageDropdownValue();
+// 	expect(initialValue).toBe(1);
 
-	await pageSelectDropdown.selectOption({ value: '10' });
-	await page.waitForEvent('framenavigated');
+// 	await pageSelectDropdown.selectOption({ value: '10' });
+// 	await page.waitForEvent('framenavigated');
 
-	const newValue = await getCurrentPageDropdownValue();
-	expect(newValue).toBe(10);
+// 	const newValue = await getCurrentPageDropdownValue();
+// 	expect(newValue).toBe(10);
 
-	await limitResultsDropdown.selectOption({ value: '100' });
-	await page.waitForEvent('framenavigated');
+// 	await limitResultsDropdown.selectOption({ value: '100' });
+// 	await page.waitForEvent('framenavigated');
 
-	const finalValue = await getCurrentPageDropdownValue();
-	expect(finalValue).toBe(1);
-});
+// 	const finalValue = await getCurrentPageDropdownValue();
+// 	expect(finalValue).toBe(1);
+// });

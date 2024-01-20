@@ -1,4 +1,4 @@
-import { getTableParams } from '$lib/components/utils/table/getTableParams';
+import { getTableParams } from '$lib/components/utils/table/TableHelper';
 import { describe, it, expect } from 'vitest';
 
 

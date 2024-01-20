@@ -20,7 +20,7 @@ function getRandomTitlePartFromGame(games: Game[]) {
 }
 
 describe('get_games_query', () => {
-    it('default_limit', async () => {
+    it('default_limit_should_be_10', async () => {
 
         await deleteAllGames();
         await addGames(); // adds a 100 games

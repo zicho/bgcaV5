@@ -25,7 +25,7 @@ export const actions: Actions = {
         }
 
         const id = (await getUser(locals.auth)).userId;
-        const response = await importBggCollection({ username: form.data['bgg-username-input'], user_id: id });
+        const response = await importBggCollection({ username: form.data['bgg-username-input'], userId: id });
 
         if(!response.error) {
             return fail(400, { form, message: "apoopui" });

@@ -9,7 +9,6 @@ import { describe, it, expect } from 'vitest';
 
 describe('userprofile_tests', () => {
 	it('should_create_new_profile_if_no_exist_else_update', async () => {
-
 		const username = generateTestUsername();
 		const user = await registerUserAndReturnSession({ username, password: "password" });
 		

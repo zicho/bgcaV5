@@ -2,7 +2,7 @@
 import { expect, test } from '@playwright/test';
 import generateTestUsername from '../../test_utils/generateTestUsername';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
-import { registerUserAndLogin } from '../shared/registerUserAndLogin.test';
+import { registerUserAndLogin } from '../shared/registerUserAndLogin';
 
 test('vw-profile-signed_in_user_should_be_able_to_add_profile_data', async ({ page }) => {
 	const username = await registerUserAndLogin(page);
