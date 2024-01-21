@@ -3,7 +3,7 @@
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
-	import { CreateEventIcon, PlusIcon } from '$lib/data/icons';
+	import { CreateEventIcon, MinusIcon, PlusIcon } from '$lib/data/icons';
 	export let data: PageData;
 
 	const { game } = data;
@@ -18,20 +18,38 @@
 			icon={CreateEventIcon}
 		/>
 		<PageHeaderToolbarLinkButton
-			displayText="Add to collection"
+			displayText={data.inYourCollection ? 'Remove from collection' : 'Add to collection'}
 			id="add-to-collection-btn"
+			className="primary"
 			url="/games/add/{game?.id}"
-			icon={PlusIcon}
+			icon={data.inYourCollection ? MinusIcon : PlusIcon}
 		/>
 	</PageHeaderToolbar>
 
-	<div class="flex flex-col lg:flex-row lg:gap-16">
-		<div class="max-w-96">
-			<img src={game?.imageUrl} alt="{game?.name} cover art" class="max-w-96 max-h-96" />
-		</div>
-		<div class="prose">
-			<h3>{game?.name}</h3>
-			<p>{game?.desc ? game?.desc : 'Description missing'}</p>
+	<div class="hero">
+		<div class="hero-content p-0 flex-col lg:flex-row max-w-none align-start">
+			<img src={game?.imageUrl} alt="{game?.name} cover art" class="w-64 xl:self-start" />
+			<div class="ml-4">
+				<div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+					<div class="col-span-2">
+						<div class="flex flex-row items-center mb-4">
+							<div class="badge-neutral text-xl flex items-center justify-center w-16 h-16">
+								{game?.averageRating?.substring(0, 3)}
+							</div>
+							<h3 class="text-3xl font-bold ml-4">{game?.name} ({game?.yearPublished})</h3>
+						</div>
+						<p>{@html game?.desc}</p>
+					</div>
+					<div class="flex flex-initial flex-col gap-y-1 bg-base-200 p-4">
+						<h3 class="text-xl font-bold">Game info</h3>
+						<div class="divider m-0" />
+						<div class="flex flex-row justify-between">
+							<span class="font-bold">Player count: </span>
+							<span>{game?.minNumberOfPlayers}-{game?.maxNumberOfPlayers}</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </BasePageLayout>

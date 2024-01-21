@@ -15,7 +15,7 @@ export { default as ImportIcon } from 'virtual:icons/lucide/arrow-right-from-lin
 export { default as SaveIcon } from 'virtual:icons/lucide/save';
 export { default as CreateEventIcon } from 'virtual:icons/lucide/calendar-plus';
 export { default as PlusIcon } from 'virtual:icons/lucide/plus';
-
+export { default as MinusIcon } from 'virtual:icons/lucide/minus';
 
 // table icons
 export { default as FirstPageIcon } from 'virtual:icons/lucide/chevrons-left';
