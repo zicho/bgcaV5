@@ -5,7 +5,6 @@ type ButtonProps = {
     id: string;
     label: string;
     disabled?: boolean;
-    loading?: boolean;
     type?: ButtonType,
     alignIconRight?: boolean,
     icon?: typeof SvelteComponent<any, SVGAElement> | undefined

@@ -5,14 +5,15 @@
 	export let props: ButtonProps;
 	export let extraClasses: string = '';
 
-	$: ({ loading } = props);
+	let loading = false;
 </script>
 
 <button
 	type="submit"
 	id={props.id}
 	data-testid={props.id}
-	disabled={props.loading}
+	disabled={loading}
+	on:click={() => (loading = true)}
 	class="btn {getButtonTypeClass(props.type)} {extraClasses}"
 >
 	{#if !loading}

@@ -23,14 +23,11 @@
 		required: true
 	};
 
-	let submitted = false;
-
 	$: importCollectionButtonProps = {
 		id: 'bgg-import-btn',
 		label: 'Import',
 		type: 'primary',
-		icon: ImportIcon,
-		loading: submitted
+		icon: ImportIcon
 	} satisfies ButtonProps;
 
 	$: errorMessage = $errors['bgg-username-input'];
@@ -45,7 +42,7 @@
 			If you have a BGG account, you can import your games from there. Just enter your BGG username
 			below. The games will be added to your collection automatically.
 		</p>
-		<form use:enhance method="post" on:submit={() => submitted = true}>
+		<form use:enhance method="post">
 			<TextInput props={{ ...bggUsernameInputProps, errorMessage, hasError }} extraClasses="mb-4" />
 			<Button props={importCollectionButtonProps} extraClasses="mb-4 w-full" />
 		</form>

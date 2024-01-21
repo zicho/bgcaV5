@@ -12,6 +12,7 @@ export { default as CollectionIcon } from 'virtual:icons/lucide/library';
 export { default as SearchIcon } from 'virtual:icons/lucide/search';
 export { default as DownloadIcon } from 'virtual:icons/lucide/download';
 export { default as ImportIcon } from 'virtual:icons/lucide/arrow-right-from-line';
+export { default as SaveIcon } from 'virtual:icons/lucide/save';
 
 
 // table icons

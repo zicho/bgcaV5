@@ -48,7 +48,7 @@ export const actions: Actions = {
 
 		const result = await upsertUserProfile(model);
 
-		if (result.success) {
+		if (!result.success) {
 			throw error(500, result.message);
 		}
 

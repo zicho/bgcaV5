@@ -2,9 +2,21 @@
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
+	import { SaveIcon } from '$lib/data/icons';
+	import type ButtonProps from '$lib/components/props/components/ButtonProps';
+	import Button from '$lib/components/Button.svelte';
 
 	export let data: PageData;
     const { form, errors, constraints, enhance, message } = superForm(data.form);
+
+
+	const saveProfileButtonProps: ButtonProps = {
+		id: 'edit-profile-btn-submit',
+		label: 'Save',
+		type: 'primary',
+		icon: SaveIcon
+	};
+
 </script>
 
 <BasePageLayout>
@@ -55,7 +67,7 @@
                         </label>
                     </div> -->
                 </div>
-                <button id="edit-profile-btn-submit" data-testid="edit-profile-btn-submit" type="submit" class="btn btn-primary w-full mt-8">Save</button>
+                <Button props={saveProfileButtonProps} extraClasses="w-full mt-8"/>
             </form>
         </div>
     </div>
