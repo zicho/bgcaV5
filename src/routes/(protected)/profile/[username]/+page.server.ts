@@ -9,12 +9,14 @@ export const load = (async ({ parent, params }) => {
 
     const profile = await getUserProfile({ username });
 
-    if (profile.error) {
+    if (profile.success) {
+        return {
+            isProfileYours,
+            profile: profile.result
+        };
+    } else {
         throw error(500, profile.message);
     }
 
-    return {
-        isProfileYours,
-        profile: profile.result
-    };
+
 }) satisfies PageServerLoad;

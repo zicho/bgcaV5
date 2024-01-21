@@ -27,10 +27,10 @@ export const actions: Actions = {
         const id = (await getUser(locals.auth)).userId;
         const response = await importBggCollection({ username: form.data['bgg-username-input'], userId: id });
 
-        if(response.error) {
-            return fail(400, { form });
-        } else {
+        if(response.success) {
             throw redirect(302, "/games/collection");
+        } else {
+            return fail(400, { form });
         }
     }
 };

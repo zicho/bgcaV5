@@ -15,7 +15,7 @@ export const load = (async (event) => {
 	const form = await superValidate(event, upsertProfileSchema);
 	const profile = await getUserProfile({ username });
 
-	if (profile.error) {
+	if (!profile.success) {
 		throw Error(profile.message);
 	}
 
@@ -48,7 +48,7 @@ export const actions: Actions = {
 
 		const result = await upsertUserProfile(model);
 
-		if (result.error) {
+		if (result.success) {
 			throw error(500, result.message);
 		}
 

@@ -22,7 +22,7 @@ export const load = (async ({ url }) => {
 
     const response = await getGames({ pageNo, limit, searchParam });
 
-    if (response.error) {
+    if (!response.success) {
         throw error(520);
     }
 

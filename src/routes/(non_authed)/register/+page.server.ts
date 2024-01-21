@@ -37,10 +37,10 @@ export const actions: Actions = {
 
         const response = await registerUserAndReturnSession(form.data);
 
-        if (response.error) {
-            return message(form, response.message);
-        } else {
+        if (response.success) {
             locals.auth.setSession(response.result);
+        } else {
+            return message(form, response.message);
         }
 
         throw redirect(
