@@ -1,9 +1,9 @@
 import { BggImportFail } from "$lib/data/strings/ErrorMessages";
 import { successfulResponse, type ApiResponse, failedResponse } from "$lib/data/types/ApiResponse";
 import { addGamesToUserCollection } from "$lib/db/queries/games/addGamesToUserCollection";
-import { getGamesByBggIds as getGameIdsByBggIds } from "$lib/db/queries/games/getGamesByBggId";
+import { getGamesByBggIds } from "$lib/db/queries/games/getGamesByBggIds";
 import { insertGames } from "$lib/db/queries/games/insertGames";
-import { mapToDbModel, type BggGameSimple } from "./dto/BggGameSimple";
+import { mapToDbModel, type BggGame } from "./dto/BggGame";
 
 type BggGameImportResult = {
     numberOfGamesImported: number;
@@ -15,7 +15,7 @@ export default async function importBggCollection({ username, userId }: { userna
     try {
         // fetch all games for user using BGG Json API
         const response = await fetch(`https://bgg-json.azurewebsites.net/collection/${username}`);
-        const data = await response.json() as BggGameSimple[];
+        const data = await response.json() as BggGame[];
 
         // store number of games found for user
         const numberOfGamesImported = data.length;
@@ -35,7 +35,7 @@ export default async function importBggCollection({ username, userId }: { userna
 
         // we then use the BGG ID's to retrieve the ID's of all games
         // we want added to the collection
-        const gameIds = await getGameIdsByBggIds({ bggIds: data.map(x => x.gameId) });
+        const gameIds = await getGamesByBggIds({ bggIds: data.map(x => x.gameId) });
 		const mappedIds = gameIds.result?.map((gameId) => ({ userId: userId, gameId }));
 
         await addGamesToUserCollection(mappedIds!);

@@ -1,9 +1,10 @@
 
-import { getGames } from '$lib/db/queries/games/getGames';
+
 import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
+import { getGamesPaginated } from '$lib/db/queries/games/getGamesPaginated';
 
 export const load = (async ({ url }) => {
     const { pageNo, limit, searchParam } = getTableParams(url);
@@ -20,7 +21,7 @@ export const load = (async ({ url }) => {
         fallbackUrl: url
     })
 
-    const response = await getGames({ pageNo, limit, searchParam });
+    const response = await getGamesPaginated({ pageNo, limit, searchParam });
 
     if (!response.success) {
         throw error(520);

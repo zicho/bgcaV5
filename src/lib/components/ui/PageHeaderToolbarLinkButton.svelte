@@ -6,7 +6,7 @@
 	export let id: string;
 	export let icon: typeof SvelteComponent<any, SVGAElement> | undefined = undefined;
 
-	export let className: 'primary' | 'secondary' = 'primary';
+	export let className: 'primary' | 'secondary' = 'secondary';
 </script>
 
 <a href={url} {id} data-testid={id} class="btn btn-{className} w-full md:flex-grow xl:btn-wide">

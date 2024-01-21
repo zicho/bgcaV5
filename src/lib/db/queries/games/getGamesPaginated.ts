@@ -6,7 +6,7 @@ import { ilike } from "drizzle-orm";
 
 type Game = Omit<typeof g.$inferSelect, 'minNumberOfPlayers' | 'maxNumberOfPlayers' | 'imageUrl'>;
 
-export async function getGames({ pageNo, limit, searchParam }: { pageNo?: number, limit?: number, searchParam?: string } = {}): Promise<ApiResponse<Game[]>> {
+export async function getGamesPaginated({ pageNo, limit, searchParam }: { pageNo?: number, limit?: number, searchParam?: string } = {}): Promise<ApiResponse<Game[]>> {
     try {
         if (!limit) { limit = 10; }
         if (!pageNo) { pageNo = 1; }

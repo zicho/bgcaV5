@@ -1,4 +1,4 @@
-import { getGames } from '$lib/db/queries/games/getGames';
+import { getGamesPaginated } from '$lib/db/queries/games/getGames';
 import { addGames } from '$lib/db/queries/testing/addGames';
 import { deleteAllGames } from '$lib/db/queries/testing/deleteAllGames';
 import type { games } from '$lib/db/schema/games';
@@ -25,7 +25,7 @@ describe('get_games_query', () => {
         await deleteAllGames();
         await addGames(); // adds a 100 games
 
-        const defaultSearch = await getGames();
+        const defaultSearch = await getGamesPaginated();
         expect(defaultSearch.result?.length).toBe(10);
     });
 
@@ -36,7 +36,7 @@ describe('get_games_query', () => {
 
         const searchParam = getRandomTitlePartFromGame(games);
 
-        const filter = await getGames({ searchParam });
+        const filter = await getGamesPaginated({ searchParam });
 
         filter.result?.forEach((game) => {
             expect(game.name).toContain(searchParam);
@@ -51,7 +51,7 @@ describe('get_games_query', () => {
 
         const searchParam = getRandomTitlePartFromGame(games).toLocaleLowerCase();
 
-        const filteredByName = await getGames({ searchParam });
+        const filteredByName = await getGamesPaginated({ searchParam });
 
         filteredByName.result?.forEach((game) => {
             expect(game.name.toLocaleLowerCase()).toContain(searchParam);
@@ -70,7 +70,7 @@ describe('get_games_query', () => {
         const sortedGames = games.sort((a, b) => a.name.localeCompare(b.name));
         const simulatedPage2 = sortedGames.slice(offset, offset + limit);
 
-        const paginated = await getGames({ pageNo: 2 });
+        const paginated = await getGamesPaginated({ pageNo: 2 });
 
         simulatedPage2.forEach((simulatedGame, index) => {
             const paginatedGame = paginated.result && paginated.result[index];

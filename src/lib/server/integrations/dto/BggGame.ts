@@ -1,7 +1,7 @@
 import type { games } from "$lib/db/schema/games";
 import { createSlug } from "$lib/utils/createSlug";
 
-export type BggGameSimple = {
+export type BggGame = {
 	gameId: number;
 	name: string;
 	image: string;
@@ -12,10 +12,10 @@ export type BggGameSimple = {
 	isExpansion: boolean;
 	yearPublished: number;
 	averageRating: string;
+	description: string;
 }
 
-export function mapToDbModel(dto: BggGameSimple) {
-
+export function mapToDbModel(dto: BggGame) {
 	type Game = typeof games.$inferInsert
 
 	return {
@@ -26,6 +26,7 @@ export function mapToDbModel(dto: BggGameSimple) {
 		maxNumberOfPlayers: dto.maxPlayers,
 		averageRating: dto.averageRating,
 		thumbnailUrl: dto.thumbnail,
-		imageUrl: dto.image
+		imageUrl: dto.image,
+		desc: dto.description,
 	} as Game;
 }

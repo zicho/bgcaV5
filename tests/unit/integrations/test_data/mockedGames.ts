@@ -1,6 +1,6 @@
-import type { BggGameSimple } from "$lib/server/integrations/dto/BggGameSimple";
+import type { BggGame } from "$lib/server/integrations/dto/BggGameSimple";
 
-const mockedGames: BggGameSimple[] = [
+const mockedGames: BggGame[] = [
     {
         gameId: 1, // known as bggId in our db
         name: "The best game",

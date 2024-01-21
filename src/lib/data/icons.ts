@@ -13,6 +13,8 @@ export { default as SearchIcon } from 'virtual:icons/lucide/search';
 export { default as DownloadIcon } from 'virtual:icons/lucide/download';
 export { default as ImportIcon } from 'virtual:icons/lucide/arrow-right-from-line';
 export { default as SaveIcon } from 'virtual:icons/lucide/save';
+export { default as CreateEventIcon } from 'virtual:icons/lucide/calendar-plus';
+export { default as PlusIcon } from 'virtual:icons/lucide/plus';
 
 
 // table icons

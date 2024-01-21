@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Table from '$lib/components/table/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import type TableProps from '$lib/components/props/components/TableProps';
@@ -7,7 +6,7 @@
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
 	import { CollectionIcon, DownloadIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
-	import placeholderImg from '$lib/assets/cover_art_missing.png';
+
 	import TableHeader from '$lib/components/table/TableHeader.svelte';
 	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
 

@@ -1,8 +1,8 @@
-import { mapToDbModel, type BggGameSimple } from '$lib/server/integrations/dto/BggGameSimple';
+import { mapToDbModel, type BggGame } from '$lib/server/integrations/dto/BggGameSimple';
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import mockedGames from './test_data/mockedGames';
 import importBggCollection from '$lib/server/integrations/importBggCollection';
-import { getGames } from '$lib/db/queries/games/getGames';
+import { getGamesPaginated } from '$lib/db/queries/games/getGames';
 import { deleteAllGames } from '$lib/db/queries/testing/deleteAllGames';
 import generateTestUsername from 'tests/test_utils/generateTestUsername';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
@@ -31,7 +31,7 @@ describe('get_games_query', () => {
 
         const userId = user.result?.user.userId!;
 
-        const numberOfGamesInitial = (await getGames()).result?.length;
+        const numberOfGamesInitial = (await getGamesPaginated()).result?.length;
         const numberOfGamesInCollectionInitial = (await getGameCollection({ userId })).result?.length;
 
         expect(numberOfGamesInitial).toBe(0);
@@ -39,7 +39,7 @@ describe('get_games_query', () => {
 
         await importBggCollection({ username, userId });
 
-        const numberOfGames = (await getGames()).result?.length;
+        const numberOfGames = (await getGamesPaginated()).result?.length;
         const expectedNumberOfGames = mockedGames.length;
         expect(numberOfGames).toBe(expectedNumberOfGames);
         
@@ -63,7 +63,7 @@ describe('get_games_query', () => {
         const userId = user.result?.user.userId!;
         await importBggCollection({ username, userId });
 
-        const numberOfGames = (await getGames()).result?.length;
+        const numberOfGames = (await getGamesPaginated()).result?.length;
         const expectedNumberOfGames = mockedGames.length;
         expect(numberOfGames).toBe(expectedNumberOfGames);
     });
@@ -85,7 +85,7 @@ describe('get_games_query', () => {
         const userId = user.result?.user.userId!;
         await importBggCollection({ username, userId });
 
-        const numberOfGames = (await getGames()).result?.length;
+        const numberOfGames = (await getGamesPaginated()).result?.length;
         const expectedNumberOfGames = mockedGames.length;
         expect(numberOfGames).toBe(expectedNumberOfGames);
     });
