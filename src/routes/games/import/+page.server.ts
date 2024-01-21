@@ -1,7 +1,7 @@
-import { message, superValidate } from 'sveltekit-superforms/server';
+import { superValidate } from 'sveltekit-superforms/server';
 import type { Actions, PageServerLoad } from './$types';
 import { importCollectionSchema } from '$lib/data/validation_schemas/importCollectionSchema';
-import { error, fail, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import importBggCollection from '$lib/server/integrations/importBggCollection';
 import { getUser } from '$lib/server/utils/getUser';
 

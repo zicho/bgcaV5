@@ -34,6 +34,7 @@
 
 	{#if data.gamesInCollectionCount == 0}
 		<div class="prose">
+			<h3>Oh no!</h3>
 			<p>Your collection is empty! :( If you have a <a target="_blank" href="https://www.boardgamegeek.com">BGG</a> account, you can <a href="/games/import">import</a>
 			your collection from there. Otherwise you can add them manually.</p>
 			<p>Go to <a href="/games">this page</a> to search for games!</p>

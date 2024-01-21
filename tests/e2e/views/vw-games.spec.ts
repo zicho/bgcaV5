@@ -47,7 +47,7 @@ test('vw-games-search_filter_by_name', async ({ page }) => {
 	await registerUserAndLogin(page);
 
 	const gameName = "Eclipse: Total Eclipse of the Stars";
-	
+
 	await deleteAllGames();
 	await addGames({ noOfGames: 20 });
 	await addGameByName(gameName);
@@ -58,7 +58,7 @@ test('vw-games-search_filter_by_name', async ({ page }) => {
 	expect(page.url()).toContain(`games`);
 
 	const searchField = page.getByTestId("search-query-input-field");
-	
+
 	await searchField.fill(gameName);
 	await page.waitForEvent('framenavigated');
 
@@ -71,7 +71,7 @@ test('vw-games-search_filter_by_partial_name', async ({ page }) => {
 
 	const gameName = "Eclipse: Total Eclipse of the Stars";
 	const gameNameSliced = getMiddleOfString(gameName);
-	
+
 	await deleteAllGames();
 	await addGames({ noOfGames: 20 });
 	await addGameByName(gameName);
@@ -136,7 +136,7 @@ test('vw-games-button_states_should_update_properly', async ({ page }) => {
 
 	// this last part is necessary so browser doesn't close when running the tests
 	await firstPageButton.click();
-	await page.waitForEvent('framenavigated'); 
+	await page.waitForEvent('framenavigated');
 });
 
 test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
@@ -150,7 +150,7 @@ test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) =
 	await page.waitForURL(`**/games`);
 	expect(page.url()).toContain(`games`);
 
-	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
+	const pageSelectDropdown = page.getByTestId('table-paginator-top-page-number-select-dropdown');
 	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
 
 	const getCurrentPageDropdownValue = async (): Promise<number> => {
@@ -173,36 +173,24 @@ test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) =
 	expect(finalValue).toBe(1);
 });
 
-// test('vw-games-when_page_no_is_too_big_redirect_to_page_one', async ({ page }) => {
-// 	await registerUserAndLogin(page);
+test('vw-games-when_there_are_zero_or_one_page_disable_select_page_dropdown', async ({ page }) => {
+	await registerUserAndLogin(page);
 
-// 	await deleteAllGames();
-// 	await addGames();
+	await deleteAllGames();
+	await addGames({ noOfGames: 10 });
 
-// 	await page.goto("/games");
+	await page.goto("/games");
 
-// 	await page.waitForURL(`**/games`);
-// 	expect(page.url()).toContain(`games`);
+	await page.waitForURL(`**/games`);
+	expect(page.url()).toContain(`games`);
 
-// 	const pageSelectDropdown = page.getByTestId('page-number-select-dropdown');
-// 	const limitResultsDropdown = page.getByTestId('limit-results-select-dropdown');
+	const pageSelectDropdown = page.getByTestId('table-paginator-top-page-number-select-dropdown');
+	expect(pageSelectDropdown).toBeDisabled();
 
-// 	const getCurrentPageDropdownValue = async (): Promise<number> => {
-// 		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
-// 	}
+	const getCurrentPageDropdownValue = async (): Promise<number> => {
+		return Number(await pageSelectDropdown.evaluate((select: HTMLSelectElement) => select.value));
+	}
 
-// 	const initialValue = await getCurrentPageDropdownValue();
-// 	expect(initialValue).toBe(1);
-
-// 	await pageSelectDropdown.selectOption({ value: '10' });
-// 	await page.waitForEvent('framenavigated');
-
-// 	const newValue = await getCurrentPageDropdownValue();
-// 	expect(newValue).toBe(10);
-
-// 	await limitResultsDropdown.selectOption({ value: '100' });
-// 	await page.waitForEvent('framenavigated');
-
-// 	const finalValue = await getCurrentPageDropdownValue();
-// 	expect(finalValue).toBe(1);
-// });
+	const finalValue = await getCurrentPageDropdownValue();
+	expect(finalValue).toBe(1);
+});
