@@ -5,7 +5,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import type ButtonProps from '$lib/components/props/components/ButtonProps';
-	import { DownloadIcon, ImportIcon } from '$lib/data/icons';
+	import { ImportIcon } from '$lib/data/icons';
 	import { superForm } from 'sveltekit-superforms/client';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 
@@ -23,12 +23,15 @@
 		required: true
 	};
 
-	const loginButtonProps: ButtonProps = {
+	let submitted = false;
+
+	$: importCollectionButtonProps = {
 		id: 'bgg-import-btn',
 		label: 'Import',
 		type: 'primary',
-		icon: ImportIcon
-	};
+		icon: ImportIcon,
+		loading: submitted
+	} satisfies ButtonProps;
 
 	$: errorMessage = $errors['bgg-username-input'];
 	$: hasError = $errors['bgg-username-input'] !== undefined;
@@ -42,9 +45,9 @@
 			If you have a BGG account, you can import your games from there. Just enter your BGG username
 			below. The games will be added to your collection automatically.
 		</p>
-		<form use:enhance method="post">
+		<form use:enhance method="post" on:submit={() => submitted = true}>
 			<TextInput props={{ ...bggUsernameInputProps, errorMessage, hasError }} extraClasses="mb-4" />
-			<Button props={loginButtonProps} extraClasses="mb-4 w-full" />
+			<Button props={importCollectionButtonProps} extraClasses="mb-4 w-full" />
 		</form>
 	</div>
 	

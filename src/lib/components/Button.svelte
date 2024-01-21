@@ -4,22 +4,28 @@
 
 	export let props: ButtonProps;
 	export let extraClasses: string = '';
+
+	$: ({ loading } = props);
 </script>
 
 <button
 	type="submit"
 	id={props.id}
 	data-testid={props.id}
+	disabled={props.loading}
 	class="btn {getButtonTypeClass(props.type)} {extraClasses}"
 >
-	{#if props.icon && !props.alignIconRight}
-		<svelte:component this={props.icon} class="mr-4 md:mr-0" />
-	{/if}
+	{#if !loading}
+		{#if props.icon && !props.alignIconRight}
+			<svelte:component this={props.icon} class="mr-4 md:mr-0" />
+		{/if}
 
-	{props.label}
+		{props.label}
 
-	{#if props.icon && props.alignIconRight}
-		<svelte:component this={props.icon} class="ml-4 md:ml-0" />
+		{#if props.icon && props.alignIconRight}
+			<svelte:component this={props.icon} class="ml-4 md:ml-0" />
+		{/if}
+	{:else}
+		<span class="loading loading-spinner loading-xs"></span>
 	{/if}
-	</button
->
+</button>

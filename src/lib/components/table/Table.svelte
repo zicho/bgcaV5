@@ -38,6 +38,10 @@
 		startTimer();
 	}
 
+	function triggerSearch() {
+		searchForm.requestSubmit();
+	}
+
 	$: tablePaginatorTopProps = {
 		id: 'table-paginator-top',
 		searchParam,
@@ -59,7 +63,7 @@
 		<form
 			id="searchForm"
 			bind:this={searchForm}
-			on:change={() => searchForm.requestSubmit()}
+			on:change={() => triggerSearch()}
 			class="flex flex-col md:flex-row md:space-x-2 mb-4 w-full"
 		>
 			<div class=" w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
@@ -78,7 +82,7 @@
 			<div class="w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
 				<label for="limit" class="label-text">Results per page</label>
 				<select
-					on:change={() => searchForm.requestSubmit()}
+					on:change={() => triggerSearch()}
 					name="limit"
 					id="limit"
 					data-testid="limit-results-select-dropdown"
@@ -100,7 +104,7 @@
 		<div class="mb-8">
 			<TablePaginator
 				props={tablePaginatorTopProps}
-				on:pageChanged={() => searchForm.requestSubmit()}
+				on:pageChanged={() => triggerSearch()}
 			/>
 		</div>
 	{/if}
@@ -122,7 +126,7 @@
 		<div class="mt-8">
 			<TablePaginator
 				props={tablePaginatorBottomProps}
-				on:pageChanged={() => searchForm.requestSubmit()}
+				on:pageChanged={() => triggerSearch()}
 			/>
 		</div>
 	{/if}

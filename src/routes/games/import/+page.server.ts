@@ -27,8 +27,8 @@ export const actions: Actions = {
         const id = (await getUser(locals.auth)).userId;
         const response = await importBggCollection({ username: form.data['bgg-username-input'], userId: id });
 
-        if(!response.error) {
-            return fail(400, { form, message: "apoopui" });
+        if(response.error) {
+            return fail(400, { form });
         } else {
             throw redirect(302, "/games/collection");
         }

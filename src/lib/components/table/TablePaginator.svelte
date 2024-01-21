@@ -56,8 +56,10 @@
 
 <div class="flex items-center justify-between mb-4 flex-col xl:space-x-2 xl:flex-row">
 	<div class="space-x-0 space-y-2 flex w-full flex-col md:space-x-4 md:space-y-0 md:flex-row">
-		<LinkButton props={goToFirstPageLinkButtonProps} extraClasses="flex-1" />
-		<LinkButton props={prevPageLinkButtonProps} extraClasses="flex-1" />
+		<form>
+			<LinkButton props={goToFirstPageLinkButtonProps} extraClasses="flex-1" />
+			<LinkButton props={prevPageLinkButtonProps} extraClasses="flex-1" />
+		</form>
 	</div>
 
 	<div class="py-4 xl:py-0 flex items-center justify-center w-full">
@@ -68,7 +70,7 @@
 			<input
 				class="w-16 p-2 border border-gray-300 rounded-md h-full"
 				form="searchForm"
-				name="{props.id}-page-number-text-input"
+				name="page"
 				id="{props.id}-page-number-text-input"
 				data-testid="{props.id}-page-number-text-input"
 				type="text"

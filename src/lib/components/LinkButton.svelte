@@ -11,6 +11,7 @@
 	data-testid={props.id}
 	class="btn {props.type ? `btn-${props.type}` : 'btn-link'} {extraClasses}"
 	class:btn-disabled={props.disabled}
+	type="submit"
 >
 	{#if props.icon && !props.alignIconRight}
 		<svelte:component this={props.icon} class="mr-4 md:mr-0" />

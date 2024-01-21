@@ -1,11 +1,8 @@
-type TablePaginatorProps = {
+import type TableProps from "./TableProps";
+
+type TablePaginatorProps = Omit<TableProps, 'resultsEmpty' | 'resultsEmptyMessage'> & {
     id: string;
-    limit: number;
-    pageNo: number;
-    searchParam?: string;
-    totalHits: number;
-    totalPages: number;
-    pageNoArray: number[]
-}
+    pageNoArray: number[];
+};
 
 export default TablePaginatorProps;
