@@ -9,8 +9,12 @@
 	const { game } = data;
 </script>
 
+<svelte:head>
+	<title>{game?.name}</title>
+</svelte:head>
+
 <BasePageLayout>
-	<PageHeaderToolbar title="Games" subheader="Find and view games">
+	<PageHeaderToolbar>
 		<PageHeaderToolbarLinkButton
 			displayText="Create event"
 			id="create-event-btn"
@@ -21,8 +25,9 @@
 			displayText={data.inYourCollection ? 'Remove from collection' : 'Add to collection'}
 			id="add-to-collection-btn"
 			className="primary"
-			url="/games/add/{game?.id}"
+			url="/games/collection/{data.inYourCollection ? 'remove' : 'add'}/{game?.bggId}"
 			icon={data.inYourCollection ? MinusIcon : PlusIcon}
+			forceReloadOnClick={true}
 		/>
 	</PageHeaderToolbar>
 
@@ -32,11 +37,12 @@
 			<div class="ml-4">
 				<div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
 					<div class="col-span-2">
-						<div class="flex flex-row items-center mb-4">
-							<div class="badge-neutral text-xl flex items-center justify-center w-16 h-16">
+						<div class="flex flex-row mb-4">
+							<div class="badge-neutral text-xl flex items-center justify-center w-16 h-16 mr-4">
 								{game?.averageRating?.substring(0, 3)}
 							</div>
-							<h3 class="text-3xl font-bold ml-4">{game?.name} ({game?.yearPublished})</h3>
+							<h3 class="text-3xl font-bold">{game?.name} ({game?.yearPublished})</h3>
+							
 						</div>
 						<p>{@html game?.desc}</p>
 					</div>

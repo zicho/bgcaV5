@@ -1,10 +1,12 @@
 <script lang="ts">
-	export let title: string | undefined;
-	export let subheader: string | undefined = "";
+	export let title: string | undefined = '';
+	export let subheader: string | undefined = '';
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	{#if title}
+		<title>{title}</title>
+	{/if}
 </svelte:head>
 
 <div class="w-full">

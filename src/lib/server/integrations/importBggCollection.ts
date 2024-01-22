@@ -17,8 +17,10 @@ export default async function importBggCollection({ username, userId }: { userna
         const response = await fetch(`https://bgg-json.azurewebsites.net/collection/${username}`);
         const data = await response.json() as BggGame[];
 
+        const gamesToImport = data.filter(x => !x.isExpansion);
+
         // store number of games found for user
-        const numberOfGamesImported = data.length;
+        const numberOfGamesImported = gamesToImport.length;
 
         if (numberOfGamesImported == 0) {
             // if no games are found, we don't need to do anything more
@@ -30,12 +32,12 @@ export default async function importBggCollection({ username, userId }: { userna
         }
 
         // map DTO to Database Model and add to DB
-        const models = data.map(mapToDbModel);
+        const models = gamesToImport.map(mapToDbModel);
         await insertGames({ models });
 
         // we then use the BGG ID's to retrieve the ID's of all games
         // we want added to the collection
-        const gameIds = await getGamesByBggIds({ bggIds: data.map(x => x.gameId) });
+        const gameIds = await getGamesByBggIds({ bggIds: gamesToImport.map(x => x.gameId) });
 		const mappedIds = gameIds.result?.map((gameId) => ({ userId: userId, gameId }));
 
         await addGamesToUserCollection(mappedIds!);

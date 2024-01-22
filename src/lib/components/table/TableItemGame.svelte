@@ -11,11 +11,11 @@
 	import LinkButton from '../LinkButton.svelte';
 	import type LinkButtonProps from '../props/components/LinkButtonProps';
 
-	let detailsButtonProps = {
+	$: detailsButtonProps = {
 		id: `go-to-details-game-${game.bggId}`,
 		label: 'Details',
 		type: 'secondary',
-		href: `/games/${game.bggId}`
+		href: `/games/${game.bggId}/${game.slug}`
 	} satisfies LinkButtonProps;
 </script>
 
@@ -29,14 +29,14 @@
 
 	<div class="flex-grow lg:flex-none md:w-36 flex lg:items-center text-sm">
 		<div>
-			<a class="font-bold hover:underline" href="/games/{game.bggId}">{game.name}</a>
+			<a class="font-bold hover:underline" href="/games/{game.bggId}/{game.slug}">{game.name}</a>
 			<div class="text-sm opacity-50">{game.yearPublished}</div>
 		</div>
 	</div>
 
 	<div class="lg:flex flex-grow lg:items-center text-sm hidden">
 		{#if game.desc}
-			{game.desc}
+			{@html game.desc}
 		{:else}
 			<i class="text-secondary">Description missing</i>
 		{/if}
@@ -55,7 +55,7 @@
 
 <div class="lg:flex flex-grow lg:items-center text-sm lg:hidden">
 	{#if game.desc}
-		{game.desc}
+		{@html game.desc}
 	{:else}
 		<i class="text-secondary">Description missing</i>
 	{/if}

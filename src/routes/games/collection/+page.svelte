@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<title>Games</title>
+	<title>Your collection</title>
 </svelte:head>
 
 <BasePageLayout>
