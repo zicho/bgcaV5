@@ -22,6 +22,7 @@
 		"@sveltejs/kit": "^1.27.6",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/pg": "^8.10.9",
+		"@types/xml2js": "^0.4.14",
 		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^6.11.0",
 		"autoprefixer": "^10.4.16",
@@ -52,6 +53,7 @@
 		"pg": "^8.11.3",
 		"postgres": "^3.4.3",
 		"sveltekit-superforms": "^1.10.2",
+		"xml2js": "^0.6.2",
 		"zod": "^3.22.4"
 	}
 }

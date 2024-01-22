@@ -17,7 +17,7 @@ export default async function importBggCollection({ username, userId }: { userna
         const response = await fetch(`https://bgg-json.azurewebsites.net/collection/${username}`);
         const data = await response.json() as BggGame[];
 
-        const gamesToImport = data.filter(x => !x.isExpansion);
+        const gamesToImport = data.filter(x => !x.isExpansion); // for now don't import expansions (worry about that later)
 
         // store number of games found for user
         const numberOfGamesImported = gamesToImport.length;

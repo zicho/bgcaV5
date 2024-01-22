@@ -15,7 +15,8 @@
 	$: ({ games } = data);
 	$: props = {
 		...data,
-		resultsEmptyMessage: "Is your favorite game missing? <a class='underline text-primary' href='/'>Please help us by adding it to our database!</a>"
+		resultsEmptyMessage:
+			"Can't find what you're looking for? Try <a class='underline text-primary' href='/'>extended search</a>"
 	} satisfies TableProps;
 </script>
 

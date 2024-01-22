@@ -77,7 +77,7 @@
 			/>
 		{:else}
 			<select
-				name="{props.id}-page-number-select-dropdown"
+				name="page"
 				data-testid="{props.id}-page-number-select-dropdown"
 				id="{props.id}-page-number-select-dropdown"
 				class="select select-bordered xl:mt-0 w-full xl:w-auto"
