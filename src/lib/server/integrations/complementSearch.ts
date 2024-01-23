@@ -19,7 +19,7 @@ export async function getIds(query: string): Promise<number[]> {
         const xmlText = await response.text();
         const ids = await parseIdsFromXml(xmlText);
 
-        return ids;
+        return ids.slice(0, 100);
     } catch (error) {
         console.error('Error fetching data:', error);
         return [];

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { games } from '$lib/db/schema/games';
-
 	export let game: BggGame;
 	import placeholderImg from '$lib/assets/cover_art_missing.png';
 	import LinkButton from '../LinkButton.svelte';
@@ -41,7 +39,7 @@
 
 	<div class="flex flex-none w-16 lg:w-24 lg:items-center">
 		<div class="badge-neutral text-xl flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16">
-			{game.averageRating?.substring(0, 3)}
+			{game?.averageRating === "0" ? "--" : game?.averageRating?.substring(0, 3)}
 		</div>
 	</div>
 

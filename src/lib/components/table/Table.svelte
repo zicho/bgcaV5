@@ -114,16 +114,14 @@
 			<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
 		</div>
 	{:else}
-		<!-- {#if timer !== null}
-			<div class="flex items-center justify-center">
-				<span class="loading loading-spinner loading-lg"></span>
-			</div>
-		{:else} -->
-			<div class="flex flex-row space-x-4 invisible lg:visible">
-				<slot name="headers" />
-			</div>
-			<slot name="body" />
-		<!-- {/if} -->
+		<!-- <div class="flex items-center justify-center">
+			<span class="loading loading-spinner loading-lg"></span>
+		</div> -->
+
+		<div class="flex flex-row space-x-4 invisible lg:visible">
+			<slot name="headers" />
+		</div>
+		<slot name="body" />
 	{/if}
 
 	{#if !resultsEmpty}

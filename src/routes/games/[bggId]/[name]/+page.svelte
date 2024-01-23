@@ -39,7 +39,7 @@
 					<div class="col-span-2">
 						<div class="flex flex-row mb-4">
 							<div class="badge-neutral text-xl flex items-center justify-center w-16 h-16 mr-4">
-								{game?.averageRating?.substring(0, 3)}
+								{game?.averageRating === "0" ? "--" : game?.averageRating?.substring(0, 3)}
 							</div>
 							<h3 class="text-3xl font-bold">{game?.name} ({game?.yearPublished})</h3>
 							
