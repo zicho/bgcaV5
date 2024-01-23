@@ -14,19 +14,18 @@ export async function getGameCollection({ userId, pageNo, limit, searchParam }: 
 
         const pageResult = await db
             .select({
-                id: games.id,
-                bggId: games.bggId,
+                gameId: games.gameId,
                 name: games.name,
-                desc: games.desc,
+                description: games.description,
                 slug: games.slug,
                 averageRating: games.averageRating,
-                thumbnailUrl: games.thumbnailUrl,
+                thumbnail: games.thumbnail,
                 yearPublished: games.yearPublished
             })
             .from(usersToGameCollections)
             .orderBy(games.name)
             .where(and(eq(usersToGameCollections.userId, userId), ilike(games.name, `%${searchParam}%`)))
-            .leftJoin(games, eq(usersToGameCollections.gameId, games.id))
+            .leftJoin(games, eq(usersToGameCollections.gameId, games.gameId))
             .limit(limit)
             .offset((pageNo - 1) * limit);
 

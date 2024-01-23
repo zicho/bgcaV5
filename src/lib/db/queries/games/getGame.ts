@@ -5,44 +5,29 @@ import { games } from "$lib/db/schema/games";
 import { mapToDbModel } from "$lib/server/integrations/dto/BggGame";
 import retrieveGameData from "$lib/server/integrations/retrieveGameData";
 import { eq } from "drizzle-orm";
-import { updateGame } from "./updateGame";
 import { insertGames } from "./insertGames";
 
 type Game = typeof games.$inferSelect
 
-async function getGameById(id: number): Promise<Game | undefined> {
-  const result = await db.select().from(games).where(eq(games.id, id));
+async function getGameById(gameId: number): Promise<Game> {
+  const result = await db.select().from(games).where(eq(games.gameId, gameId));
   return result[0];
 }
 
-async function getGameByBggId(bggId: number): Promise<Game | undefined> {
-  const result = await db.select().from(games).where(eq(games.bggId, bggId));
-  return result[0];
-}
-
-export async function getGame({ id, bggId }: { id?: number, bggId?: number }): Promise<ApiResponse<Game>> {
-  if (!id && !bggId) {
-    return failedResponse("Supply at least one ID");
-  }
-
+export async function getGame({ gameId }: { gameId: number }): Promise<ApiResponse<Game>> {
   try {
-    let game;
 
-    if (id) {
-      game = await getGameById(id);
-    } else {
-      game = await getGameByBggId(bggId!);
-    }
+    let game = await getGameById(gameId);
 
-    if (!game && bggId) {
-      const updatedData = await retrieveGameData({ bggId: bggId! });
+    if (!game) {
+      const updatedData = await retrieveGameData({ gameId: gameId! });
       const newData = mapToDbModel(updatedData.result!);
       const insertedId = (await insertGames({ models: [newData] })).result![0];
       game = await getGameById(insertedId);
     }
 
     return game ? successfulResponse(game) : failedResponse("Game not found");
-  } catch {
+  } catch(err) {
     return failedResponse(DataRetrievalFail);
   }
 }

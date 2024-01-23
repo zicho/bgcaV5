@@ -10,9 +10,9 @@ export async function insertGames({ models }: { models: Game[] }): Promise<ApiRe
         const insertedGames = await db
             .insert(games)
             .values(models)
-            .onConflictDoNothing({ target: games.bggId })
+            .onConflictDoNothing({ target: games.gameId })
             .returning({
-                id: games.id,
+                id: games.gameId,
             });
 
         return successfulResponse(insertedGames.map(x => x.id));

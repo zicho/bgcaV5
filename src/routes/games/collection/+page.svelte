@@ -5,7 +5,7 @@
 	import type TableProps from '$lib/components/props/components/TableProps';
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
-	import { CollectionIcon, DownloadIcon } from '$lib/data/icons';
+	import { DownloadIcon } from '$lib/data/icons';
 	import type { PageData } from './$types';
 	import TableHeader from '$lib/components/table/TableHeader.svelte';
 	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
@@ -52,7 +52,7 @@
 			</slot>
 			<slot slot="body">
 				{#each games as game}
-					<TableItemGame {game} />
+					<!-- <TableItemGame {game} /> -->
 				{/each}
 			</slot>
 		</Table>

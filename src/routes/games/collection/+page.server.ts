@@ -1,5 +1,5 @@
 
-import { getTotalGameCount } from '$lib/db/queries/games/getTotalGameCount';
+import { getCollectionGameCount } from '$lib/db/queries/games/getTotalGameCount';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { getGameCollection } from '$lib/db/queries/games/getGameCollection';
@@ -9,7 +9,7 @@ export const load = (async ({ url, parent }) => {
     const { pageNo, limit, searchParam } = getTableParams(url);
     const { userId } = (await parent()).user;
     
-    const totalHits = (await getTotalGameCount({ searchParam, userId })).result as number;
+    const totalHits = (await getCollectionGameCount({ userId })).result as number;
     const totalPages = Math.ceil(totalHits / limit);
 
     // handles redirects on invalid parameter states
@@ -22,7 +22,7 @@ export const load = (async ({ url, parent }) => {
     })
 
     const response = await getGameCollection({ userId, pageNo, limit, searchParam });
-    const gamesInCollectionCount = (await getTotalGameCount({ userId })).result as number;
+    const gamesInCollectionCount = (await getCollectionGameCount({ userId })).result as number;
 
     if (!response.success) {
         throw error(520);

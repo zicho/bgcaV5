@@ -1,5 +1,5 @@
 {
-  "id": "bd4d8d39-28b8-493c-89fa-04d7d233d324",
+  "id": "3b34fafe-2cce-44e7-9638-0c21a8500fd1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -93,20 +93,26 @@
           "primaryKey": false,
           "notNull": false
         },
-        "bggId": {
-          "name": "bggId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "minNumberOfPlayers": {
-          "name": "minNumberOfPlayers",
+        "playingTime": {
+          "name": "playingTime",
           "type": "smallint",
           "primaryKey": false,
           "notNull": false
         },
-        "maxNumberOfPlayers": {
-          "name": "maxNumberOfPlayers",
+        "isExpansion": {
+          "name": "isExpansion",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "minPlayers": {
+          "name": "minPlayers",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxPlayers": {
+          "name": "maxPlayers",
           "type": "smallint",
           "primaryKey": false,
           "notNull": false
@@ -117,14 +123,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "thumbnailUrl": {
-          "name": "thumbnailUrl",
+        "thumbnail": {
+          "name": "thumbnail",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "imageUrl": {
-          "name": "imageUrl",
+        "image": {
+          "name": "image",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -133,15 +139,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "games_bggId_unique": {
-          "name": "games_bggId_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "bggId"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     },
     "user_favorite_games": {
       "name": "user_favorite_games",
@@ -246,15 +244,7 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "user_game_collection_user_id_game_id": {
-          "name": "user_game_collection_user_id_game_id",
-          "columns": [
-            "user_id",
-            "game_id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "event_dates": {

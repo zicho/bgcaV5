@@ -9,11 +9,11 @@ import { updateGame } from "./updateGame";
 
 type Game = typeof games.$inferSelect
 
-export async function isGameInCollection({ id, userId }: { id: number, userId: string }): Promise<ApiResponse<boolean>> {
+export async function isGameInCollection({ gameId, userId }: { gameId: number, userId: string }): Promise<ApiResponse<boolean>> {
     try {
         const response = await db.select().from(usersToGameCollections).where(
             and(
-                eq(usersToGameCollections.gameId, id),
+                eq(usersToGameCollections.gameId, gameId),
                 eq(usersToGameCollections.userId, userId),
             )
         );

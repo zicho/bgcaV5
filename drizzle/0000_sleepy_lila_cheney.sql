@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS "games" (
 	"slug" text NOT NULL,
 	"description" text,
 	"yearPublished" smallint,
-	"bggId" integer,
-	"minNumberOfPlayers" smallint,
-	"maxNumberOfPlayers" smallint,
+	"playingTime" smallint,
+	"isExpansion" boolean,
+	"minPlayers" smallint,
+	"maxPlayers" smallint,
 	"averageRating" text,
-	"thumbnailUrl" text,
-	"imageUrl" text,
-	CONSTRAINT "games_bggId_unique" UNIQUE("bggId")
+	"thumbnail" text,
+	"image" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_favorite_games" (
@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS "user_favorite_games" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_game_collection" (
 	"user_id" varchar NOT NULL,
-	"game_id" serial NOT NULL,
-	CONSTRAINT user_game_collection_user_id_game_id PRIMARY KEY("user_id","game_id")
+	"game_id" serial NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "event_dates" (

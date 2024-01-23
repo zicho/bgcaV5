@@ -1,20 +1,21 @@
 import { relations } from "drizzle-orm";
-import { pgTable, varchar, text, serial, integer, smallint, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, varchar, text, serial, integer, smallint, primaryKey, boolean } from "drizzle-orm/pg-core";
 import { users } from "./users";
 import { events } from "./events";
 
 export const games = pgTable("games", {
-	id: serial("id").primaryKey(),
+	gameId: serial("id").primaryKey(),
 	name: text("name").notNull(),
 	slug: text("slug").notNull(),
-	desc: text("description"),
+	description: text("description"),
 	yearPublished: smallint("yearPublished"),
-	bggId: integer("bggId").unique(), // NOTE: THIS _NEEDS_ TO HAVE A _UNIQUE_ CONSTRAINT. ID + BggID is a composite key in some cases. 
-	minNumberOfPlayers: smallint("minNumberOfPlayers"),
-	maxNumberOfPlayers: smallint("maxNumberOfPlayers"),
+	playingTime: smallint("playingTime"),
+	isExpansion: boolean('isExpansion'),
+	minPlayers: smallint("minPlayers"),
+	maxPlayers: smallint("maxPlayers"),
 	averageRating: text("averageRating"),
-	thumbnailUrl: text("thumbnailUrl"),
-	imageUrl: text("imageUrl")
+	thumbnail: text("thumbnail"),
+	image: text("image")
 });
 
 export const usersGamesCollectionRelations = relations(users, ({ many }) => ({
@@ -33,17 +34,14 @@ export const usersToGameCollections = pgTable(
 			.references(() => users.id),
 		gameId: serial("game_id")
 			.notNull()
-			.references(() => games.id)
+			.references(() => games.gameId)
 	},
-	(t) => ({
-		pk: primaryKey(t.userId, t.gameId)
-	})
 );
 
 export const usersToGameCollectionRelations = relations(usersToGameCollections, ({ one }) => ({
 	group: one(games, {
 		fields: [usersToGameCollections.gameId],
-		references: [games.id]
+		references: [games.gameId]
 	}),
 	user: one(users, {
 		fields: [usersToGameCollections.userId],
@@ -75,7 +73,7 @@ export const userFavoriteGames = pgTable(
 			.references(() => users.id),
 		gameId: serial("game_id")
 			.notNull()
-			.references(() => games.id)
+			.references(() => games.gameId)
 	},
 	(t) => ({
 		pk: primaryKey(t.userId, t.gameId)
@@ -85,7 +83,7 @@ export const userFavoriteGames = pgTable(
 export const usersToFavoriteGamesRelations = relations(userFavoriteGames, ({ one }) => ({
 	group: one(games, {
 		fields: [userFavoriteGames.gameId],
-		references: [games.id]
+		references: [games.gameId]
 	}),
 	user: one(users, {
 		fields: [userFavoriteGames.userId],

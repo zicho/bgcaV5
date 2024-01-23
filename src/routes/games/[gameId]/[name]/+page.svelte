@@ -18,14 +18,14 @@
 		<PageHeaderToolbarLinkButton
 			displayText="Create event"
 			id="create-event-btn"
-			url="/events/create/{game?.id}"
+			url="/events/create/{game?.gameId}"
 			icon={CreateEventIcon}
 		/>
 		<PageHeaderToolbarLinkButton
 			displayText={data.inYourCollection ? 'Remove from collection' : 'Add to collection'}
 			id="add-to-collection-btn"
 			className="primary"
-			url="/games/collection/{data.inYourCollection ? 'remove' : 'add'}/{game?.bggId}"
+			url="/games/collection/{data.inYourCollection ? 'remove' : 'add'}/{game?.gameId}"
 			icon={data.inYourCollection ? MinusIcon : PlusIcon}
 			forceReloadOnClick={true}
 		/>
@@ -51,7 +51,7 @@
 						<div class="divider m-0" />
 						<div class="flex flex-row justify-between">
 							<span class="font-bold">Player count: </span>
-							<span>{game?.minNumberOfPlayers}-{game?.maxNumberOfPlayers}</span>
+							<span>{game?.minPlayers}-{game?.maxPlayers}</span>
 						</div>
 					</div>
 				</div>

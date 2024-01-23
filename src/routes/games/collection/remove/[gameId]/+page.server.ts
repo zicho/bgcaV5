@@ -5,19 +5,19 @@ import { getGame } from "$lib/db/queries/games/getGame";
 import { removeFromCollection } from "$lib/db/queries/games/removeFromCollection";
 
 export const load = (async ({ params, parent }) => {
-	if (!isNumber(params.bggId)) {
+	if (!isNumber(params.gameId)) {
 		throw error(400, "Invalid game id in URL");
 	}
 
     const { userId } = (await parent()).user;
 
-	const game = (await getGame({ bggId: Number(params.bggId) })).result;
+	const game = (await getGame({ gameId: Number(params.gameId) })).result;
 
 	if (!game) {
-		throw error(404, `Could not find game with id ${params.bggId}`);
+		throw error(404, `Could not find game with id ${params.gameId}`);
 	} else {
-        await removeFromCollection({ userId, id: game.id });
+        await removeFromCollection({ userId, id: game.gameId });
     }
 
-	throw redirect(302, `/games/${params.bggId}/${game?.slug}`);
+	throw redirect(302, `/games/${params.gameId}/${game?.slug}`);
 }) satisfies PageServerLoad;
