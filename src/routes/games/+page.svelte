@@ -14,9 +14,7 @@
 
 	$: ({ games } = data);
 	$: props = {
-		...data,
-		resultsEmptyMessage:
-			"Can't find what you're looking for? Try <a class='underline text-primary' href='/'>extended search</a>"
+		...data
 	} satisfies TableProps;
 </script>
 

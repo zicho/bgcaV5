@@ -8,6 +8,7 @@ type ButtonProps = {
     type?: ButtonType,
     alignIconRight?: boolean,
     icon?: typeof SvelteComponent<any, SVGAElement> | undefined
+    loading?: boolean
 }
 
 export default ButtonProps;

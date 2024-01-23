@@ -70,6 +70,7 @@
 				<label for="search-query-input-field" class="label-text">Search title</label>
 				<input
 					bind:this={inputField}
+					value={searchParam}
 					name="search"
 					id="search-query-input-field"
 					data-testid="search-query-input-field"
@@ -102,10 +103,7 @@
 	</div>
 	{#if !resultsEmpty}
 		<div class="mb-8">
-			<TablePaginator
-				props={tablePaginatorTopProps}
-				on:pageChanged={() => triggerSearch()}
-			/>
+			<TablePaginator props={tablePaginatorTopProps} on:pageChanged={() => triggerSearch()} />
 		</div>
 	{/if}
 
@@ -116,18 +114,21 @@
 			<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
 		</div>
 	{:else}
-		<div class="flex flex-row space-x-4 invisible lg:visible">
-			<slot name="headers" />
-		</div>
-		<slot name="body" />
+		<!-- {#if timer !== null}
+			<div class="flex items-center justify-center">
+				<span class="loading loading-spinner loading-lg"></span>
+			</div>
+		{:else} -->
+			<div class="flex flex-row space-x-4 invisible lg:visible">
+				<slot name="headers" />
+			</div>
+			<slot name="body" />
+		<!-- {/if} -->
 	{/if}
 
 	{#if !resultsEmpty}
 		<div class="mt-8">
-			<TablePaginator
-				props={tablePaginatorBottomProps}
-				on:pageChanged={() => triggerSearch()}
-			/>
+			<TablePaginator props={tablePaginatorBottomProps} on:pageChanged={() => triggerSearch()} />
 		</div>
 	{/if}
 </div>
