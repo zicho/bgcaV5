@@ -7,15 +7,22 @@
 	import Button from '$lib/components/Button.svelte';
 
 	export let data: PageData;
-    const { form, errors, constraints, enhance, message } = superForm(data.form);
+    
+	let loading = false;
 
+    const { form, errors, constraints, enhance, message } = superForm(data.form, 
+    {
+        onSubmit: () => (loading = true),
+		onError: () => (loading = false)
+    });
 
-	const saveProfileButtonProps: ButtonProps = {
+	$: saveProfileButtonProps = {
 		id: 'edit-profile-btn-submit',
 		label: 'Save',
 		type: 'primary',
-		icon: SaveIcon
-	};
+		icon: SaveIcon,
+        loading
+	} satisfies ButtonProps;
 
 </script>
 

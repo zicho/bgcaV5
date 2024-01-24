@@ -4,6 +4,9 @@ import type { BggGame } from "./dto/BggGame";
 // if a user searches for a game which we don't have, we use the BGG XML API to retrieve it/them if they exist.
 export async function getIds(query: string): Promise<number[]> {
     try {
+        if(!query) {
+            return [];
+        }
         // Fetch XML data
         const baseURL = `https://boardgamegeek.com/xmlapi2/search`;
 
@@ -40,6 +43,14 @@ type BggSearchResult = {
 
 export async function getGames({ ids, limit, pageNo }: { ids: number[], limit: number, pageNo: number }): Promise<BggSearchResult> {
     try {
+
+        if(ids.length === 0) {
+            return {
+                games: [],
+                totalHits: 0
+            };
+        }
+
         const baseURL = 'https://boardgamegeek.com/xmlapi2/thing';
 
         const games: BggGame[] = [];

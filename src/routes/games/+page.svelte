@@ -12,7 +12,7 @@
 
 	export let data: PageData;
 
-	$: ({ games } = data);
+	$: ({ games, loading } = data);
 	$: props = {
 		...data
 	} satisfies TableProps;
@@ -31,6 +31,7 @@
 			icon={CollectionIcon}
 		/>
 	</PageHeaderToolbar>
+
 	<Table {props}>
 		<slot slot="headers">
 			<!-- Cover art -->

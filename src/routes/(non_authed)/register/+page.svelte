@@ -15,9 +15,14 @@
 
 	export let data: PageData;
 
+	let loading = false;
+
 	const { form, errors, enhance, message } = superForm(data.form, {
 		clearOnSubmit: 'none',
-		resetForm: false
+		resetForm: false,
+		onSubmit: () => (loading = true),
+		onResult: () => (loading = false),
+		onError: () => (loading = false)
 	});
 
 	const usernameInputProps: TextInputProps = {
@@ -43,11 +48,12 @@
 		required: true
 	};
 
-	const registerButtonProps: ButtonProps = {
+	$: registerButtonProps = {
 		id: 'register',
 		label: 'Register',
-		type: 'primary'
-	};
+		type: 'primary',
+		loading
+	} satisfies ButtonProps;
 
 	const loginLinkButtonProps: LinkButtonProps = {
 		id: 'login-link-button',

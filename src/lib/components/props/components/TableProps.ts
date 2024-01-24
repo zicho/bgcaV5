@@ -6,6 +6,7 @@ type TableProps = {
     totalHits: number;
     resultsEmpty: boolean;
     resultsEmptyMessage?: string;
+    loading?: boolean
 }
 
 export default TableProps;

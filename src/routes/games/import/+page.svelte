@@ -11,9 +11,13 @@
 
 	export let data: PageData;
 
-	const { form, errors, enhance, message } = superForm(data.form, {
+	let loading = false;
+
+	const { errors, enhance } = superForm(data.form, {
 		clearOnSubmit: 'none',
-		resetForm: false
+		resetForm: false,
+		onSubmit: () => (loading = true),
+		onError: () => (loading = false)
 	});
 
 	const bggUsernameInputProps: TextInputProps = {
@@ -27,7 +31,8 @@
 		id: 'bgg-import-btn',
 		label: 'Import',
 		type: 'primary',
-		icon: ImportIcon
+		icon: ImportIcon,
+		loading
 	} satisfies ButtonProps;
 
 	$: errorMessage = $errors['bgg-username-input'];

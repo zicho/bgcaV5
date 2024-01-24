@@ -7,6 +7,7 @@
 
 <a
 	href={props.href}
+	target="{props.external ? '_blank' : ''}"
 	id={props.id}
 	data-testid={props.id}
 	class="btn {props.type ? `btn-${props.type}` : 'btn-link'} {extraClasses}"

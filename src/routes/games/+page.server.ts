@@ -27,7 +27,8 @@ export const load = (async ({ url }) => {
         limit,
         totalHits,
         totalPages,
-        resultsEmpty: searchResult.games?.length == 0
+        resultsEmpty: searchResult.games?.length == 0,
+        loading: false,
     };
 }) satisfies PageServerLoad;
 

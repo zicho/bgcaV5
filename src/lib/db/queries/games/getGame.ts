@@ -6,6 +6,7 @@ import { mapToDbModel } from "$lib/server/integrations/dto/BggGame";
 import retrieveGameData from "$lib/server/integrations/retrieveGameData";
 import { eq } from "drizzle-orm";
 import { insertGames } from "./insertGames";
+import { updateGame } from "./updateGame";
 
 type Game = typeof games.$inferSelect
 
@@ -19,15 +20,21 @@ export async function getGame({ gameId }: { gameId: number }): Promise<ApiRespon
 
     let game = await getGameById(gameId);
 
-    if (!game) {
+    if (!game || !game.description) {
       const updatedData = await retrieveGameData({ gameId: gameId! });
       const newData = mapToDbModel(updatedData.result!);
-      const insertedId = (await insertGames({ models: [newData] })).result![0];
-      game = await getGameById(insertedId);
+
+      if (!game) {
+        const insertedId = (await insertGames({ models: [newData] })).result![0];
+        game = await getGameById(insertedId);
+      } else {
+        await updateGame({ id: gameId, model: newData });
+        game = await getGameById(gameId);
+      }
     }
 
     return game ? successfulResponse(game) : failedResponse("Game not found");
-  } catch(err) {
+  } catch (err) {
     return failedResponse(DataRetrievalFail);
   }
 }

@@ -4,10 +4,11 @@
 	import { afterNavigate } from '$app/navigation';
 	import type TableProps from '../props/components/TableProps';
 	import type TablePaginatorProps from '../props/components/TablePaginatorProps';
+	import { createEventDispatcher } from 'svelte';
 
 	export let props: TableProps;
 
-	$: ({ limit, pageNo, searchParam, totalPages, totalHits, resultsEmpty } = props);
+	$: ({ limit, pageNo, searchParam, totalPages, totalHits, resultsEmpty, loading } = props);
 
 	const resultsEmptyMessageFallback = 'No results for search';
 
@@ -56,14 +57,18 @@
 		...tablePaginatorTopProps,
 		id: 'table-paginator-bottom'
 	} satisfies TablePaginatorProps;
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div>
 	<div>
+		{loading}
 		<form
 			id="searchForm"
 			bind:this={searchForm}
 			on:change={() => triggerSearch()}
+			on:submit={() => (loading = true)}
 			class="flex flex-col md:flex-row md:space-x-2 mb-4 w-full"
 		>
 			<div class=" w-full mb-4 lg:mb-0 lg:w-1/2 xl:w-1/4">
@@ -101,32 +106,35 @@
 			</noscript>
 		</form>
 	</div>
-	{#if !resultsEmpty}
-		<div class="mb-8">
-			<TablePaginator props={tablePaginatorTopProps} on:pageChanged={() => triggerSearch()} />
-		</div>
-	{/if}
 
-	<hr class="mb-8" />
-
-	{#if resultsEmpty}
-		<div class="prose-xl text-center mt-16">
-			<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
+	{#if loading}
+		<div class="flex items-center justify-center mt-8">
+			<span class="loading loading-spinner loading-lg"></span>
 		</div>
 	{:else}
-		<!-- <div class="flex items-center justify-center">
-			<span class="loading loading-spinner loading-lg"></span>
-		</div> -->
+		{#if !resultsEmpty}
+			<div class="mb-8">
+				<TablePaginator props={tablePaginatorTopProps} on:pageChanged={() => triggerSearch()} />
+			</div>
+		{/if}
 
-		<div class="flex flex-row space-x-4 invisible lg:visible">
-			<slot name="headers" />
-		</div>
-		<slot name="body" />
-	{/if}
+		<hr class="mb-8" />
 
-	{#if !resultsEmpty}
-		<div class="mt-8">
-			<TablePaginator props={tablePaginatorBottomProps} on:pageChanged={() => triggerSearch()} />
-		</div>
+		{#if resultsEmpty}
+			<div class="prose-xl text-center mt-16">
+				<span>{@html props.resultsEmptyMessage || resultsEmptyMessageFallback}</span>
+			</div>
+		{:else}
+			<div class="flex flex-row space-x-4 invisible lg:visible">
+				<slot name="headers" />
+			</div>
+			<slot name="body" />
+		{/if}
+
+		{#if !resultsEmpty}
+			<div class="mt-8">
+				<TablePaginator props={tablePaginatorBottomProps} on:pageChanged={() => triggerSearch()} />
+			</div>
+		{/if}
 	{/if}
 </div>

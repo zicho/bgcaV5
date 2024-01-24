@@ -4,12 +4,24 @@
 	import PageHeaderToolbar from '$lib/components/ui/PageHeaderToolbar.svelte';
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
 	import { CreateEventIcon, MinusIcon, PlusIcon } from '$lib/data/icons';
+	import LinkButton from '$lib/components/LinkButton.svelte';
+	import type LinkButtonProps from '$lib/components/props/components/LinkButtonProps';
 	export let data: PageData;
+
+	const { game } = data;
+
+	$: linkButtonProps = {
+		id: `go-to-bgg-for-game-${game?.gameId}`,
+		label: 'Read more on BGG',
+		type: 'primary',
+		external: true,
+		href: `https://boardgamegeek.com/boardgame/${game?.gameId}`
+	} satisfies LinkButtonProps;
 </script>
 
 <svelte:head>
 	<title>{game?.name}</title>
-</svelte:head> -->
+</svelte:head>
 
 <BasePageLayout>
 	<PageHeaderToolbar>
@@ -31,18 +43,17 @@
 
 	<div class="hero">
 		<div class="hero-content p-0 flex-col lg:flex-row max-w-none align-start">
-			<img src={game?.imageUrl} alt="{game?.name} cover art" class="w-64 xl:self-start" />
+			<img src={game?.image} alt="{game?.name} cover art" class="w-64 xl:self-start" />
 			<div class="ml-4">
 				<div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
 					<div class="col-span-2">
 						<div class="flex flex-row mb-4">
 							<div class="badge-neutral text-xl flex items-center justify-center w-16 h-16 mr-4">
-								{game?.averageRating === "0" ? "--" : game?.averageRating?.substring(0, 3)}
+								{game?.averageRating === '0' ? '--' : game?.averageRating?.substring(0, 3)}
 							</div>
 							<h3 class="text-3xl font-bold">{game?.name} ({game?.yearPublished})</h3>
-							
 						</div>
-						<p>{@html game?.desc}</p>
+						<p>{@html game?.description}</p>
 					</div>
 					<div class="flex flex-initial flex-col gap-y-1 bg-base-200 p-4">
 						<h3 class="text-xl font-bold">Game info</h3>
@@ -51,6 +62,7 @@
 							<span class="font-bold">Player count: </span>
 							<span>{game?.minPlayers}-{game?.maxPlayers}</span>
 						</div>
+						<LinkButton props={linkButtonProps} extraClasses="mt-auto" />
 					</div>
 				</div>
 			</div>

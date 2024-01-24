@@ -11,7 +11,6 @@
 	id={props.id}
 	data-testid={props.id}
 	disabled={props.loading}
-	on:click={() => (props.loading = true)}
 	class="btn {getButtonTypeClass(props.type)} {extraClasses}"
 >
 	{#if !props.loading}
