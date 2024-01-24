@@ -22,7 +22,6 @@ export const load = (async ({ url, parent }) => {
     })
 
     const response = await getGameCollection({ userId, pageNo, limit, searchParam });
-    const gamesInCollectionCount = (await getCollectionGameCount({ userId })).result as number;
 
     if (!response.success) {
         throw error(520);
@@ -30,7 +29,6 @@ export const load = (async ({ url, parent }) => {
 
     return {
         games: response.result!,
-        gamesInCollectionCount,
         searchParam,
         pageNo,
         limit,

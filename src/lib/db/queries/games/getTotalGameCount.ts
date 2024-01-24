@@ -12,7 +12,6 @@ export async function getCollectionGameCount({ userId }: { userId: string }): Pr
                 .select({ count: sql<number>`count(*)` })
                 .from(usersToGameCollections)
                 .where((eq(usersToGameCollections.userId, userId)))
-                .leftJoin(games, eq(usersToGameCollections.gameId, games.gameId))
         )[0].count;
 
         return successfulResponse(totalHits);

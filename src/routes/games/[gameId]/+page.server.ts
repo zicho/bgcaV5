@@ -4,15 +4,15 @@ import { isNumber } from "$lib/utils/validators/isNumber";
 import { getGame } from "$lib/db/queries/games/getGame";
 
 export const load = (async ({ params }) => {
-	if (!isNumber(params.bggId)) {
+	if (!isNumber(params.gameId)) {
 		throw error(400, "Invalid game id in URL");
 	}
 
-	const game = (await getGame({ bggId: Number(params.bggId) })).result;
+	const game = (await getGame({ gameId: Number(params.gameId) })).result;
 
 	if (!game) {
-		throw error(404, `Could not find game with id ${params.bggId}`);
+		throw error(404, `Could not find game with id ${params.gameId}`);
 	}
 
-	throw redirect(302, `/games/${params.bggId}/${game?.slug}`);
+	throw redirect(302, `/games/${params.gameId}/${game?.slug}`);
 }) satisfies PageServerLoad;

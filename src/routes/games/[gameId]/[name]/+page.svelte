@@ -5,13 +5,11 @@
 	import PageHeaderToolbarLinkButton from '$lib/components/ui/PageHeaderToolbarLinkButton.svelte';
 	import { CreateEventIcon, MinusIcon, PlusIcon } from '$lib/data/icons';
 	export let data: PageData;
-
-	const { game } = data;
 </script>
 
 <svelte:head>
 	<title>{game?.name}</title>
-</svelte:head>
+</svelte:head> -->
 
 <BasePageLayout>
 	<PageHeaderToolbar>

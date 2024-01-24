@@ -1,5 +1,3 @@
-
-
 import type { PageServerLoad } from './$types';
 import { getTableParams, handleTableRedirect } from '$lib/components/utils/table/TableHelper';
 import { getGames, getIds as getIds } from '$lib/server/integrations/complementSearch';

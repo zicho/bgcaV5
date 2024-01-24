@@ -37,7 +37,7 @@ export default async function importBggCollection({ username, userId }: { userna
 
         // we then use the BGG ID's to retrieve the ID's of all games
         // we want added to the collection
-        const gameIds = await getGamesByBggIds({ bggIds: gamesToImport.map(x => x.gameId) });
+        const gameIds = await getGamesByBggIds({ gameIds: gamesToImport.map(x => x.gameId) });
 		const mappedIds = gameIds.result?.map((gameId) => ({ userId: userId, gameId }));
 
         await addGamesToUserCollection(mappedIds!);

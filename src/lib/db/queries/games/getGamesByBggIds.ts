@@ -4,17 +4,17 @@ import { db } from "$lib/db/client";
 import { games as g } from "$lib/db/schema/games";
 import { inArray } from "drizzle-orm";
 
-export async function getGamesByBggIds({ bggIds }: { bggIds: number[] }): Promise<ApiResponse<number[]>> {
+export async function getGamesByBggIds({ gameIds }: { gameIds: number[] }): Promise<ApiResponse<number[]>> {
     try {
         const games = await db
             .select({
-                id: g.id
+                id: g.gameId
             })
             .from(g)
             .where(
                 inArray(
-                    g.bggId,
-                    bggIds)
+                    g.gameId,
+                    gameIds)
             );
 
         return successfulResponse(games.map(x => x.id));

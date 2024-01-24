@@ -10,9 +10,9 @@ export async function updateGame({ id, model }: { id: number, model: Game }): Pr
 
     try {
         const result = await db.update(games)
-            .set({ desc: model.desc })
-            .where(eq(games.id, id))
-            .returning({ updatedId: games.id });;
+            .set({ description: model.description })
+            .where(eq(games.gameId, id))
+            .returning({ updatedId: games.gameId });;
 
         return successfulResponse(result[0].updatedId);
     } catch (err) {

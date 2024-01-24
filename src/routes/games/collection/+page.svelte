@@ -9,6 +9,7 @@
 	import type { PageData } from './$types';
 	import TableHeader from '$lib/components/table/TableHeader.svelte';
 	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
+	import type { BggGame } from '$lib/server/integrations/dto/BggGame';
 
 	export let data: PageData;
 
@@ -16,6 +17,8 @@
 	$: props = {
 		...data
 	} satisfies TableProps;
+
+	const casted = data.games as BggGame[]; // todo, fix this so cast is not needed
 </script>
 
 <svelte:head>
@@ -32,7 +35,7 @@
 		/>
 	</PageHeaderToolbar>
 
-	{#if data.gamesInCollectionCount == 0}
+	{#if data.totalHits == 0}
 		<div class="prose">
 			<h3>Oh no!</h3>
 			<p>Your collection is empty! :( If you have a <a target="_blank" href="https://www.boardgamegeek.com">BGG</a> account, you can <a href="/games/import">import</a>
@@ -51,8 +54,8 @@
 				<TableHeader />
 			</slot>
 			<slot slot="body">
-				{#each games as game}
-					<!-- <TableItemGame {game} /> -->
+				{#each casted as game}
+					<TableItemGame {game} /> 
 				{/each}
 			</slot>
 		</Table>
