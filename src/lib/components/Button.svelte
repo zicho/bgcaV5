@@ -4,19 +4,17 @@
 
 	export let props: ButtonProps;
 	export let extraClasses: string = '';
-
-	let loading = false;
 </script>
 
 <button
 	type="submit"
 	id={props.id}
 	data-testid={props.id}
-	disabled={loading}
-	on:click={() => (loading = true)}
+	disabled={props.loading}
+	on:click={() => (props.loading = true)}
 	class="btn {getButtonTypeClass(props.type)} {extraClasses}"
 >
-	{#if !loading}
+	{#if !props.loading}
 		{#if props.icon && !props.alignIconRight}
 			<svelte:component this={props.icon} class="mr-4 md:mr-0" />
 		{/if}
