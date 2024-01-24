@@ -12,7 +12,7 @@ export async function addGamesToUserCollection
             .onConflictDoNothing()
             .returning({ insertedId: usersToGameCollections.gameId });
 
-        return successfulResponse(insertedGames.map(x => x.insertedId));
+        return successfulResponse(insertedGames.map(x => x.insertedId!));
     } catch (err) {
         return failedResponse("Failed to insert data");
     }

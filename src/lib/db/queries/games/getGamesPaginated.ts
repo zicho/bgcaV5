@@ -4,7 +4,7 @@ import { db } from "$lib/db/client";
 import { games as g } from "$lib/db/schema/games";
 import { ilike } from "drizzle-orm";
 
-type Game = Omit<typeof g.$inferSelect, 'minNumberOfPlayers' | 'maxNumberOfPlayers' | 'imageUrl'>;
+type Game = Omit<typeof g.$inferSelect, 'minPlayers' | 'maxPlayers' | 'image' | 'playingTime' | 'isExpansion'>;
 
 export async function getGamesPaginated({ pageNo, limit, searchParam }: { pageNo?: number, limit?: number, searchParam?: string } = {}): Promise<ApiResponse<Game[]>> {
     try {
@@ -14,13 +14,12 @@ export async function getGamesPaginated({ pageNo, limit, searchParam }: { pageNo
 
         const pageResult = await db
             .select({
-                id: g.id,
-                bggId: g.bggId,
+                gameId: g.gameId,
                 name: g.name,
-                desc: g.desc,
+                description: g.description,
                 slug: g.slug,
                 averageRating: g.averageRating,
-                thumbnailUrl: g.thumbnailUrl,
+                thumbnail: g.thumbnail,
                 yearPublished: g.yearPublished
             })
             .from(g)

@@ -34,12 +34,13 @@ CREATE TABLE IF NOT EXISTS "games" (
 CREATE TABLE IF NOT EXISTS "user_favorite_games" (
 	"user_id" varchar NOT NULL,
 	"game_id" serial NOT NULL,
-	CONSTRAINT user_favorite_games_user_id_game_id PRIMARY KEY("user_id","game_id")
+	CONSTRAINT "user_favorite_games_user_id_game_id_pk" PRIMARY KEY("user_id","game_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_game_collection" (
-	"user_id" varchar NOT NULL,
-	"game_id" serial NOT NULL
+	"user_id" varchar,
+	"game_id" integer,
+	CONSTRAINT "user_game_collection_user_id_game_id_pk" PRIMARY KEY("user_id","game_id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "event_dates" (
@@ -143,18 +144,6 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "user_favorite_games" ADD CONSTRAINT "user_favorite_games_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "games"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "user_game_collection" ADD CONSTRAINT "user_game_collection_user_id_auth_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "auth_users"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "user_game_collection" ADD CONSTRAINT "user_game_collection_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "games"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

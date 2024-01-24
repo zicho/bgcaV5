@@ -41,7 +41,7 @@ type BggSearchResult = {
     totalHits: number
 };
 
-export async function getGames({ ids, limit, pageNo }: { ids: number[], limit: number, pageNo: number }): Promise<BggSearchResult> {
+export async function importGames({ ids, limit, pageNo }: { ids: number[], limit: number, pageNo: number }): Promise<BggSearchResult> {
     try {
 
         if(ids.length === 0) {

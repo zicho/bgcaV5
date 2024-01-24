@@ -61,7 +61,7 @@ function generateRandomPlayerCount() {
     };
 }
 
-export default function generateTestGame({ bggId, providedTitle }: { bggId?: number | null, providedTitle?: string | null }): Game {
+export default function generateTestGame({ providedTitle }: { providedTitle?: string } = {}): Game {
     const adjectives = [
         "Epic", "Mythic", "Legendary", "Valor", "Infinite", "Galactic", "Quantum",
         "Enchanted", "Cosmic", "Chaotic", "Majestic", "Supreme", "Turbo", "Rogue",
@@ -91,12 +91,11 @@ export default function generateTestGame({ bggId, providedTitle }: { bggId?: num
 
     return {
         name: providedTitle || generatedTitle,
-        bggId: bggId || null,
         slug,
-        desc: generateDesc(),
+        description: generateDesc(),
         averageRating: randomRating.toString(),
-        minNumberOfPlayers: playerCount.minPlayers,
-        maxNumberOfPlayers: playerCount.maxPlayers,
+        minPlayers: playerCount.minPlayers,
+        maxPlayers: playerCount.maxPlayers,
         yearPublished: releaseYear
     };
 }

@@ -1,4 +1,4 @@
-import { getGamesPaginated } from '$lib/db/queries/games/getGames';
+import { getGamesPaginated } from '$lib/db/queries/games/getGamesPaginated';
 import { addGames } from '$lib/db/queries/testing/addGames';
 import { deleteAllGames } from '$lib/db/queries/testing/deleteAllGames';
 import type { games } from '$lib/db/schema/games';
@@ -34,7 +34,7 @@ describe('get_games_query', () => {
         await deleteAllGames();
         const games = await addGames(); // adds a 100 games
 
-        const searchParam = getRandomTitlePartFromGame(games);
+        const searchParam = getRandomTitlePartFromGame(games as Game[]);
 
         const filter = await getGamesPaginated({ searchParam });
 
@@ -49,7 +49,7 @@ describe('get_games_query', () => {
         await deleteAllGames();
         const games = await addGames(); // adds a 100 games
 
-        const searchParam = getRandomTitlePartFromGame(games).toLocaleLowerCase();
+        const searchParam = getRandomTitlePartFromGame(games as Game[]).toLocaleLowerCase();
 
         const filteredByName = await getGamesPaginated({ searchParam });
 

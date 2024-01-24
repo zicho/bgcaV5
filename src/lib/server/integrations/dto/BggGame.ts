@@ -21,12 +21,12 @@ export function mapToDbModel(dto: BggGame) {
 	return {
 		...dto,
 		slug: createSlug(dto.name),
-		bggId: dto.gameId,
-		minNumberOfPlayers: dto.minPlayers,
-		maxNumberOfPlayers: dto.maxPlayers,
+		gameId: dto.gameId,
+		minPlayers: dto.minPlayers,
+		maxPlayers: dto.maxPlayers,
 		averageRating: dto.averageRating,
-		thumbnailUrl: dto.thumbnail,
-		imageUrl: dto.image,
-		desc: dto.description,
-	} as Game;
+		thumbnail: dto.thumbnail,
+		image: dto.image,
+		description: dto.description,
+	} satisfies Game;
 }

@@ -24,7 +24,7 @@
 
 	<div class="flex-grow lg:flex-none md:w-36 flex lg:items-center text-sm">
 		<div>
-			<a class="font-bold hover:underline" href="/games/${game.gameId}/${createSlug(game.name)}">{game.name}</a>
+			<a class="font-bold hover:underline" href="/games/{game.gameId}/{createSlug(game.name)}">{game.name}</a>
 			<div class="text-sm opacity-50">{game.yearPublished}</div>
 		</div>
 	</div>

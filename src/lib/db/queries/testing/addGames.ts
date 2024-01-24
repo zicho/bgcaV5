@@ -8,7 +8,7 @@ export async function addGames({ noOfGames = 100 }: { noOfGames?: number } = {})
     const generatedGames: Game[] = [];
 
     for (let i = 0; i < noOfGames; i++) {
-        generatedGames.push(generateTestGame({ bggId: i }))
+        generatedGames.push(generateTestGame())
     }
 
     await db.insert(games).values(generatedGames);

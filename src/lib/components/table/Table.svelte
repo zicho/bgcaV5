@@ -30,7 +30,7 @@
 		}
 
 		timer = setTimeout(() => {
-			searchForm.requestSubmit();
+			// searchForm.requestSubmit();
 		}, 1000);
 	}
 
@@ -63,7 +63,6 @@
 
 <div>
 	<div>
-		{loading}
 		<form
 			id="searchForm"
 			bind:this={searchForm}

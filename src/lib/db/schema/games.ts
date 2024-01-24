@@ -26,17 +26,30 @@ export const gamesUsersCollectionRelations = relations(games, ({ many }) => ({
 	usersToGames: many(usersToGameCollections)
 }));
 
-export const usersToGameCollections = pgTable(
-	"user_game_collection",
-	{
-		userId: varchar("user_id")
-			.notNull()
-			.references(() => users.id),
-		gameId: serial("game_id")
-			.notNull()
-			.references(() => games.gameId)
-	},
-);
+// export const usersToGameCollections = pgTable(
+// 	"user_game_collection",
+// 	{
+// 		userId: varchar("user_id")
+// 			.notNull()
+// 			.references(() => users.id),
+// 		gameId: serial("game_id")
+// 			.notNull()
+// 			.references(() => games.gameId)
+// 	},
+// 	(t) => ({
+// 		pk: primaryKey(t.userId, t.gameId)
+// 	})
+// );
+
+export const usersToGameCollections = pgTable("user_game_collection", {
+	userId: varchar("user_id"),
+	gameId: integer("game_id"),
+}, (table) => {
+	return {
+		pk: primaryKey({ columns: [table.userId, table.gameId] }),
+		pkWithCustomName: primaryKey({ name: 'custom_name', columns: [table.userId, table.gameId] }),
+	};
+});
 
 export const usersToGameCollectionRelations = relations(usersToGameCollections, ({ one }) => ({
 	group: one(games, {
