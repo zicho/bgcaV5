@@ -4,7 +4,6 @@
 	import { afterNavigate } from '$app/navigation';
 	import type TableProps from '../props/components/TableProps';
 	import type TablePaginatorProps from '../props/components/TablePaginatorProps';
-	import { createEventDispatcher } from 'svelte';
 
 	export let props: TableProps;
 
@@ -57,8 +56,6 @@
 		...tablePaginatorTopProps,
 		id: 'table-paginator-bottom'
 	} satisfies TablePaginatorProps;
-
-	const dispatch = createEventDispatcher();
 </script>
 
 <div>

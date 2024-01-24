@@ -9,9 +9,13 @@ import { insertGames } from "./insertGames";
 
 type Game = typeof games.$inferSelect
 
-async function getGameById(gameId: number): Promise<Game> {
-  const result = await db.select().from(games).where(eq(games.gameId, gameId));
-  return result[0];
+async function getGameById(gameId: number): Promise<Game | undefined> {
+  try {
+    const result = await db.select().from(games).where(eq(games.gameId, gameId));
+    return result[0];
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function getGame({ gameId }: { gameId: number }): Promise<ApiResponse<Game>> {

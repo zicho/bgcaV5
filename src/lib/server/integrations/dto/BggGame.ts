@@ -8,7 +8,8 @@ export type BggGame = {
 	thumbnail: string;
 	minPlayers: number;
 	maxPlayers: number;
-	playingTime: number;
+	minPlayingTime: number;
+	maxPlayingTime: number;
 	isExpansion: boolean;
 	yearPublished: number;
 	averageRating: string;

@@ -139,7 +139,8 @@ function parseGame(item: any): BggGame | null {
             thumbnail: item.thumbnail,
             minPlayers: parseInt(item.minplayers.value),
             maxPlayers: parseInt(item.maxplayers.value),
-            playingTime: parseInt(item.playingtime.value),
+            minPlayingTime: parseInt(item.minplaytime.value),
+            maxPlayingTime: parseInt(item.maxplaytime.value),
             isExpansion: false, // Assuming this information is not present in the provided JSON
             yearPublished: parseInt(item.yearpublished.value),
             averageRating: v, // Assuming this information is not present in the provided JSON
