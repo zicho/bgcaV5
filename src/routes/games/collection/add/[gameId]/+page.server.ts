@@ -7,7 +7,7 @@ import { addToCollection } from "$lib/db/queries/games/addToCollection";
 
 export const load = (async ({ params, parent }) => {
 	if (!isNumber(params.gameId)) {
-		throw error(400, "Invalid game id in URL");
+		error(400, "Invalid game id in URL");
 	}
 
     const { userId } = (await parent()).user;
@@ -15,10 +15,10 @@ export const load = (async ({ params, parent }) => {
 	const game = (await getGame({ gameId: Number(params.gameId) })).result;
 
 	if (!game) {
-		throw error(404, `Could not find game with id ${params.gameId}`);
+		error(404, `Could not find game with id ${params.gameId}`);
 	} else {
         await addToCollection({ userId, id: game.gameId });
     }
 
-	throw redirect(302, `/games/${params.gameId}/${game?.slug}`);
+	redirect(302, `/games/${params.gameId}/${game?.slug}`);
 }) satisfies PageServerLoad;

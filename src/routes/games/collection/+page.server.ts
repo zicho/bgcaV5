@@ -24,7 +24,7 @@ export const load = (async ({ url, parent }) => {
     const response = await getGameCollection({ userId, pageNo, limit, searchParam });
 
     if (!response.success) {
-        throw error(520);
+        error(520);
     }
 
     return {

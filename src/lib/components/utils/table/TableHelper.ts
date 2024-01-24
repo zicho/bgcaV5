@@ -46,9 +46,9 @@ export function handleTableRedirect(params: TableRedirectHandlerType): void {
     if ((pageNo > totalPages || pageNo < 1) && totalPages != 0) {
         // totalpages != 0 is needed to not crash when getting empty results, should get a nicer fix
         if (searchParam) {
-            throw redirect(302, `${fallbackUrl.pathname}?limit=${limit}&search=${searchParam}`);
+            redirect(302, `${fallbackUrl.pathname}?limit=${limit}&search=${searchParam}`);
         }
 
-        throw redirect(302, `${fallbackUrl.pathname}?limit=${limit}`);
+        redirect(302, `${fallbackUrl.pathname}?limit=${limit}`);
     }
 }

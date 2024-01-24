@@ -28,7 +28,7 @@ export const actions: Actions = {
         const response = await importBggCollection({ username: form.data['bgg-username-input'], userId: id });
 
         if(response.success) {
-            throw redirect(302, "/games/collection");
+            redirect(302, "/games/collection");
         } else {
             return fail(400, { form });
         }

@@ -15,7 +15,7 @@ export const load = (async ({ parent, params }) => {
             profile: profile.result
         };
     } else {
-        throw error(500, profile.message);
+        error(500, profile.message);
     }
 
 

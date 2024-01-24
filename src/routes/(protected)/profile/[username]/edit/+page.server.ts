@@ -10,7 +10,7 @@ import type { UpdateProfileModel } from '$lib/db/queries/profile/getUserProfileW
 export const load = (async (event) => {
 	const { username } = (await event.parent()).user;
 
-	if (event.params.username !== username) throw redirect(302, `/profile/${username}`);
+	if (event.params.username !== username) redirect(302, `/profile/${username}`);
 
 	const form = await superValidate(event, upsertProfileSchema);
 	const profile = await getUserProfile({ username });
@@ -38,7 +38,7 @@ export const actions: Actions = {
 		const session: Session = (await locals.auth.validate()) as Session;
 
 		if (!session) {
-			throw error(403);
+			error(403);
 		}
 
 		const model: UpdateProfileModel = {
@@ -49,12 +49,12 @@ export const actions: Actions = {
 		const result = await upsertUserProfile(model);
 
 		if (!result.success) {
-			throw error(500, result.message);
+			error(500, result.message);
 		}
 
-		throw redirect(
-			302,
-			`/profile/${params.username}`
-		);
+		redirect(
+        			302,
+        			`/profile/${params.username}`
+        		);
 	}
 }
