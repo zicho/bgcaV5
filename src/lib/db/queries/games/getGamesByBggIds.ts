@@ -11,14 +11,11 @@ export async function getGamesByBggIds({ gameIds }: { gameIds: number[] }): Prom
                 id: g.gameId
             })
             .from(g)
-            .where(
-                inArray(
-                    g.gameId,
-                    gameIds)
-            );
+            .where(inArray(g.gameId, gameIds));
 
         return successfulResponse(games.map(x => x.id));
-    } catch {
+    } catch (err) {
+        console.log(err);
         return failedResponse(DataRetrievalFail);
     }
 }

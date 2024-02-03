@@ -3,40 +3,17 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	const { latestUsers } = data;
 </script>
 
 <BasePageLayout>
-    <div class="grid grid-flow-col auto-cols-max md:auto-cols-min">		<div>
-			<div class="card w-full bg-base-100 border shadow">
-				<div class="card-body">
-					<h2 class="card-title">Upcoming events</h2>
-					<p>If a dog chews shoes whose shoes does he choose?</p>
-				</div>
-			</div>
-		</div>
-        <div>
-			<div class="card w-full bg-base-100 border shadow">
-				<div class="card-body">
-					<h2 class="card-title">Upcoming events</h2>
-					<p>If a dog chews shoes whose shoes does he choose?</p>
-				</div>
-			</div>
-		</div>
-		<div>
-			<div class="card w-full bg-base-100 border shadow">
-				<div class="card-body">
-					<h2 class="card-title">Upcoming events</h2>
-					<p>If a dog chews shoes whose shoes does he choose?</p>
-				</div>
-			</div>
-		</div>
-		<div>
-			<div class="card w-full bg-base-100 border shadow">
-				<div class="card-body">
-					<h2 class="card-title">Upcoming events</h2>
-					<p>If a dog chews shoes whose shoes does he choose?</p>
-				</div>
-			</div>
+	<div class="prose">
+		<h1>Latest users:</h1>
+		<div class="flex flex-col">
+			{#each latestUsers as user}
+				<a href="/profile/{user.username}">{user.username}</a>
+			{/each}
 		</div>
 	</div>
 </BasePageLayout>

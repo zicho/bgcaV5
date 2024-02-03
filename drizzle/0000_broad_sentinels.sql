@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS "games" (
 	"slug" text NOT NULL,
 	"description" text,
 	"yearPublished" smallint,
-	"playingTime" smallint,
+	"minPlayingTime" smallint,
+	"maxPlayingTime" smallint,
 	"isExpansion" boolean,
 	"minPlayers" smallint,
 	"maxPlayers" smallint,
@@ -90,8 +91,8 @@ CREATE TABLE IF NOT EXISTS "user_profiles" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "auth_users" (
 	"id" varchar(15) PRIMARY KEY NOT NULL,
-	"role" text DEFAULT 'user',
-	"username" text,
+	"role" text DEFAULT 'user' NOT NULL,
+	"username" text NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
@@ -116,12 +117,12 @@ CREATE TABLE IF NOT EXISTS "conversations" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "friends" (
-	"id" serial PRIMARY KEY NOT NULL,
 	"sender_username" varchar NOT NULL,
 	"recipient_username" varchar NOT NULL,
 	"sent_at" date DEFAULT now() NOT NULL,
 	"replied_at" date,
-	"request_status" "requestStatus" DEFAULT 'PENDING' NOT NULL
+	"request_status" "requestStatus" DEFAULT 'PENDING' NOT NULL,
+	CONSTRAINT "friends_sender_username_recipient_username_pk" PRIMARY KEY("sender_username","recipient_username")
 );
 --> statement-breakpoint
 DO $$ BEGIN

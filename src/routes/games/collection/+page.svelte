@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Table from '$lib/components/table/Table.svelte';
 	import BasePageLayout from '$lib/components/layout/BasePageLayout.svelte';
 	import type TableProps from '$lib/components/props/components/TableProps';
@@ -9,7 +8,6 @@
 	import type { PageData } from './$types';
 	import TableHeader from '$lib/components/table/TableHeader.svelte';
 	import TableItemGame from '$lib/components/table/TableItemGame.svelte';
-	import type { BggGame } from '$lib/server/integrations/dto/BggGame';
 
 	export let data: PageData;
 
@@ -17,8 +15,6 @@
 	$: props = {
 		...data
 	} satisfies TableProps;
-
-	const casted = data.games as BggGame[]; // todo, fix this so cast is not needed
 </script>
 
 <svelte:head>
@@ -54,7 +50,7 @@
 				<TableHeader />
 			</slot>
 			<slot slot="body">
-				{#each casted as game}
+				{#each games as game}
 					<TableItemGame {game} /> 
 				{/each}
 			</slot>

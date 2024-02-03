@@ -5,8 +5,8 @@ export const users = pgTable("auth_users", {
 	id: varchar("id", {
 		length: 15 // change this when using custom user ids
 	}).primaryKey(),
-	role: text("role").$type<"super_admin" | "admin" | "user">().default("user"),
-	username: text("username"),
+	role: text("role").$type<"super_admin" | "admin" | "user">().default("user").notNull(),
+	username: text("username").notNull(),
 	createdAt: timestamp("created_at").defaultNow(),
 	updatedAt: timestamp("updated_at").defaultNow()
 });

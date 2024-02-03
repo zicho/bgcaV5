@@ -24,14 +24,16 @@
 
 	<div class="flex-grow lg:flex-none md:w-36 flex lg:items-center text-sm">
 		<div>
-			<a class="font-bold hover:underline" href="/games/{game.gameId}/{createSlug(game.name)}">{game.name}</a>
+			<a class="font-bold hover:underline" href="/games/{game.gameId}/{createSlug(game.name)}"
+				>{game.name}</a
+			>
 			<div class="text-sm opacity-50">{game.yearPublished}</div>
 		</div>
 	</div>
 
 	<div class="lg:flex flex-grow lg:items-center text-sm hidden">
 		{#if game.description}
-			{@html game.description}
+			{@html game.description.split('.').slice(0, 3).join(' ')}.
 		{:else}
 			<i class="text-secondary">Description missing</i>
 		{/if}
@@ -39,7 +41,7 @@
 
 	<div class="flex flex-none w-16 lg:w-24 lg:items-center">
 		<div class="badge-neutral text-xl flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16">
-			{game?.averageRating === "0" ? "--" : game?.averageRating?.substring(0, 3)}
+			{game?.averageRating === '0' ? '--' : game?.averageRating?.substring(0, 3)}
 		</div>
 	</div>
 

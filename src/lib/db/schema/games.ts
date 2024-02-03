@@ -48,7 +48,7 @@ export const usersToGameCollections = pgTable("user_game_collection", {
 }, (table) => {
 	return {
 		pk: primaryKey({ columns: [table.userId, table.gameId] }),
-		pkWithCustomName: primaryKey({ name: 'custom_name', columns: [table.userId, table.gameId] }),
+		pkWithCustomName: primaryKey({ name: 'primary_key', columns: [table.userId, table.gameId] }),
 	};
 });
 

@@ -1,5 +1,5 @@
 {
-  "id": "9641c493-1e9a-486a-ac65-3edba6456d0c",
+  "id": "f08ba0a4-62a0-4d05-9256-c6630df94cea",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -93,8 +93,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "playingTime": {
-          "name": "playingTime",
+        "minPlayingTime": {
+          "name": "minPlayingTime",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxPlayingTime": {
+          "name": "maxPlayingTime",
           "type": "smallint",
           "primaryKey": false,
           "notNull": false
@@ -225,8 +231,8 @@
             "game_id"
           ]
         },
-        "custom_name": {
-          "name": "custom_name",
+        "primary_key": {
+          "name": "primary_key",
           "columns": [
             "user_id",
             "game_id"
@@ -508,14 +514,14 @@
           "name": "role",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'user'"
         },
         "username": {
           "name": "username",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -641,12 +647,6 @@
       "name": "friends",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
         "sender_username": {
           "name": "sender_username",
           "type": "varchar",
@@ -682,7 +682,22 @@
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "friends_sender_username_recipient_username_pk": {
+          "name": "friends_sender_username_recipient_username_pk",
+          "columns": [
+            "sender_username",
+            "recipient_username"
+          ]
+        },
+        "primary_key": {
+          "name": "primary_key",
+          "columns": [
+            "sender_username",
+            "recipient_username"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },

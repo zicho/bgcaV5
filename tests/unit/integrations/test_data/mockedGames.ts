@@ -1,4 +1,4 @@
-import type { BggGame } from "$lib/server/integrations/dto/BggGameSimple";
+import { BggGame } from "$lib/server/integrations/dto/BggGame";
 
 const mockedGames: BggGame[] = [
     {
@@ -8,7 +8,9 @@ const mockedGames: BggGame[] = [
         thumbnail: "thumbnailUrl",
         minPlayers: 1,
         maxPlayers: 5,
-        playingTime: 90,
+        description: "desc",
+        minPlayingTime: 90,
+        maxPlayingTime: 190,
         isExpansion: false,
         yearPublished: 1945,
         averageRating: "7.2",
@@ -20,7 +22,9 @@ const mockedGames: BggGame[] = [
         thumbnail: "thumbnailUrl",
         minPlayers: 1,
         maxPlayers: 5,
-        playingTime: 90,
+        description: "desc",
+        minPlayingTime: 90,
+        maxPlayingTime: 190,
         isExpansion: false,
         yearPublished: 1945,
         averageRating: "7.2",
@@ -32,7 +36,9 @@ const mockedGames: BggGame[] = [
         thumbnail: "thumbnailUrl",
         minPlayers: 1,
         maxPlayers: 5,
-        playingTime: 90,
+        description: "desc",
+        minPlayingTime: 90,
+        maxPlayingTime: 190,
         isExpansion: false,
         yearPublished: 1945,
         averageRating: "7.2",

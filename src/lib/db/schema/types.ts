@@ -23,3 +23,9 @@ export const requestStatusEnum = pgEnum('requestStatus', [
     "ACCEPTED",
     "DECLINED"
 ]);
+
+export enum REQUEST_STATUS {
+    PENDING = "PENDING",
+    ACCEPTED = "ACCEPTED",
+    DECLINED = "DECLINED"
+}

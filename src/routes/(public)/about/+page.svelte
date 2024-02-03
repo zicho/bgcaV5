@@ -26,10 +26,13 @@
 					not.
 				</p>
 				<p>
-					<i>This is not only for performance and/or server side fallbacks</i>, it also to not
-					exclude those who (for any reason) choose to browse scriptfree. Also it shows what a
-					modern web app can accomplish without necessarily resorting to using JS for core features
-					when it might not be necessary.
+					<i>This is not only for performance and/or server side fallbacks</i>, it also out of
+					respect to those who choose to browse scriptfree. No one should be excluded for not 
+					wanting javascript to run on their machine.
+					
+					It is also a fun technical challenge and shows what a modern web application can
+					accomplish without necessarily resorting to using JS for core features when it might
+					not be necessary.
 				</p>
 				<p>
 					If you have any issues with the site please see

@@ -2,13 +2,13 @@ import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import mockedGames from './test_data/mockedGames';
 import importBggCollection from '$lib/server/integrations/importBggCollection';
 import { deleteAllGames } from '$lib/db/queries/testing/deleteAllGames';
-import generateTestUsername from 'tests/test_utils/generateTestUsername';
 import registerUserAndReturnSession from '$lib/db/queries/authentication/registerUserAndReturnSession';
 import { getGameCollection } from '$lib/db/queries/games/getGameCollection';
 import { insertGames } from '$lib/db/queries/games/insertGames';
 import { addGamesToUserCollection } from '$lib/db/queries/games/addGamesToUserCollection';
 import { getGamesPaginated } from '$lib/db/queries/games/getGamesPaginated';
 import { mapToDbModel } from '$lib/server/integrations/dto/BggGame';
+import generateTestUsername from '../../test_utils/generateTestUsername';
 
 function createFetchResponse<T>(data: T) {
     return { json: () => new Promise((resolve) => resolve(data)) }
